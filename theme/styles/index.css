@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Nunito:wght@400;600;700&display=swap');
+
+:root {
+  --slidev-theme-primary: #4285F4;
+  --slidev-theme-accent: #0097A7;
+  --slidev-theme-section-bg: #F7D38C;
+  --slidev-theme-text: #333333;
+  --slidev-theme-text-light: #D9D9D9;
+  --font-title: 'Bebas Neue', sans-serif;
+  --font-subtitle: 'IBM Plex Mono', monospace;
+  --font-body: 'Nunito', sans-serif;
+}
+
+.slidev-layout {
+  font-family: var(--font-body);
+  color: var(--slidev-theme-text);
+}
+
+/* Base slide styling */
+.slidev-page {
+  font-size: 18px !important;
+  line-height: 1.5;
+}
+
+/* Headings */
+h1 {
+  font-family: var(--font-title);
+  font-weight: 400;
+  color: var(--slidev-theme-primary);
+}
+
+h2 {
+  font-family: var(--font-subtitle);
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--slidev-theme-primary);
+  margin-top: 0.25rem;
+}
+
+/* Lists */
+ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+ul li {
+  margin-bottom: 0.4rem;
+  font-size: 18px;
+}
+
+ul ul {
+  list-style-type: disc;
+  margin-top: 0.3rem;
+}
+
+/* Links */
+a {
+  color: var(--slidev-theme-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Bold text */
+strong {
+  font-weight: 700;
+}

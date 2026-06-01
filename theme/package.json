@@ -1,0 +1,12 @@
+{
+  "name": "slidev-theme-datashield",
+  "version": "1.0.0",
+  "slidev": {
+    "colorSchema": "light",
+    "defaults": {
+      "layout": "content",
+      "heading": "",
+      "subheading": ""
+    }
+  }
+}
