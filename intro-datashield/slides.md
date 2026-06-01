@@ -1,5 +1,5 @@
 ---
-theme: ./theme
+theme: ../theme
 title: Introduction to DataSHIELD
 info: Bringing the analysis to the data
 author: Tim Cadman
@@ -16,8 +16,8 @@ Bringing the analysis to the data
 </div>
 
 <div class="title-logos">
-  <img src="./assets/molgenis-logo.png" class="logo-molgenis" />
-  <img src="./assets/umcg-logo.png" class="logo-umcg" />
+  <img src="./public/molgenis-logo.png" class="logo-molgenis" />
+  <img src="./public/umcg-logo.png" class="logo-umcg" />
 </div>
 
 ---
@@ -56,7 +56,7 @@ subheading: "Option 1: Data transfer"
 layout: content-img-right
 heading: Background
 subheading: Why combine data?
-image: ./assets/example-photo.jpg
+image: ./public/slide2_img3.jpg
 ---
 
 - Large quantities of existing data (e.g. cohort studies, biobanks)
@@ -69,7 +69,7 @@ image: ./assets/example-photo.jpg
 layout: content-img-left
 heading: Combining data
 subheading: "Option 1: Data transfer"
-image: ./assets/example-photo.jpg
+image: ./public/slide2_img3.jpg
 ---
 
 - **Strategy:** Transfer to one location

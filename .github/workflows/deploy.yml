@@ -22,11 +22,31 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
-      - run: npx slidev build slides.md --base /presentations/
+      - name: Build all presentations
+        run: |
+          mkdir -p _site
+          for dir in */; do
+            if [ -f "${dir}slides.md" ] && [ -f "${dir}package.json" ]; then
+              name="${dir%/}"
+              echo "Building: $name"
+              cd "$dir"
+              npm install
+              npx slidev build slides.md --base "/presentations/${name}/"
+              mv dist "../_site/${name}"
+              cd ..
+            fi
+          done
+      - name: Create index page
+        run: |
+          echo '<html><body><h1>Presentations</h1><ul>' > _site/index.html
+          for dir in _site/*/; do
+            name="$(basename "$dir")"
+            echo "<li><a href=\"${name}/\">${name}</a></li>" >> _site/index.html
+          done
+          echo '</ul></body></html>' >> _site/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: _site
 
   deploy:
     needs: build
