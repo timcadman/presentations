@@ -4,6 +4,7 @@ title: Introduction to DataSHIELD
 info: Bringing the analysis to the data
 author: Tim Cadman
 aspectRatio: '16/9'
+routerMode: hash
 ---
 
 # DataSHIELD, Armadillo and Opal
