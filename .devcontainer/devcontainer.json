@@ -1,0 +1,13 @@
+{
+  "name": "Slidev Presentations",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "postCreateCommand": "for dir in */; do [ -f \"${dir}package.json\" ] && [ -f \"${dir}slides.md\" ] && (cd \"$dir\" && npm install); done",
+  "forwardPorts": [3030],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "antfu.slidev"
+      ]
+    }
+  }
+}
