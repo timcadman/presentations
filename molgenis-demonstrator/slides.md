@@ -18,14 +18,11 @@ Supporting the Research Journey
 layout: content-img-right
 heading: The problem
 subheading: A fragmented researcher journey
-image: ./public/slide5-combining-data.jpeg
+image: ./public/screenshot-combining-data.jpeg
 ---
 
 - Large quantities of existing data (e.g. cohort studies, biobanks)
-- Combining data sources allows:
-  - Statistical power 
-  - Replication across settings 
-  - Extended coverage of the lifecourse 
+- Combining data sources increases statistical power and enables replication
 - However, researchers face a fragmented landscape when trying to find and reuse data
 
 ---
@@ -166,7 +163,7 @@ subheading: "One open stack — same at every scale"
   </div>
   <div v-click class="stack-card">
     <span class="layer-name">Access</span>
-    <span class="layer-tool">LS AAI / Keycloak</span>
+    <span class="layer-tool">LS AAI + OIDC</span>
   </div>
   <div v-click class="stack-card">
     <span class="layer-name">Analyse</span>
@@ -190,7 +187,7 @@ subheading: Making collections discoverable
 
 <div style="display: flex; gap: 2rem; margin-top: 1rem;">
 <div style="flex: 2;">
-<img src="./public/molgenis-catalogue-screenshot.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+<img src="./public/screenshot-catalogue.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
 </div>
 <div style="flex: 1; font-size: 18px; line-height: 1.5; display: flex; flex-direction: column; gap: 1rem;">
 <p>• Open source metadata catalogue — information about data, not the data itself</p>
@@ -207,7 +204,7 @@ subheading: One request — not twenty emails
 
 <div style="display: flex; gap: 2rem; margin-top: 1rem;">
 <div style="flex: 2;">
-<img src="./public/negotiator-screenshot.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+<img src="./public/screenshot-negotiator.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
 </div>
 <div style="flex: 1; font-size: 18px; line-height: 1.5; display: flex; flex-direction: column; gap: 1rem;">
 <p>• Open-source access negotiation for research infrastructures</p>
@@ -224,7 +221,7 @@ subheading: Federated identity & access
 
 <div style="display: flex; gap: 2rem; margin-top: 1rem;">
 <div style="flex: 2;">
-<img src="./public/ls-login-screenshot.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+<img src="./public/screenshot-ls-login.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
 </div>
 <div style="flex: 1; font-size: 18px; line-height: 1.5; display: flex; flex-direction: column; gap: 1rem;">
 <p>• LS Login — federated identity service from EOSC-Life</p>
@@ -256,7 +253,7 @@ subheading: Federated analysis — data never moves
 
 ---
 layout: content
-heading: "Demonstration"
+heading: "Demo"
 subheading: "Research question"
 ---
 
@@ -266,36 +263,138 @@ subheading: "Research question"
 
 ---
 layout: content
-heading: "Application · Demo"
+heading: "Demo"
+subheading: "Local data"
+---
+
+<DemoSlide step="Local data" image="./public/screenshot-lc-map.png" text="Health data harmonised in previous EU 'LifeCycle' project" />
+
+---
+layout: content
+heading: "Demo"
+subheading: "Catalogue"
+---
+
+<DemoSlide step="Catalogue" image="./public/screenshot-catalogue-search.png" text="Search for birth cohorts with relevant harmonised data" />
+
+---
+layout: content
+heading: "Demo"
+subheading: "Catalogue"
+---
+
+<DemoSlide step="" text="TODO: feature request to select multiple variables and view in harmonisation matrix" />
+
+---
+layout: content
+heading: "Demo"
+subheading: "Catalogue"
+---
+
+<DemoSlide step="Request" text="TODO: feature request to send multiple variable request to Negotiator without going via BBMRI directory" />
+
+---
+layout: content
+heading: "Demo"
 subheading: "Request"
 ---
 
-One request in the BBMRI-ERIC Negotiator — fans out to all six cohorts; each independently approves or declines.
-
-**Local data → Catalogue → Request → Access → Analyse**
-
-*One open stack — same at every scale*
+<DemoSlide step="Request" image="./public/screenshot-neg-project.png" text="Enter project details" />
 
 ---
 layout: content
-heading: "Application · Demo"
+heading: "Demo"
+subheading: "Request"
+---
+
+<DemoSlide step="Request" image="./public/screenshot-neg-request.png" text="Provide study description" />
+
+---
+layout: content
+heading: "Demo"
+subheading: "Request"
+---
+
+<DemoSlide step="Request" image="./public/screenshot-neg-ethics.png" text="Enter ethics details" />
+
+---
+layout: content
+heading: "Demo"
+subheading: "Request"
+---
+
+<DemoSlide step="Request" image="./public/screenshot-neg-review.png" text="Submit request" />
+
+---
+layout: content
+heading: "Demo"
+subheading: "Request"
+---
+
+<DemoSlide step="Request" image="./public/screenshot-neg-submitted.png" text="Await approval" />
+
+---
+layout: content
+heading: "Demo"
+subheading: "Request"
+---
+
+<DemoSlide step="Request" text="TODO: Screenshots for cohorts receiving and approving request" />
+
+---
+layout: content
+heading: "Demo"
+subheading: "Request"
+---
+
+<DemoSlide step="Request" text="TODO(?): Process to add user automatically to Armadillo " />
+
+
+---
+layout: content
+heading: "Demo"
 subheading: "Access"
 ---
 
-Approvals become executable authorisations — identity & permissions provisioned via LS AAI/Keycloak.
-
-**Local data → Catalogue → Request → Access → Analyse**
-
-*One open stack — same at every scale*
+<DemoSlide step="Access" image="./public/screenshot-arma-login.png" text="Data manager logs on to local Armadillo instance" />
 
 ---
 layout: content
-heading: "Application · Demo"
+heading: "Demo"
+subheading: "Access"
+---
+
+<DemoSlide step="Access" image="./public/screenshot-arma-view.png" text="Creates view with approved variables" />
+
+---
+layout: content
+heading: "Demo"
+subheading: "Access"
+---
+
+<DemoSlide step="Access" image="./public/screenshot-arma-users.png" text="Adds user and grants them access to their project view, notifies user" />
+
+---
+layout: content
+heading: "Demo"
 subheading: "Analyse"
 ---
 
-Federated analysis across all six cohorts — data never moves; only safe summary results are pooled. The question is answered, end to end; an Armadillo node stood up at each cohort.
+<DemoSlide step="Analyse" image="./public/screenshot-jupyter.png" text="Researcher logs into Central Analysis Server using OIDC" />
 
-**Local data → Catalogue → Request → Access → Analyse**
 
-*One open stack — same at every scale*
+---
+layout: content
+heading: "Demo"
+subheading: "Analyse"
+---
+
+<DemoSlide step="Analyse" image="./public/screenshot-ds-scripts.png" text="Researcher connects to cohorts via DataSHIELD and writes analysis scripts" />
+
+---
+layout: content
+heading: "Demo"
+subheading: "Analyse"
+---
+
+<DemoSlide step="Analyse" image="./public/screenshot-forest-plot.jpg" text="Preliminary results: mode of delivery and postpartum depression" />
