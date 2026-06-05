@@ -1,6 +1,6 @@
 # Presentations
 
-Slidev presentations for the MOLGENIS team.
+My Slidev presentations.
 
 ## Edit in the browser
 
