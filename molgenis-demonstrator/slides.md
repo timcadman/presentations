@@ -18,7 +18,7 @@ Supporting the Research Journey
 layout: content-img-right
 heading: The problem
 subheading: A fragmented researcher journey
-image: /screenshot-combining-data.jpeg
+image: ./public/screenshot-combining-data.jpeg
 ---
 
 - Large quantities of existing data (e.g. cohort studies, biobanks)
@@ -187,7 +187,7 @@ subheading: Making collections discoverable
 
 <div style="display: flex; gap: 2rem; margin-top: 1rem;">
 <div style="flex: 2;">
-<img src="/screenshot-catalogue.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+<img src="./public/screenshot-catalogue.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
 </div>
 <div style="flex: 1; font-size: 18px; line-height: 1.5; display: flex; flex-direction: column; gap: 1rem;">
 <p>• Open source metadata catalogue — information about data, not the data itself</p>
@@ -204,7 +204,7 @@ subheading: One request — not twenty emails
 
 <div style="display: flex; gap: 2rem; margin-top: 1rem;">
 <div style="flex: 2;">
-<img src="/screenshot-negotiator.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+<img src="./public/screenshot-negotiator.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
 </div>
 <div style="flex: 1; font-size: 18px; line-height: 1.5; display: flex; flex-direction: column; gap: 1rem;">
 <p>• Open-source access negotiation for research infrastructures</p>
@@ -221,7 +221,7 @@ subheading: Federated identity & access
 
 <div style="display: flex; gap: 2rem; margin-top: 1rem;">
 <div style="flex: 2;">
-<img src="/screenshot-ls-login.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+<img src="./public/screenshot-ls-login.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
 </div>
 <div style="flex: 1; font-size: 18px; line-height: 1.5; display: flex; flex-direction: column; gap: 1rem;">
 <p>• LS Login — federated identity service from EOSC-Life</p>
@@ -239,10 +239,10 @@ subheading: Federated analysis — data never moves
 <div style="display: flex; gap: 2rem; margin-top: 1rem;">
 <div style="flex: 2;">
 <div style="display: flex; gap: 1rem; align-items: center; justify-content: center;">
-<img src="/armadillo-logo.png" style="height: 50px;">
-<img src="/icon-datashield.png" style="height: 35px;">
+<img src="./public/armadillo-logo.png" style="height: 50px;">
+<img src="./public/icon-datashield.png" style="height: 35px;">
 </div>
-<img src="/armadillo-architecture.png" style="width: 90%; margin-top: 0.5rem;">
+<img src="./public/armadillo-architecture.png" style="width: 90%; margin-top: 0.5rem;">
 </div>
 <div style="flex: 1; font-size: 18px; line-height: 1.5; display: flex; flex-direction: column; gap: 1rem;">
 <p>• Analysis travels to the data — only safe summary statistics shared</p>
@@ -267,7 +267,7 @@ heading: "Demo"
 subheading: "Local data"
 ---
 
-<DemoSlide step="Local data" image="/screenshot-lc-map.png" text="Health data harmonised in previous EU 'LifeCycle' project" />
+<DemoSlide step="Local data" image="./public/screenshot-lc-map.png" text="Health data harmonised in previous EU 'LifeCycle' project" />
 
 ---
 layout: content
@@ -275,7 +275,7 @@ heading: "Demo"
 subheading: "Catalogue"
 ---
 
-<DemoSlide step="Catalogue" image="/screenshot-catalogue-search.png" text="Search for birth cohorts with relevant harmonised data" />
+<DemoSlide step="Catalogue" image="./public/screenshot-catalogue-search.png" text="Search for birth cohorts with relevant harmonised data" />
 
 ---
 layout: content
@@ -299,7 +299,7 @@ heading: "Demo"
 subheading: "Request"
 ---
 
-<DemoSlide step="Request" image="/screenshot-neg-project.png" text="Enter project details" />
+<DemoSlide step="Request" image="./public/screenshot-neg-project.png" text="Enter project details" />
 
 ---
 layout: content
@@ -307,7 +307,7 @@ heading: "Demo"
 subheading: "Request"
 ---
 
-<DemoSlide step="Request" image="/screenshot-neg-request.png" text="Provide study description" />
+<DemoSlide step="Request" image="./public/screenshot-neg-request.png" text="Provide study description" />
 
 ---
 layout: content
@@ -315,7 +315,7 @@ heading: "Demo"
 subheading: "Request"
 ---
 
-<DemoSlide step="Request" image="/screenshot-neg-ethics.png" text="Enter ethics details" />
+<DemoSlide step="Request" image="./public/screenshot-neg-ethics.png" text="Enter ethics details" />
 
 ---
 layout: content
@@ -323,7 +323,7 @@ heading: "Demo"
 subheading: "Request"
 ---
 
-<DemoSlide step="Request" image="/screenshot-neg-review.png" text="Submit request" />
+<DemoSlide step="Request" image="./public/screenshot-neg-review.png" text="Submit request" />
 
 ---
 layout: content
@@ -331,7 +331,7 @@ heading: "Demo"
 subheading: "Request"
 ---
 
-<DemoSlide step="Request" image="/screenshot-neg-submitted.png" text="Await approval" />
+<DemoSlide step="Request" image="./public/screenshot-neg-submitted.png" text="Await approval" />
 
 ---
 layout: content
@@ -356,7 +356,7 @@ heading: "Demo"
 subheading: "Access"
 ---
 
-<DemoSlide step="Access" image="/screenshot-arma-login.png" text="Data manager logs on to local Armadillo instance" />
+<DemoSlide step="Access" image="./public/screenshot-arma-login.png" text="Data manager logs on to local Armadillo instance" />
 
 ---
 layout: content
@@ -364,7 +364,7 @@ heading: "Demo"
 subheading: "Access"
 ---
 
-<DemoSlide step="Access" image="/screenshot-arma-view.png" text="Creates view with approved variables" />
+<DemoSlide step="Access" image="./public/screenshot-arma-view.png" text="Creates view with approved variables" />
 
 ---
 layout: content
@@ -372,7 +372,7 @@ heading: "Demo"
 subheading: "Access"
 ---
 
-<DemoSlide step="Access" image="/screenshot-arma-users.png" text="Adds user and grants them access to their project view, notifies user" />
+<DemoSlide step="Access" image="./public/screenshot-arma-users.png" text="Adds user and grants them access to their project view, notifies user" />
 
 ---
 layout: content
@@ -380,7 +380,7 @@ heading: "Demo"
 subheading: "Analyse"
 ---
 
-<DemoSlide step="Analyse" image="/screenshot-jupyter.png" text="Researcher logs into Central Analysis Server using OIDC" />
+<DemoSlide step="Analyse" image="./public/screenshot-jupyter.png" text="Researcher logs into Central Analysis Server using OIDC" />
 
 
 ---
@@ -389,7 +389,7 @@ heading: "Demo"
 subheading: "Analyse"
 ---
 
-<DemoSlide step="Analyse" image="/screenshot-ds-scripts.png" text="Researcher connects to cohorts via DataSHIELD and writes analysis scripts" />
+<DemoSlide step="Analyse" image="./public/screenshot-ds-scripts.png" text="Researcher connects to cohorts via DataSHIELD and writes analysis scripts" />
 
 ---
 layout: content
@@ -397,4 +397,4 @@ heading: "Demo"
 subheading: "Analyse"
 ---
 
-<DemoSlide step="Analyse" image="/screenshot-forest-plot.jpg" text="Preliminary results: mode of delivery and postpartum depression" />
+<DemoSlide step="Analyse" image="./public/screenshot-forest-plot.jpg" text="Preliminary results: mode of delivery and postpartum depression" />

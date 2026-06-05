@@ -16,8 +16,8 @@ DataSHIELD deployment options
 </div>
 
 <div class="title-logos">
-  <img src="/molgenis-logo.png" class="logo-molgenis" />
-  <img src="/umcg-logo.png" class="logo-umcg" />
+  <img src="./public/molgenis-logo.png" class="logo-molgenis" />
+  <img src="./public/umcg-logo.png" class="logo-umcg" />
 </div>
 
 ---
@@ -39,11 +39,11 @@ subheading: Air pollution and child health
 
 <div style="display: flex; gap: 2rem; align-items: flex-start;">
   <div style="flex: 1;">
-    <img src="/example-ds-article-air-pollution.png" style="width: 100%;" />
+    <img src="./public/example-ds-article-air-pollution.png" style="width: 100%;" />
     <p style="margin-top: 2rem;">Is increased exposure to air pollution associated with higher childhood BMI?</p>
   </div>
   <div style="flex: 1; display: flex; align-items: flex-start; justify-content: center;">
-    <img src="/example-ds-article-air-pollution-forest-plot.png" style="width: 80%;" />
+    <img src="./public/example-ds-article-air-pollution-forest-plot.png" style="width: 80%;" />
   </div>
 </div>
 
@@ -59,7 +59,7 @@ subheading: How DataSHIELD works
 layout: content-img-left
 heading: Combining data
 subheading: "Option 1: Data transfer"
-image: /slide2_img3.jpg
+image: ./public/slide2_img3.jpg
 ---
 
 - **Strategy:** Transfer to one location
