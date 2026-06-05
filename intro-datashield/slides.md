@@ -3,6 +3,7 @@ theme: ../theme
 title: Introduction to DataSHIELD
 info: Bringing the analysis to the data
 author: Tim Cadman
+date: 2025-01-01
 aspectRatio: '16/9'
 ---
 

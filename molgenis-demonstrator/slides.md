@@ -3,6 +3,7 @@ theme: ../theme
 title: Molgenis Demonstrator
 info: Molgenis Demonstrator
 author: Tim Cadman
+date: 2026-06-05
 aspectRatio: '16/9'
 ---
 

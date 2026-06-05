@@ -38,12 +38,79 @@ jobs:
           done
       - name: Create index page
         run: |
-          echo '<html><body><h1>Presentations</h1><ul>' > _site/index.html
-          for dir in _site/*/; do
-            name="$(basename "$dir")"
-            echo "<li><a href=\"${name}/\">${name}</a></li>" >> _site/index.html
+          # Collect presentation metadata from frontmatter
+          entries=""
+          for dir in */; do
+            if [ -f "${dir}slides.md" ] && [ -f "${dir}package.json" ]; then
+              name="${dir%/}"
+              title=$(grep '^title:' "${dir}slides.md" | head -1 | sed 's/title: *//')
+              info=$(grep '^info:' "${dir}slides.md" | head -1 | sed 's/info: *//')
+              author=$(grep '^author:' "${dir}slides.md" | head -1 | sed 's/author: *//')
+              date=$(grep '^date:' "${dir}slides.md" | head -1 | sed 's/date: *//')
+              year=$(echo "$date" | cut -d- -f1)
+              entries="${entries}${year}|${date}|${name}|${title}|${info}|${author}\n"
+            fi
           done
-          echo '</ul></body></html>' >> _site/index.html
+
+          # Generate HTML grouped by year (newest first)
+          cat > _site/index.html << 'HEADER'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Presentations — MOLGENIS</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+            <style>
+              * { margin: 0; padding: 0; box-sizing: border-box; }
+              body { font-family: 'Nunito', sans-serif; color: #333; background: #f8fafc; }
+              .header { background: #4285F4; color: white; padding: 3rem 2rem; }
+              .header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; font-weight: 400; }
+              .header p { font-family: 'IBM Plex Mono', monospace; margin-top: 0.4rem; opacity: 0.85; font-size: 0.9rem; }
+              .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+              .year-group { margin-bottom: 2rem; }
+              .year-label { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; font-weight: 600; color: #4285F4; margin-bottom: 0.75rem; border-bottom: 2px solid #4285F4; padding-bottom: 0.4rem; }
+              .card { display: block; background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.2rem 1.5rem; margin-bottom: 0.75rem; text-decoration: none; color: inherit; transition: box-shadow 0.15s, border-color 0.15s; }
+              .card:hover { border-color: #4285F4; box-shadow: 0 2px 8px rgba(66,133,244,0.15); }
+              .card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; font-weight: 400; color: #4285F4; }
+              .card-info { font-size: 0.9rem; color: #666; margin-top: 0.3rem; }
+              .card-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: #94a3b8; margin-top: 0.5rem; }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <div style="max-width:800px;margin:0 auto;">
+                <h1>Presentations</h1>
+                <p>MOLGENIS team slide decks</p>
+              </div>
+            </div>
+            <div class="container">
+          HEADER
+
+          current_year=""
+          printf "$entries" | sort -t'|' -k1,1r -k2,2r | while IFS='|' read -r year date name title info author; do
+            [ -z "$year" ] && continue
+            if [ "$year" != "$current_year" ]; then
+              [ -n "$current_year" ] && echo '</div>' >> _site/index.html
+              echo "<div class=\"year-group\"><div class=\"year-label\">$year</div>" >> _site/index.html
+              current_year="$year"
+            fi
+            cat >> _site/index.html << CARD
+              <a class="card" href="${name}/">
+                <div class="card-title">$title</div>
+                <div class="card-info">$info</div>
+                <div class="card-meta">$author · $date</div>
+              </a>
+          CARD
+          done
+          [ -n "$current_year" ] && echo '</div>' >> _site/index.html
+
+          cat >> _site/index.html << 'FOOTER'
+            </div>
+          </body>
+          </html>
+          FOOTER
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
