@@ -2,7 +2,22 @@
 
 Slidev presentations for the MOLGENIS team.
 
-## Prerequisites
+## Edit in the browser
+
+No local setup needed — open in GitHub Codespaces:
+
+[![Open in Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?repo=timcadman/presentations&ref=master)
+
+Then in the terminal:
+
+```bash
+cd molgenis-demonstrator   # or intro-datashield
+npm run dev
+```
+
+## Local setup
+
+### Prerequisites
 
 - [Node.js](https://nodejs.org/) >= 22.9.0
 - npm >= 11.3.0
