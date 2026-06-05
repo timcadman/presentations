@@ -59,14 +59,14 @@ jobs:
           <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Presentations — MOLGENIS</title>
+            <title>Tim Cadman — Presentations</title>
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
             <style>
               * { margin: 0; padding: 0; box-sizing: border-box; }
               body { font-family: 'Nunito', sans-serif; color: #333; background: #f8fafc; }
               .header { background: #4285F4; color: white; padding: 3rem 2rem; }
-              .header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; font-weight: 400; }
+              .header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; font-weight: 400; text-align: left; }
               .header p { font-family: 'IBM Plex Mono', monospace; margin-top: 0.4rem; opacity: 0.85; font-size: 0.9rem; }
               .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
               .year-group { margin-bottom: 2rem; }
@@ -81,8 +81,8 @@ jobs:
           <body>
             <div class="header">
               <div style="max-width:800px;margin:0 auto;">
-                <h1>Presentations</h1>
-                <p>MOLGENIS team slide decks</p>
+                <h1>Tim Cadman</h1>
+                <p>Presentations</p>
               </div>
             </div>
             <div class="container">
