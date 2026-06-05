@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   heading: {
     type: String,
     default: '',
@@ -12,6 +14,13 @@ defineProps({
     type: String,
     default: '',
   },
+})
+
+const base = import.meta.env.BASE_URL
+const resolvedImage = computed(() => {
+  if (!props.image) return ''
+  const path = props.image.replace(/^\.\/public\//, '')
+  return `${base}${path}`
 })
 </script>
 
@@ -26,11 +35,11 @@ defineProps({
         <slot />
       </div>
       <div class="logo-bar">
-        <img src="/molgenis-logo.png" class="slide-logo" />
+        <img :src="`${base}molgenis-logo.png`" class="slide-logo" />
       </div>
     </div>
     <div class="image-area">
-      <img v-if="image" :src="image" class="slide-image" />
+      <img v-if="image" :src="resolvedImage" class="slide-image" />
     </div>
   </div>
 </template>

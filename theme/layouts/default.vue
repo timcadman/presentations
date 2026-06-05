@@ -1,10 +1,14 @@
+<script setup>
+const base = import.meta.env.BASE_URL
+</script>
+
 <template>
   <div class="slidev-layout default">
     <div class="default-content">
       <slot />
     </div>
     <div class="logo-bar">
-      <img src="/molgenis-logo.png" class="slide-logo" />
+      <img :src="`${base}molgenis-logo.png`" class="slide-logo" />
     </div>
   </div>
 </template>

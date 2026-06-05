@@ -1,4 +1,6 @@
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
   step: {
     type: String,
@@ -19,6 +21,12 @@ const props = defineProps({
 })
 
 const steps = ['Local data', 'Catalogue', 'Request', 'Access', 'Analyse']
+
+const resolvedImage = computed(() => {
+  if (!props.image) return ''
+  const path = props.image.replace(/^\.\/public\//, '')
+  return `${import.meta.env.BASE_URL}${path}`
+})
 </script>
 
 <template>
@@ -27,7 +35,7 @@ const steps = ['Local data', 'Catalogue', 'Request', 'Access', 'Analyse']
 
     <div class="demo-layout">
       <div class="demo-screenshot">
-        <img v-if="image" :src="image" :style="imageStyle">
+        <img v-if="image" :src="resolvedImage" :style="imageStyle">
         <span v-else>Screenshot placeholder</span>
       </div>
       <div class="demo-tracker">

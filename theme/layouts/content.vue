@@ -9,6 +9,8 @@ defineProps({
     default: '',
   },
 })
+
+const base = import.meta.env.BASE_URL
 </script>
 
 <template>
@@ -21,7 +23,7 @@ defineProps({
       <slot />
     </div>
     <div class="logo-bar">
-      <img src="/molgenis-logo.png" class="slide-logo" />
+      <img :src="`${base}molgenis-logo.png`" class="slide-logo" />
     </div>
   </div>
 </template>

@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   heading: {
     type: String,
     default: '',
@@ -25,6 +27,14 @@ defineProps({
     default: '100',
   },
 })
+
+const base = import.meta.env.BASE_URL
+function resolveImage(path) {
+  if (!path) return ''
+  return `${base}${path.replace(/^\.\/public\//, '')}`
+}
+const resolvedLeft = computed(() => resolveImage(props.imageLeft))
+const resolvedRight = computed(() => resolveImage(props.imageRight))
 </script>
 
 <template>
@@ -38,14 +48,14 @@ defineProps({
     </div>
     <div class="images-row">
       <div class="image-panel">
-        <img v-if="imageLeft" :src="imageLeft" class="panel-image" :style="{ maxWidth: imageLeftScale + '%', maxHeight: imageLeftScale + '%' }" />
+        <img v-if="imageLeft" :src="resolvedLeft" class="panel-image" :style="{ maxWidth: imageLeftScale + '%', maxHeight: imageLeftScale + '%' }" />
       </div>
       <div class="image-panel">
-        <img v-if="imageRight" :src="imageRight" class="panel-image" :style="{ maxWidth: imageRightScale + '%', maxHeight: imageRightScale + '%' }" />
+        <img v-if="imageRight" :src="resolvedRight" class="panel-image" :style="{ maxWidth: imageRightScale + '%', maxHeight: imageRightScale + '%' }" />
       </div>
     </div>
     <div class="logo-bar">
-      <img src="/molgenis-logo.png" class="slide-logo" />
+      <img :src="`${base}molgenis-logo.png`" class="slide-logo" />
     </div>
   </div>
 </template>
