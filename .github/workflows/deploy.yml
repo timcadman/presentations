@@ -32,6 +32,12 @@ jobs:
               cd "$dir"
               npm install
               npx slidev build slides.md --base "/presentations/${name}/"
+              # Create index.html copies for each slide route so GitHub Pages can serve them
+              slide_count=$(grep -c '^---$' slides.md)
+              for i in $(seq 1 $slide_count); do
+                mkdir -p "dist/$i"
+                cp dist/index.html "dist/$i/index.html"
+              done
               mv dist "../_site/${name}"
               cd ..
             fi

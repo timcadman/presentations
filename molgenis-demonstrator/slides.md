@@ -4,7 +4,6 @@ title: Molgenis Demonstrator
 info: Molgenis Demonstrator
 author: Tim Cadman
 aspectRatio: '16/9'
-routerMode: hash
 ---
 
 # From Data Discovery to Federated Analysis
