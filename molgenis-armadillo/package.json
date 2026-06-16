@@ -1,5 +1,5 @@
 {
-  "name": "molgenis-demonstrator-slidev",
+  "name": "molgenis-armadillo-slidev",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,9 @@
     "@slidev/theme-default": "^0.25.0"
   },
   "devDependencies": {
-    "playwright-chromium": "^1.60.0"
+    "playwright-chromium": "^1.61.0"
+  },
+  "allowScripts": {
+    "playwright-chromium@1.61.0": true
   }
 }

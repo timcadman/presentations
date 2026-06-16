@@ -53,6 +53,7 @@ This starts a local dev server and opens the presentation in your browser.
 | Directory | Topic |
 |-----------|-------|
 | `intro-datashield` | Introduction to DataSHIELD |
+| `molgenis-armadillo` | MOLGENIS Armadillo features |
 | `molgenis-demonstrator` | From Data Discovery to Federated Analysis |
 
 ## Building for production
