@@ -30,6 +30,8 @@ import os
 TEMPLATE = os.path.join(os.path.dirname(__file__), "molgenis-template-STARTER.pptx")
 ASSET_ROOT = os.path.dirname(__file__)
 BLACK = RGBColor(0x22, 0x22, 0x22)
+BLUE_HEX = "4285F4"
+GREY = RGBColor(0x44, 0x44, 0x44)
 # FAIR gradient (from DemoSlide.vue): label, fill hex, text hex
 GRAD = [("Local data", "93c5fd", "ffffff"), ("Catalogue", "60a5fa", "ffffff"),
         ("Request", "3b82f6", "ffffff"), ("Access", "2563eb", "ffffff"),
@@ -166,6 +168,75 @@ class DeckBuilder:
             s.shapes.add_picture(image, 0, 0, self.prs.slide_width, self.prs.slide_height)
         return s
 
+    def _infobox(self, s, x, y, w, h, title, desc):
+        """A bordered rounded card with a blue left accent, blue title, grey body
+        (matches the Slidev deploy-card / adv-card style)."""
+        box = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x), Inches(y), Inches(w), Inches(h))
+        try: box.adjustments[0] = 0.06
+        except Exception: pass
+        box.fill.solid(); box.fill.fore_color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
+        box.line.color.rgb = RGBColor(0xDD, 0xDD, 0xDD); box.line.width = Pt(1.5)
+        box.shadow.inherit = False
+        bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(y), Inches(0.07), Inches(h))
+        bar.fill.solid(); bar.fill.fore_color.rgb = RGBColor.from_string(BLUE_HEX)
+        bar.line.fill.background(); bar.shadow.inherit = False
+        tf = box.text_frame; tf.word_wrap = True
+        tf.margin_left = Inches(0.2); tf.margin_top = Inches(0.12); tf.vertical_anchor = MSO_ANCHOR.TOP
+        r = tf.paragraphs[0].add_run(); r.text = title
+        r.font.bold = True; r.font.size = Pt(15); r.font.name = "Nunito"; r.font.color.rgb = RGBColor.from_string(BLUE_HEX)
+        if desc:
+            p = tf.add_paragraph(); p.space_before = Pt(4)
+            r = p.add_run(); r.text = desc; r.font.size = Pt(12); r.font.name = "Nunito"; r.font.color.rgb = GREY
+        return box
+
+    def cards(self, heading, subheading="", cards=(), intro="", columns=2, **_):
+        """Grid of info cards (deploy comparison, potential-advantages grid)."""
+        s = self.prs.slides.add_slide(self._layout("Table"))
+        self._title_sub(s, heading, subheading)
+        top = 2.2
+        if intro:
+            tb = s.shapes.add_textbox(Inches(0.7), Inches(top - 0.05), Inches(8.6), Inches(0.6))
+            tb.text_frame.word_wrap = True
+            r = tb.text_frame.paragraphs[0].add_run(); r.text = intro
+            r.font.name = "Nunito"; r.font.size = Pt(14); r.font.color.rgb = BLACK
+            top += 0.7
+        cards = list(cards)
+        n = len(cards) or 1
+        cols = min(columns, n); rows = (n + cols - 1) // cols
+        margin, gap = 0.7, 0.3
+        cw = (10.0 - 2 * margin - (cols - 1) * gap) / cols
+        ch = (5.625 - top - 0.45 - (rows - 1) * gap) / rows
+        for i, (title, desc) in enumerate(cards):
+            cx = margin + (i % cols) * (cw + gap)
+            cy = top + (i // cols) * (ch + gap)
+            self._infobox(s, cx, cy, cw, ch, title, desc)
+        return s
+
+    def bullets_table(self, heading, subheading="", bullets=(), rows=(), table_title="", **_):
+        """Bullets on the left, a data table on the right (Deployment variants)."""
+        s = self.prs.slides.add_slide(self._layout("Bullets"))
+        self._title_sub(s, heading, subheading)
+        o = self._ph(s, PP_PLACEHOLDER.OBJECT)
+        o.left, o.top, o.width, o.height = Inches(0.7), Inches(2.35), Inches(4.4), Inches(2.7)
+        self._bullets(o, bullets)
+        rx, ry = 5.35, 2.2
+        if table_title:
+            tb = s.shapes.add_textbox(Inches(rx), Inches(ry), Inches(4.0), Inches(0.4))
+            r = tb.text_frame.paragraphs[0].add_run(); r.text = table_title
+            r.font.bold = True; r.font.size = Pt(13); r.font.name = "Nunito"
+            r.font.color.rgb = RGBColor.from_string(BLUE_HEX)
+            ry += 0.5
+        if rows:
+            rr, cc = len(rows), len(rows[0])
+            t = s.shapes.add_table(rr, cc, Inches(rx), Inches(ry), Inches(4.0), Inches(0.45 * rr)).table
+            for ri, row in enumerate(rows):
+                for ci, val in enumerate(row):
+                    cell = t.cell(ri, ci); cell.text = str(val)
+                    for para in cell.text_frame.paragraphs:
+                        for run in para.runs:
+                            run.font.size = Pt(11); run.font.name = "Nunito"
+        return s
+
     def table(self, heading, subheading="", rows=(), **_):
         s = self.prs.slides.add_slide(self._layout("Table"))
         self._title_sub(s, heading, subheading)
@@ -252,6 +323,8 @@ class DeckBuilder:
             elif t == "image": self.image(**spec)
             elif t == "two_images": self.two_images(**spec)
             elif t == "slide_image": self.slide_image(**spec)
+            elif t == "cards": self.cards(**spec)
+            elif t == "bullets_table": self.bullets_table(**spec)
             elif t == "table": self.table(**spec)
             elif t == "stack": self.stack(**spec)
             elif t == "demo": self.demo(**spec)

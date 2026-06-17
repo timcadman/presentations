@@ -94,14 +94,14 @@ def attrs(tag):
     return dict(re.findall(r'(\w+)="([^"]*)"', tag))
 
 
-def _cards(body, cls):
-    """Return [(title, desc)] for repeated card blocks of the given class."""
+def _cards(body):
+    """Return [(title, desc)] from <h3>title</h3> ... <p>desc</p> card blocks.
+    Robust to both class="card" and Vue :class="[...]" bindings (we only call this
+    on slides whose h3/p are all cards)."""
     out = []
-    for blk in re.findall(r'class="[^"]*' + cls + r'[^"]*"[^>]*>(.*?</h3>.*?)(?=<div class="[^"]*' + cls + r'|\Z)', body, re.S):
-        h = re.search(r'<h3[^>]*>(.*?)</h3>', blk, re.S)
-        p = re.search(r'<p[^>]*>(.*?)</p>', blk, re.S)
-        if h:
-            out.append((clean_inline(h.group(1)), clean_inline(p.group(1)) if p else ""))
+    for h in re.finditer(r'<h3[^>]*>(.*?)</h3>', body, re.S):
+        p = re.search(r'<p[^>]*>(.*?)</p>', body[h.end():], re.S)
+        out.append((clean_inline(h.group(1)), clean_inline(p.group(1)) if p else ""))
     return out
 
 
@@ -126,15 +126,9 @@ def to_spec(fm, body, idx, base, png_dir):
     def png():  # whole-slide fallback image for this slide
         return os.path.join(png_dir, f"{idx + 1}.png") if png_dir else None
 
-    # ---- team slide: Armadillo names as bullets + group photo ----
+    # ---- team slide: avatar grid + group photo are bespoke -> whole-slide image ----
     if "team-rows" in body or "team-grid" in body:
-        names = re.findall(r'team-name">(.*?)</div>', body, re.S)
-        roles = re.findall(r'team-role">(.*?)</div>', body, re.S)
-        bul = [f"{clean_inline(n)} — {clean_inline(r)}" for n, r in zip(names, roles)]
-        photo = re.search(r'<img src="(\./public/team_[^"]+)"', body)  # group photo (underscore), not the hyphen avatars
-        return {"type": "photo", "side": "right", "heading": heading or "Our team",
-                "subheading": subheading, "bullets": bul,
-                "image": resolve(photo.group(1), base) if photo else None}
+        return {"type": "slide_image", "image": png()}
 
     # ---- two-image slide ----
     if layout == "content-two-images":
@@ -152,28 +146,27 @@ def to_spec(fm, body, idx, base, png_dir):
         return {"type": "demo", "step": a.get("step", ""), "subheading": subheading,
                 "image": resolve(a.get("image"), base), "text": a.get("text", "")}
 
-    # ---- "deploy" two-card slide -> intro + card bullets ----
+    # ---- "deploy" two-card slide -> intro + cards ----
     if "deploy-card" in body:
         intro = re.search(r'<div style="font-size[^>]*>\s*(.*?)</div>', body, re.S)
-        bul = [clean_inline(intro.group(1))] if intro else []
-        for title, desc in _cards(body, "deploy-card"):
-            bul.append(f"{title} — {desc}" if desc else title)
-        return {"type": "bullets", "heading": heading, "subheading": subheading,
-                "bullets": [b for b in bul if b]}
+        return {"type": "cards", "heading": heading, "subheading": subheading,
+                "intro": clean_inline(intro.group(1)) if intro else "",
+                "cards": _cards(body), "columns": 2}
 
-    # ---- "potential advantages" cards -> bullets ----
+    # ---- "potential advantages" cards (2x2 grid) ----
     if "adv-card" in body:
-        bul = [f"{t} — {d}" if d else t for t, d in _cards(body, "adv-card")]
-        return {"type": "bullets", "heading": heading, "subheading": subheading, "bullets": bul}
+        return {"type": "cards", "heading": heading, "subheading": subheading,
+                "cards": _cards(body), "columns": 2}
 
-    # ---- Deployment Variants: variant/requirement bullets + hardware table rows ----
+    # ---- Deployment Variants: variant/requirement bullets (left) + hardware table (right) ----
     if "hw-grid" in body:
         bul = md_bullets(body)
+        headers = [clean_inline(h) for h in re.findall(r'<div class="h">(.*?)</div>', body, re.S)]
         cells = [clean_inline(c) for c in re.findall(r'<div class="c[^"]*">(.*?)</div>', body, re.S)]
-        for i in range(0, len(cells) - 3, 4):
-            p, mem, disk, cpu = cells[i:i + 4]
-            bul.append(f"  {p}: {mem} GB RAM, {disk} GB disk, {cpu} CPU cores")
-        return {"type": "bullets", "heading": heading, "subheading": subheading, "bullets": bul}
+        cols = len(headers) or 4
+        rows = ([headers] if headers else []) + [cells[i:i + cols] for i in range(0, len(cells), cols)]
+        return {"type": "bullets_table", "heading": heading, "subheading": subheading,
+                "bullets": bul, "rows": rows, "table_title": "Hardware requirements"}
 
     # ---- legacy: journey grid / stack ----
     if "journey-grid" in body:
