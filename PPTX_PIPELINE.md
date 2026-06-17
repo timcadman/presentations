@@ -34,19 +34,34 @@ Everything is **self-verified by rendering to PDF/PNG** before showing the user 
 - Slidev decks (`molgenis-demonstrator/`, `molgenis-armadillo/`) — **source of truth for Slidev-derived elements**; render with `npx slidev export slides.md --format png --range N`.
 - Rule the user gave: *use both NCC and Slidev as references; each is authoritative for the elements that come from it.*
 
-## What's LEFT — the main remaining task
-**Write the Slidev → spec converter.** Parse `molgenis-demonstrator/slides.md` (and `molgenis-armadillo/slides.md`) and emit `build_deck.py` slide specs, stripping all HTML/Vue:
-- Frontmatter `layout:` + `heading:`/`subheading:` → slide type + title/subheading.
-  - `layout: content` → `bullets` (or `image`/`photo` if it has a side image).
-  - `content-img-right` / `content-img-left` → `photo` (full-bleed) **or** `image` (contained) — these decks mostly use full-bleed (`object-fit: cover`), but screenshots read better contained; let the user choose per slide or by image type.
-  - `<DemoSlide step=.. image=.. text=..>` → `demo` (step drives the highlight + colour).
-  - markdown/HTML tables → `table`; the "one open stack" slide → `stack`.
-- Convert markdown bullets (incl. nested) to the `bullets` list; resolve `./public/...` image paths.
-- Drop Slidev-only constructs (v-click, custom components other than DemoSlide, `<style>` blocks).
-Then: `specs → DeckBuilder().build(specs).save(out)` → render → verify → hand over.
+## Converter — DONE (`convert_slidev.py`)
+`python3 convert_slidev.py molgenis-armadillo/slides.md /tmp/out.pptx [slidev_png_dir]`
+Parses `slides.md`, strips HTML/Vue/markdown, emits `build_deck.py` specs, builds + saves.
 
-## Open question to confirm with user
-- Per-slide image treatment default: **contained (Image)** vs **full-bleed (Photo)**. They said "we need both" — converter should pick a sensible default (contained for screenshots) and allow override.
+**Layout → spec mapping** lives in the `LAYOUT_MAP` dict at the top of `convert_slidev.py`
+— **this is the registry to extend when a new theme layout is added.** Current mapping:
+
+| Slidev layout (`theme/layouts/`) | PPTX spec / template layout |
+|---|---|
+| `cover` (implicit first slide)   | `title` → **Title** |
+| `content`                        | `bullets` → **Bullets** |
+| `content-img-right`              | `image` (contained, right) → **Image Right** |
+| `content-img-left`               | `image` (contained, left) → **Image Left** |
+| `content-two-images`             | `two_images` (two contained, drawn on Bullets) |
+| `section` / `default`            | `bullets` |
+
+Body-pattern special cases (in `to_spec`) override the map: team grid → `photo` + name bullets;
+`deploy-card`/`adv-card` → `bullets`; `hw-grid` → `bullets` (variants + hardware rows);
+bespoke `<Component/>` (e.g. `DatashieldArchitectureFinal`) → `slide_image` (whole-slide PNG
+from `slidev_png_dir`); `DemoSlide` → `demo`; legacy `journey-grid`/`stack-card` → `table`/`stack`.
+
+**Per-slide override:** add `pptx: photo` (or another spec type) to a slide's frontmatter to
+force the treatment — e.g. full-bleed instead of the default contained image.
+`imageScale`/`imageWidth`/`imageAlign` are Slidev-only (the PPTX Image/Photo layouts have fixed
+geometry), so they're ignored by the converter.
+
+**Verify before handing over:** render the pptx (LibreOffice → PDF → PNG) and the Slidev deck
+(`npx slidev export slides.md --format png`) and compare slide-for-slide.
 
 ## Gotchas
 - LibreOffice prints `Task policy set failed` to stderr — harmless.

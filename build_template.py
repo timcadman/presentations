@@ -1,12 +1,16 @@
+import os
 from pptx import Presentation
 from pptx.util import Inches
 from pptx.oxml.ns import qn
 from pptx.enum.shapes import PP_PLACEHOLDER
 from PIL import Image
 from lxml import etree
-REF="/tmp/default-ref.pptx"; OUT="/Users/tcadman/Downloads/molgenis-template-STARTER.pptx"
-LOGO="public/molgenis-logo.png"; BLUE="4285F4"; BLACK="000000"
+HERE=os.path.dirname(os.path.abspath(__file__))
+OUT=os.path.join(HERE,"molgenis-template-STARTER.pptx")
+LOGO=os.path.join(HERE,"molgenis-armadillo","public","molgenis-logo.png")
+BLUE="4285F4"; BLACK="000000"
 TITLEF="Bebas Neue"; SUBF="IBM Plex Mono"; BODYF="Nunito"
+BODY_SZ=14   # single body font size used across ALL content layouts (uniform, no per-slide autofit)
 def sub(p,t,**a):
     e=etree.SubElement(p,qn(t));  [e.set(k,v) for k,v in a.items()];  return e
 def lst(ph):
@@ -31,7 +35,8 @@ def title_block(ph,head_sz):                      # lvl0 heading, lvl1 subheadin
     ph._element.find(qn('p:txBody')).find(qn('a:bodyPr')).set('anchor','t')   # top-anchored
     set_lvl(ph,1,head_sz,BLUE,TITLEF,align='l',bullet='none')
     set_lvl(ph,2,18,BLUE,SUBF,align='l',bullet='none',sb=400)
-def body_block(ph,size=18):
+def body_block(ph,size=BODY_SZ):
+    ph._element.find(qn('p:txBody')).find(qn('a:bodyPr')).set('anchor','t')  # top-anchored: bullets grow down, never overlap title
     set_lvl(ph,1,size,BLACK,BODYF,bullet='dot',marL=228600,indent=-228600,sa=500)
     set_lvl(ph,2,size-2,BLACK,BODYF,bullet='dot',marL=685800,indent=-228600)
 def pos(ph,x,y,w,h): ph.left=Inches(x); ph.top=Inches(y); ph.width=Inches(w); ph.height=Inches(h)
@@ -57,7 +62,7 @@ def add_bar(layout,x,y,w):
 def add_logo(container,part,x,y,gw,gh):
     container._spTree.add_pic(nid(container._spTree),"Logo","Logo",part.get_or_add_image_part(LOGO)[1],int(x),int(y),gw,gh)
 
-prs=Presentation(REF); SW,SH=10.0,5.625
+prs=Presentation(); SW,SH=10.0,5.625
 for s in list(prs.slides._sldIdLst):
     prs.part.drop_rel(s.get(qn('r:id'))); prs.slides._sldIdLst.remove(s)
 lw,lh=Image.open(LOGO).size; gw=Inches(1.0); gh=int(gw*lh/lw)
@@ -84,7 +89,7 @@ pos(t,0.7,0.9,8.6,1.4); title_block(t,40); pos(o,0.7,2.35,8.6,2.4); body_block(o
 L=lname(prs,"Content with Caption"); L._element.cSld.set('name',"Photo Right")
 add_bar(L,0.7,0.6,2.8); p=phd(L)
 pos(p[0],0.7,0.9,5.0,1.4); title_block(p[0],40)
-pos(p[2],0.7,2.35,5.0,2.4); body_block(p[2],16)
+pos(p[2],0.7,2.35,5.0,2.4); body_block(p[2])
 to_pic(p[1]); pos(p[1],6.0,0,4.0,SH)
 add_logo(L.shapes,L.part,*LOGO_BL,gw,gh)
 
@@ -93,21 +98,21 @@ L=lname(prs,"Two Content"); L._element.cSld.set('name',"Photo Left")
 p=phd(L); to_pic(p[1]); pos(p[1],0,0,4.0,SH)
 add_bar(L,4.6,0.6,2.8)
 pos(p[0],4.6,0.9,4.8,1.4); title_block(p[0],40)
-pos(p[2],4.6,2.35,4.8,2.4); body_block(p[2],16)
+pos(p[2],4.6,2.35,4.8,2.4); body_block(p[2])
 
 # Image Left (contained image left, bullets right)
 L=lname(prs,"Picture with Caption"); L._element.cSld.set('name',"Image Left")
 add_bar(L,0.7,0.6,2.8); p=phd(L)
 pos(p[0],0.7,0.9,8.6,1.4); title_block(p[0],40)     # title spans top
 pos(p[1],0.7,2.35,4.2,2.5)                           # PICTURE left (contained region)
-pos(p[2],5.2,2.35,4.2,2.5); body_block(p[2],16)        # bullets right
+pos(p[2],5.2,2.35,4.2,2.5); body_block(p[2])        # bullets right
 
 # Image Right (contained image right, bullets left)  -- from Comparison
 L=lname(prs,"Comparison"); L._element.cSld.set('name',"Image Right")
 add_bar(L,0.7,0.6,2.8); p=phd(L)
 # keep title(0), one body for bullets, one obj->pic; remove extras
 pos(p[0],0.7,0.9,8.6,1.4); title_block(p[0],40)
-pos(p[1],0.7,2.35,4.2,2.5); body_block(p[1],16)        # bullets left (BODY idx1)
+pos(p[1],0.7,2.35,4.2,2.5); body_block(p[1])        # bullets left (BODY idx1)
 to_pic(p[2]); pos(p[2],5.2,2.35,4.2,2.5)            # picture right (OBJECT idx2)
 # remove the spare placeholders idx3, idx4
 for idx in (3,4):

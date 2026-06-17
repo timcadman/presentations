@@ -75,17 +75,20 @@ class DeckBuilder:
             p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
             p.level = 0; p.add_run().text = it
 
-    def _fit_picture(self, slide, ph, img, border=True):
-        """Contain-fit an image inside the placeholder's rect (no crop)."""
+    def _fit_picture(self, slide, ph, img, border=True, scale=1.0, valign="top"):
+        """Contain-fit an image inside the placeholder's rect (no crop).
+        scale<1 shrinks within the rect; valign 'top' keeps the fixed top, 'middle' centres."""
         L, T, W, H = ph.left, ph.top, ph.width, ph.height
         ph._element.getparent().remove(ph._element)
         iw, ih = PImage.open(img).size
         ar, AR = iw / ih, W / H
         if ar > AR:
-            w = W; h = int(W / ar)
+            w = int(W * scale); h = int(W * scale / ar)
         else:
-            h = H; w = int(H * ar)
-        pic = slide.shapes.add_picture(img, int(L + (W - w) / 2), int(T), w, h)  # top-align (fixed top)
+            h = int(H * scale); w = int(H * scale * ar)
+        x = int(L + (W - w) / 2)
+        y = int(T) if valign == "top" else int(T + (H - h) / 2)
+        pic = slide.shapes.add_picture(img, x, y, w, h)
         if border:
             pic.line.color.rgb = RGBColor(0xD9, 0xD9, 0xD9); pic.line.width = Pt(1)
         return pic
@@ -118,14 +121,49 @@ class DeckBuilder:
             self._ph(s, PP_PLACEHOLDER.PICTURE).insert_picture(image)  # cover/crop = full-bleed
         return s
 
-    def image(self, side, heading, subheading="", bullets=(), image=None, **_):
+    def image(self, side, heading, subheading="", bullets=(), image=None, border=True, **_):
         s = self.prs.slides.add_slide(self._layout(f"Image {side.capitalize()}"))
         self._title_sub(s, heading, subheading)
         # screenshot is top-aligned in its region; bullets sit at the layout's fixed top.
         # both share the same top point and the layout height never changes per slide.
         if image:
-            self._fit_picture(s, self._ph(s, PP_PLACEHOLDER.PICTURE), image)
+            # logos (border=False) read better smaller and vertically centred
+            kw = dict(border=False, scale=0.62, valign="middle") if not border else {}
+            self._fit_picture(s, self._ph(s, PP_PLACEHOLDER.PICTURE), image, **kw)
         self._bullets(self._ph(s, PP_PLACEHOLDER.BODY), bullets)
+        return s
+
+    def two_images(self, heading, subheading="", images=(), **_):
+        s = self.prs.slides.add_slide(self._layout("Bullets"))
+        self._title_sub(s, heading, subheading)
+        ph = self._ph(s, PP_PLACEHOLDER.OBJECT) or self._ph(s, PP_PLACEHOLDER.BODY)
+        if ph is not None:
+            ph._element.getparent().remove(ph._element)
+        top, gap, margin = Inches(2.0), Inches(0.4), Inches(0.7)
+        bottom = self.prs.slide_height - Inches(0.6)
+        H = bottom - top
+        halfW = int((self.prs.slide_width - margin * 2 - gap) / 2)
+        imgs = [i for i in images if i][:2]
+        for i, img in enumerate(imgs):
+            iw, ih = PImage.open(img).size
+            ar, AR = iw / ih, halfW / H
+            if ar > AR:
+                w = halfW; h = int(halfW / ar)
+            else:
+                h = int(H); w = int(H * ar)
+            x = int(margin) + i * (halfW + int(gap)) + (halfW - w) // 2
+            pic = s.shapes.add_picture(img, x, int(top), w, h)
+            pic.line.color.rgb = RGBColor(0xD9, 0xD9, 0xD9); pic.line.width = Pt(1)
+        return s
+
+    def slide_image(self, image=None, **_):
+        """Whole-slide image fallback for slides that can't be made editable
+        (e.g. a bespoke Vue diagram). The image already contains its own title."""
+        s = self.prs.slides.add_slide(self._layout("Bullets"))
+        for p in list(s.placeholders):
+            p._element.getparent().remove(p._element)
+        if image:
+            s.shapes.add_picture(image, 0, 0, self.prs.slide_width, self.prs.slide_height)
         return s
 
     def table(self, heading, subheading="", rows=(), **_):
@@ -212,6 +250,8 @@ class DeckBuilder:
             elif t == "bullets": self.bullets(**spec)
             elif t == "photo": self.photo(**spec)
             elif t == "image": self.image(**spec)
+            elif t == "two_images": self.two_images(**spec)
+            elif t == "slide_image": self.slide_image(**spec)
             elif t == "table": self.table(**spec)
             elif t == "stack": self.stack(**spec)
             elif t == "demo": self.demo(**spec)
