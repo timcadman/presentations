@@ -37,6 +37,7 @@ const base = import.meta.env.BASE_URL
 }
 
 .slide-header {
+  min-height: 7.25rem;
   margin-bottom: 1.5rem;
   padding-top: 0.75rem;
   position: relative;

@@ -64,11 +64,13 @@ const resolvedRight = computed(() => resolveImage(props.imageRight))
 .content-two-images {
   display: flex;
   flex-direction: column;
-  padding: 4.5rem 5rem 2rem 5rem;
+  /* bottom padding clears the logo (~3.25rem) so images never overlap it */
+  padding: 4.5rem 5rem 3.75rem 5rem;
   height: 100%;
 }
 
 .slide-header {
+  min-height: 7.25rem;
   margin-bottom: 1.5rem;
   padding-top: 0.75rem;
   position: relative;
