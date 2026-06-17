@@ -63,6 +63,7 @@ def add_logo(container,part,x,y,gw,gh):
     container._spTree.add_pic(nid(container._spTree),"Logo","Logo",part.get_or_add_image_part(LOGO)[1],int(x),int(y),gw,gh)
 
 prs=Presentation(); SW,SH=10.0,5.625
+prs.slide_width=Inches(SW); prs.slide_height=Inches(SH)   # default template is 4:3; force 16:9
 for s in list(prs.slides._sldIdLst):
     prs.part.drop_rel(s.get(qn('r:id'))); prs.slides._sldIdLst.remove(s)
 lw,lh=Image.open(LOGO).size; gw=Inches(1.0); gh=int(gw*lh/lw)
