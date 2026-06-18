@@ -22,34 +22,40 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Build all presentations
+      - name: Build published presentations
         run: |
           mkdir -p _site
-          for dir in */; do
-            if [ -f "${dir}slides.md" ] && [ -f "${dir}package.json" ]; then
-              name="${dir%/}"
-              echo "Building: $name"
-              cd "$dir"
-              npm install
-              npx slidev build slides.md --base "/presentations/${name}/"
-              mv dist "../_site/${name}"
-              cd ..
+          shopt -s nullglob
+          # Discover decks at top level and one level deep (e.g. eos/sprint-257)
+          for sm in */slides.md */*/slides.md; do
+            dir="${sm%/slides.md}"
+            [ -f "${dir}/package.json" ] || continue
+            # Opt-in: only build decks whose frontmatter sets `publish: true`
+            if ! grep -qE '^publish:[[:space:]]*true[[:space:]]*$' "$sm"; then
+              echo "Skipping (publish not enabled): $dir"
+              continue
             fi
+            name=$(echo "$dir" | tr '/' '-')
+            echo "Building: $name ($dir)"
+            ( cd "$dir" && npm install && npx slidev build slides.md --base "/presentations/${name}/" )
+            mv "${dir}/dist" "_site/${name}"
           done
       - name: Create index page
         run: |
-          # Collect presentation metadata from frontmatter
+          # Collect metadata from frontmatter of published decks only
           entries=""
-          for dir in */; do
-            if [ -f "${dir}slides.md" ] && [ -f "${dir}package.json" ]; then
-              name="${dir%/}"
-              title=$(grep '^title:' "${dir}slides.md" | head -1 | sed 's/title: *//')
-              info=$(grep '^info:' "${dir}slides.md" | head -1 | sed 's/info: *//')
-              author=$(grep '^author:' "${dir}slides.md" | head -1 | sed 's/author: *//')
-              date=$(grep '^date:' "${dir}slides.md" | head -1 | sed 's/date: *//')
-              year=$(echo "$date" | cut -d- -f1)
-              entries="${entries}${year}|${date}|${name}|${title}|${info}|${author}\n"
-            fi
+          shopt -s nullglob
+          for sm in */slides.md */*/slides.md; do
+            dir="${sm%/slides.md}"
+            [ -f "${dir}/package.json" ] || continue
+            grep -qE '^publish:[[:space:]]*true[[:space:]]*$' "$sm" || continue
+            name=$(echo "$dir" | tr '/' '-')
+            title=$(grep '^title:' "$sm" | head -1 | sed 's/title: *//')
+            info=$(grep '^info:' "$sm" | head -1 | sed 's/info: *//')
+            author=$(grep '^author:' "$sm" | head -1 | sed 's/author: *//')
+            date=$(grep '^date:' "$sm" | head -1 | sed 's/date: *//')
+            year=$(echo "$date" | cut -d- -f1)
+            entries="${entries}${year}|${date}|${name}|${title}|${info}|${author}\n"
           done
 
           # Generate HTML grouped by year (newest first)

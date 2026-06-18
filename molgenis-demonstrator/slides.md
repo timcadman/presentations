@@ -5,6 +5,7 @@ info: Molgenis Demonstrator
 author: Tim Cadman
 date: 2026-06-05
 aspectRatio: '16/9'
+publish: true
 ---
 
 # From Data Discovery to Federated Analysis

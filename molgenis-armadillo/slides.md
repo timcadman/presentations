@@ -5,6 +5,7 @@ info: A lightweight server for federated analysis with DataSHIELD
 author: Tim Cadman
 date: 2026-06-15
 aspectRatio: '16/9'
+publish: true
 ---
 
 # MOLGENIS Armadillo
