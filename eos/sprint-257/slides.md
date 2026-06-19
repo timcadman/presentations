@@ -17,17 +17,24 @@ EOS 257
 </div>
 
 ---
-layout: content
+layout: content-two-cols
 heading: End of Sprint 257
-subheading: Highlights
+leftHeading: Highlights
+rightHeading: Lowlights
+rightReveal: true
 ---
+
+::left::
 
 1. **Grants submitted**
    - Treatment resistant depression
    - 2× AI
 2. **Security fix** _(demo)_
 3. **Performance improvements** _(demo)_
-4. **Update from UI** _(ongoing)_
+
+::right::
+
+- **UI update** not yet finished — but nearly there
 
 ---
 layout: section
@@ -110,7 +117,7 @@ heading: Workflow
   { steps: [
     { title: 'Run pipeline', desc: 'Apply to batch 1' },
     { title: 'Code review (me)' },
-    { title: 'Code review (Stuart)' },
+    { title: 'PR review (Stuart)' },
     { title: 'Performance evaluation' },
   ] },
 ]" />
@@ -118,14 +125,23 @@ heading: Workflow
 <span v-for="i in 10" :key="i" v-click style="display:none" />
 
 ---
-layout: content
-heading: Results
-subheading: Faster across the board
+layout: chart-full
+heading: Progress
 ---
 
-- **91 of 111** function-pairs refactored
-- **83 (91%)** improved in performance tests
-- Median improvement **+109%** (mean **+142%**)
-- Biggest wins where redundant round trips were most common:
-  - `ds.reShape` **+769%** · `ds.recodeValues` **+475%** · `ds.asCharacter` **+401%**
-  - `ds.corTest` **+386%** · `ds.dataFrameSort` **+344%**
+<ProgressDonut :value="29" :total="123" label="functions refactored" />
+
+---
+layout: chart-side
+heading: Original vs refactored speed
+sidePosition: right
+---
+
+<RatesBars :clicks="$clicks" />
+
+<span v-click style="display:none" />
+<span v-click style="display:none" />
+
+::side::
+
+<PerfStats :clicks="$clicks" :reveal-at="2" />
