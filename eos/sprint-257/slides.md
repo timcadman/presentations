@@ -109,13 +109,14 @@ heading: Workflow
   ] },
   { steps: [
     { title: 'Run pipeline', desc: 'Apply to batch 1' },
+    { title: 'Agent review', desc: 'Derived from refactor plan' },
     { title: 'Code review (me)' },
     { title: 'Code review (Stuart)' },
     { title: 'Performance evaluation' },
   ] },
 ]" />
 
-<span v-for="i in 10" :key="i" v-click style="display:none" />
+<span v-for="i in 11" :key="i" v-click style="display:none" />
 
 ---
 layout: content

@@ -71,8 +71,8 @@ function shown(n) {
 .pc-flow {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  margin-top: 0.3rem;
+  gap: 1rem;
+  margin-top: -0.9rem;
 }
 
 .pc-group-loop {
