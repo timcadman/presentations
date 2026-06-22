@@ -6,3 +6,6 @@ __pycache__
 *.pyc
 exports
 *.mov
+
+*.Rhistory
+eos/**/eos-check*/

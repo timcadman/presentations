@@ -1,0 +1,23 @@
+[
+  {"name": "ds.asLogical", "original": 0.4323, "refactored": 1.4780},
+  {"name": "ds.completeCases", "original": 0.4236, "refactored": 1.4124},
+  {"name": "ds.asMatrix", "original": 0.4450, "refactored": 1.4832},
+  {"name": "ds.asDataMatrix", "original": 0.4266, "refactored": 1.4198},
+  {"name": "ds.asNumeric", "original": 0.4425, "refactored": 1.4548},
+  {"name": "ds.asInteger", "original": 0.4313, "refactored": 1.4092},
+  {"name": "ds.asCharacter", "original": 0.4327, "refactored": 1.3883},
+  {"name": "ds.sqrt", "original": 0.4489, "refactored": 1.4142},
+  {"name": "ds.exp", "original": 0.4612, "refactored": 1.4434},
+  {"name": "ds.abs", "original": 0.4716, "refactored": 1.4300},
+  {"name": "ds.log", "original": 0.4691, "refactored": 1.4190},
+  {"name": "ds.isNA", "original": 0.6750, "refactored": 1.9140},
+  {"name": "ds.numNA", "original": 0.6827, "refactored": 1.8751},
+  {"name": "ds.levels", "original": 0.6793, "refactored": 1.7929},
+  {"name": "ds.class", "original": 0.9034, "refactored": 1.9327},
+  {"name": "ds.names", "original": 0.9419, "refactored": 1.8588},
+  {"name": "ds.asList", "original": 0.9284, "refactored": 1.7909},
+  {"name": "ds.unique", "original": 0.7797, "refactored": 1.4226},
+  {"name": "ds.ls", "original": 1.8014, "refactored": 1.8527},
+  {"name": "ds.length", "original": 1.8585, "refactored": 1.8809},
+  {"name": "ds.dim", "original": 1.9242, "refactored": 1.8472}
+]
