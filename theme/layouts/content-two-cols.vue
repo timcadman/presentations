@@ -53,7 +53,8 @@ const base = import.meta.env.BASE_URL
 .content-two-cols {
   display: flex;
   flex-direction: column;
-  padding: 4.5rem 5rem 2rem 5rem;
+  /* bottom padding clears the logo (~3.25rem) so content never overlaps it */
+  padding: 4.5rem 5rem 3.75rem 5rem;
   height: 100%;
 }
 

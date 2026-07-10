@@ -1,23 +1,24 @@
 <script setup>
-// Stacked breakdown of client-observed time per backend:
-//   compute (true server work)  +  network (round-trip)  +  poll-wait (DSI 50 ms sleep)
-// Values are ms. `rows` = [{ backend, compute, network, poll }]
+// Stacked breakdown of the remote round-trip per backend:
+//   compute (server R work) + system overhead + network latency (ms).
+// `rows` = [{ backend, compute, overhead, network }]. Overhead is taken from the
+// localhost round-trip (network ~ 0 there); network is the remainder.
 import { computed } from 'vue'
 
 const props = defineProps({
   rows: { type: Array, required: true },
+  note: { type: String, default: '' },
 })
 
 const seg = [
-  { key: 'compute', label: 'server compute', color: '#4285F4' },
-  { key: 'network', label: 'network round-trip', color: '#0097A7' },
-  { key: 'poll', label: 'poll-wait (50 ms sleep)', color: '#d9534f' },
+  { key: 'compute',  label: 'server compute', color: '#E6B96A' },
+  { key: 'overhead', label: 'system overhead', color: '#0097A7' },
+  { key: 'network',  label: 'network',         color: '#1E3A5F' },
 ]
 
-const total = (r) => r.compute + r.network + r.poll
+const total = (r) => r.compute + r.overhead + r.network
 const maxTotal = computed(() => Math.max(...props.rows.map(total)))
 const pct = (v) => (v / maxTotal.value) * 100
-const pollShare = (r) => Math.round((r.poll / total(r)) * 100)
 </script>
 
 <template>
@@ -36,19 +37,16 @@ const pollShare = (r) => Math.round((r.poll / total(r)) * 100)
             v-for="s in seg"
             :key="s.key"
             class="ls-seg"
-            :style="{ width: pct(r[s.key]) + '%', background: s.color }"
+            :style="{ width: pct(r[s.key]) + '%', background: s.color, color: s.key === 'compute' ? '#5c4410' : '#fff' }"
           >
-            <span v-if="pct(r[s.key]) > 6" class="ls-seg-lbl">{{ r[s.key] }}</span>
+            <span v-if="pct(r[s.key]) > 7" class="ls-seg-lbl">{{ s.key === 'network' ? '~' + r[s.key] : r[s.key] }}</span>
           </div>
-          <span class="ls-total">{{ total(r) }} ms · poll = {{ pollShare(r) }}%</span>
+          <span class="ls-total">{{ Math.round(total(r)) }} ms</span>
         </div>
       </div>
     </div>
 
-    <div class="ls-note">
-      For fast ops the <b style="color:#d9534f">poll-wait</b> is the dominant slice of
-      client-observed time — the server has already answered.
-    </div>
+    <div v-if="note" class="ls-note" v-html="note" />
   </div>
 </template>
 
@@ -72,7 +70,7 @@ const pollShare = (r) => Math.round((r.poll / total(r)) * 100)
 
 .ls-chart { display: flex; flex-direction: column; gap: 1.1rem; }
 .ls-row { display: flex; align-items: center; gap: 1rem; }
-.ls-name { width: 11rem; text-align: right; flex-shrink: 0; }
+.ls-name { width: 14rem; text-align: right; flex-shrink: 0; }
 .ls-name code { font-family: var(--font-subtitle); font-size: 14px; color: var(--slidev-theme-primary); }
 
 .ls-track { position: relative; flex: 1; display: flex; height: 28px; }
@@ -84,7 +82,7 @@ const pollShare = (r) => Math.round((r.poll / total(r)) * 100)
   overflow: hidden;
 }
 .ls-seg:first-child { border-radius: 4px 0 0 4px; }
-.ls-seg-lbl { font-family: var(--font-subtitle); font-size: 11px; color: #fff; }
+.ls-seg-lbl { font-family: var(--font-subtitle); font-size: 11px; }
 .ls-total {
   position: absolute;
   left: 100%;
@@ -102,5 +100,6 @@ const pollShare = (r) => Math.round((r.poll / total(r)) * 100)
   font-family: var(--font-body);
   font-size: 14px;
   color: #777;
+  line-height: 1.4;
 }
 </style>

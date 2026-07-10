@@ -53,6 +53,17 @@ ul ul {
   margin-top: 0.3rem;
 }
 
+/* Ordered lists */
+ol {
+  list-style-type: decimal;
+  padding-left: 1.75rem;
+}
+
+ol li {
+  margin-bottom: 0.4rem;
+  font-size: 18px;
+}
+
 /* Links */
 a {
   color: var(--slidev-theme-accent);
@@ -66,4 +77,27 @@ a:hover {
 /* Bold text */
 strong {
   font-weight: 700;
+}
+
+/* Tables — house style: theme-blue header rule, light row dividers */
+.slidev-layout table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.5rem 0;
+  font-size: 15.5px;
+}
+.slidev-layout thead th {
+  font-family: var(--font-subtitle);
+  font-weight: 600;
+  text-align: left;
+  color: var(--slidev-theme-primary);
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--slidev-theme-primary);
+}
+.slidev-layout tbody td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #e3e8f2;
+}
+.slidev-layout tbody tr:last-child td {
+  border-bottom: none;
 }
