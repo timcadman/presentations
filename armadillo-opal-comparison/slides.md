@@ -6,6 +6,8 @@ author: Tim Cadman
 date: 2026-06-25
 aspectRatio: '16/9'
 publish: false
+themeConfig:
+  sections: [Background, Methods, Results, Conclusions]
 ---
 
 # Armadillo vs Opal

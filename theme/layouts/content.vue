@@ -1,4 +1,6 @@
 <script setup>
+import { configs } from '@slidev/client'
+
 defineProps({
   heading: {
     type: String,
@@ -15,7 +17,7 @@ defineProps({
 })
 
 const base = import.meta.env.BASE_URL
-const sections = ['Background', 'Methods', 'Results', 'Conclusions']
+const sections = configs.themeConfig?.sections || ['Background', 'Methods', 'Results', 'Conclusions']
 </script>
 
 <template>
