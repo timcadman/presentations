@@ -17,9 +17,16 @@ A DataSHIELD performance benchmark
 </div>
 
 ---
+layout: section
+---
+
+# Background
+
+
+---
 layout: content
-heading: Background
-subheading: Why benchmark?
+heading: Why benchmark?
+section: Background
 ---
 
 <v-clicks>
@@ -35,6 +42,7 @@ subheading: Why benchmark?
 layout: content
 heading: Objectives
 subheading: 'To test the following:'
+section: Background
 ---
 
 <ProcessCards size="lg" direction="column" :clicks="$clicks" :groups="[
@@ -47,9 +55,16 @@ subheading: 'To test the following:'
 <span v-for="i in 1" :key="i" v-click style="display:none" />
 
 ---
+layout: section
+---
+
+# Methods
+
+
+---
 layout: content
-heading: Methods
-subheading: Servers tested
+heading: Servers tested
+section: Methods
 ---
 
 <table class="srv-tbl">
@@ -94,8 +109,9 @@ section: Methods
 
 ---
 layout: content
-heading: 'Methods: performance'
-subheading: Understanding DataSHIELD performance
+heading: Performance
+subheading: Where the time goes
+section: Methods
 ---
 
 The client-observed time of any DataSHIELD call is a stack of layers:
@@ -110,8 +126,9 @@ The client-observed time of any DataSHIELD call is a stack of layers:
 
 ---
 layout: content
-heading: 'Methods: performance'
+heading: Performance
 subheading: 'What was measured and how'
+section: Methods
 ---
 
 <div class="ms-grid">
@@ -142,8 +159,9 @@ subheading: 'What was measured and how'
 
 ---
 layout: content
-heading: Methods
-subheading: '2. Benchmarking the performance'
+heading: Performance
+subheading: Functions benchmarked
+section: Methods
 ---
 Speed was benchmarked using the following common functions:
 <table class="fn-tbl">
@@ -166,9 +184,16 @@ Speed was benchmarked using the following common functions:
 </style>
 
 ---
+layout: section
+---
+
+# Results
+
+
+---
 layout: content
-heading: Results
-subheading: 1. Overall performance
+heading: 1. Overall performance
+section: Results
 ---
 
 <img src="./public/total.png" class="plot" />
@@ -182,8 +207,9 @@ subheading: 1. Overall performance
 
 ---
 layout: content
-heading: Results
-subheading: "1b. Session & I/O — mixed: big wins, two sharp losses"
+heading: "1b. Session & I/O"
+subheading: "Mixed: big wins, two sharp losses"
+section: Results
 ---
 
 <img src="./public/session_dsi.png" class="plot" />
@@ -197,8 +223,8 @@ subheading: "1b. Session & I/O — mixed: big wins, two sharp losses"
 
 ---
 layout: content
-heading: Results
-subheading: 2. Decomposing the latency
+heading: 2. Decomposing the latency
+section: Results
 ---
 
 <LatencyStack :rows="[
@@ -215,8 +241,8 @@ subheading: 2. Decomposing the latency
 
 ---
 layout: content
-heading: Results
-subheading: "3. Deployment footprint"
+heading: 3. Deployment footprint
+section: Results
 ---
 
 <div class="res-figs">
@@ -233,8 +259,16 @@ subheading: "3. Deployment footprint"
 </style>
 
 ---
+layout: section
+---
+
+# Conclusions
+
+
+---
 layout: content
 heading: Conclusions
+section: Conclusions
 ---
 
 <v-clicks>
@@ -252,6 +286,7 @@ heading: Conclusions
 layout: content
 heading: Feedback
 subheading: "Open questions"
+section: Conclusions
 ---
 
 <v-clicks>
