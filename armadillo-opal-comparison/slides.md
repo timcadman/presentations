@@ -12,7 +12,7 @@ themeConfig:
 
 # Armadillo vs Opal
 
-A DataSHIELD performance benchmark
+Performance benchmark
 
 <div class="title-logos">
   <img src="./public/molgenis-logo.png" class="logo-molgenis" />
@@ -95,11 +95,15 @@ section: Methods
 <table class="fp-tbl">
 <thead><tr><th>Metric</th><th>Armadillo</th><th>Opal</th></tr></thead>
 <tbody>
-<tr v-click><td><b>Resting memory</b></td><td>JVM RSS + Rock/Rserve containers</td><td>server + Mongo + Rock containers</td></tr>
-<tr v-click><td><b>Install size</b></td><td>Armadillo JAR + shared R-engine image</td><td>Opal + Mongo + shared R-engine image</td></tr>
-<tr v-click><td><b>Data on disk</b><br><span class="sub">same 10,000-row file uploaded to each</span></td><td><code>CNSIM.parquet</code> — columnar, compressed</td><td>Mongo <code>value_set</code> — one BSON doc per row</td></tr>
+<tr v-click><td><b>Resting memory</b></td><td>Armadillo + Rock or Rserve engine</td><td>Opal + MongoDB + Rock engine</td></tr>
+<tr v-click><td><b>Install size</b></td><td>Armadillo app + Rock or Rserve R-engine image</td><td>Opal app + MongoDB + Rock R-engine image</td></tr>
+<tr v-click><td><b>Data on disk</b></td><td>Example 10,000-row data, stored as Parquet</td><td>Same data file, stored in MongoDB</td></tr>
 </tbody>
 </table>
+
+<div v-click class="fp-note">
+<b>How (idle):</b> <b>Memory</b> — containers via <code>docker stats</code> (RSS); Armadillo server (host JVM) via <code>vmmap</code> physical footprint. <b>Install</b> — Docker image sizes. <b>Disk</b> — <code>du</code> per store.
+</div>
 
 <style scoped>
 .fp-tbl { border-collapse: collapse; width: 100%; margin-top: 0.9rem; }
@@ -107,6 +111,8 @@ section: Methods
 .fp-tbl th { font-family: var(--font-subtitle); color: var(--slidev-theme-primary); border-bottom: 2px solid var(--slidev-theme-primary); }
 .fp-tbl code { font-size: 12.5px; }
 .fp-tbl .sub { color: #8a94a6; font-size: 11px; font-weight: normal; }
+.fp-note { margin-top: 1rem; font-size: 12px; color: #667; line-height: 1.55; }
+.fp-note code { font-size: 11px; }
 </style>
 
 ---
@@ -116,47 +122,63 @@ subheading: Where the time goes
 section: Methods
 ---
 
-The client-observed time of any DataSHIELD call is a stack of layers:
+<div class="lead">The client-observed <b style="color:#6A4C93">round-trip</b> of a call is a stack of layers:</div>
 
-<TimeBar :clicks="$clicks" :segments="[
-  { label: 'Network', desc: 'round-trips on the wire', color: '#1E3A5F', flex: 2.4 },
-  { label: 'System overhead', desc: 'serialise · protocol · dispatch · auth', color: '#0097A7', flex: 1.5 },
-  { label: 'Server compute', desc: 'the function runs in R', color: '#E6B96A', textColor: '#5c4410', flex: 1.1 },
-]" caption="═══ round-trip time ═══" :start-empty="true" />
+<div class="ld" :class="{ shown: $clicks >= 5 }">
+  <div class="ld-bar">
+    <div class="seg" :class="{ on: $clicks >= 1 }" style="flex:2.4;--c:#1E3A5F"><b>Network</b><small>round-trips on the wire</small></div>
+    <div class="seg" :class="{ on: $clicks >= 2 }" style="flex:1.5;--c:#0097A7"><b>System overhead</b><small>serialise · protocol · dispatch · auth</small></div>
+    <div class="seg" :class="{ on: $clicks >= 3 }" style="flex:1.1;--c:#E6B96A;--tc:#5c4410"><b>Server compute</b><small>the function runs in R</small></div>
+    <div class="seg" :class="{ on: $clicks >= 4 }" style="flex:1.0;--c:#6A4C93"><b>Polling delay</b><small>client waits between async status checks</small></div>
+  </div>
+  <div class="ld-cap" :class="{ hide: $clicks >= 5 }">═══ round-trip time ═══</div>
 
-<span v-for="i in 3" :key="i" v-click style="display:none" />
-
----
-layout: content
-heading: Performance
-subheading: 'What was measured and how'
-section: Methods
----
-
-<div class="ms-grid">
-  <div class="hd">Quantity</div>
-  <div class="hd">Measured as</div>
-
-  <div v-click="1" class="cell"><b style="color:#6A4C93">Remote round-trip</b></div>
-  <div v-click="1" class="cell">ms — latency of one call</div>
-
-  <div v-click="2" class="cell">— <b style="color:#B9852A">Compute</b></div>
-  <div v-click="2" class="cell">server clock (command end − start)</div>
-
-  <div v-click="3" class="cell">— <b style="color:#0097A7">Overhead</b></div>
-  <div v-click="3" class="cell"><span style="color:#9B7EBD">localhost round-trip</span> − <span style="color:#B9852A">compute</span></div>
-
-  <div v-click="4" class="cell">— <b style="color:#1E3A5F">Network</b></div>
-  <div v-click="4" class="cell"><span style="color:#6A4C93">remote round-trip</span> − <span style="color:#B9852A">compute</span> − <span style="color:#0097A7">overhead</span></div>
+  <div class="ld-cards">
+    <div class="mcard">
+      <div class="ml" style="border-color:#E6B96A"><div class="mname" style="color:#B9852A">Server compute</div><div class="mdesc">the function runs in R</div></div>
+      <div class="mr">server clock — <b>command end − start</b></div>
+    </div>
+    <div class="mcard">
+      <div class="ml" style="border-color:#0097A7"><div class="mname" style="color:#0097A7">System overhead</div><div class="mdesc">serialise · protocol · dispatch · auth</div></div>
+      <div class="mr"><span style="color:#9B7EBD">localhost round-trip</span> − <span style="color:#B9852A">compute</span></div>
+    </div>
+    <div class="mcard">
+      <div class="ml" style="border-color:#1E3A5F"><div class="mname" style="color:#1E3A5F">Network</div><div class="mdesc">round-trips on the wire</div></div>
+      <div class="mr"><span style="color:#6A4C93">remote round-trip</span> − <span style="color:#B9852A">compute</span> − <span style="color:#0097A7">overhead</span></div>
+    </div>
+    <div class="mcard">
+      <div class="ml" style="border-color:#6A4C93"><div class="mname" style="color:#6A4C93">Polling delay</div><div class="mdesc">client waits between async status checks</div></div>
+      <div class="mr">DSI poll-sleep <b>fixed at 2 ms (0.002 s)</b> — kept tiny so it doesn't distort results</div>
+    </div>
+  </div>
 </div>
 
-<div class="ms-note">Median of <b>25 reps</b> (5 shuffled passes × 5), backends <b>interleaved</b> · poll fixed at <b>2 ms</b> · one 10,000-row frame</div>
+<span v-for="i in 5" :key="i" v-click style="display:none" />
 
 <style scoped>
-.ms-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.4rem 1.5rem; margin: 0.8rem 0 0.7rem; max-width: 48rem; }
-.ms-grid .hd { font-family: var(--font-subtitle); font-weight: 600; color: var(--slidev-theme-primary); border-bottom: 2px solid var(--slidev-theme-primary); padding-bottom: 0.3rem; }
-.ms-grid .cell { border-bottom: 1px solid #e3e8f2; padding: 0.3rem 0; font-size: 15px; }
-.ms-note { font-size: 12.5px; color: #667; margin-top: 0.2rem; }
+.lead { font-size: 15px; color: #445; margin: 0.2rem 0 0; }
+.lead .hint { color: #9aa4b0; font-style: italic; }
+.ld { margin-top: 0.7rem; }
+.ld-bar { display: flex; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.13); background: #eef1f6; max-height: 8rem; opacity: 1; transition: max-height 0.45s ease, opacity 0.3s ease; }
+.ld.shown .ld-bar { max-height: 0; opacity: 0; box-shadow: none; }
+.seg { min-width: 0; padding: 1rem 0.85rem; text-align: center; display: flex; flex-direction: column; gap: 0.28rem; background: transparent; color: transparent; transition: background 0.4s ease, color 0.4s ease; }
+.seg.on { background: var(--c); color: var(--tc, #fff); }
+.seg b { font-family: var(--font-subtitle); font-size: 1rem; line-height: 1.2; }
+.seg small { font-size: 0.8rem; line-height: 1.25; }
+.ld-cap { text-align: center; color: #6A4C93; font-family: var(--font-subtitle); font-size: 0.9rem; letter-spacing: 0.04em; margin-top: 0.6rem; max-height: 2rem; opacity: 1; overflow: hidden; transition: opacity 0.3s ease, max-height 0.4s ease, margin 0.4s ease; }
+.ld-cap.hide { opacity: 0; max-height: 0; margin-top: 0; }
+.ld-cards { display: flex; flex-direction: column; gap: 0.45rem; max-width: 54rem; max-height: 0; overflow: hidden; transition: max-height 0.55s ease; }
+.ld.shown .ld-cards { max-height: 40rem; }
+.mcard { display: flex; align-items: stretch; border: 1px solid #e3e8f2; border-radius: 8px; overflow: hidden; background: #fff; opacity: 0; transform: translateY(14px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.ld.shown .mcard { opacity: 1; transform: none; }
+.ld.shown .mcard:nth-child(1) { transition-delay: 0.15s; }
+.ld.shown .mcard:nth-child(2) { transition-delay: 0.27s; }
+.ld.shown .mcard:nth-child(3) { transition-delay: 0.39s; }
+.ld.shown .mcard:nth-child(4) { transition-delay: 0.51s; }
+.ml { flex: 0 0 13.5rem; border-left: 6px solid; padding: 0.38rem 0.85rem; background: #fafbfe; }
+.mname { font-family: var(--font-subtitle); font-weight: 600; font-size: 13.5px; }
+.mdesc { font-size: 10.5px; color: #8a94a6; margin-top: 0.1rem; }
+.mr { flex: 1; display: flex; align-items: center; padding: 0.38rem 0.9rem; font-size: 13px; color: #556; }
 </style>
 
 ---
@@ -174,7 +196,7 @@ Speed was benchmarked using the following common functions:
 <tr><td><b>Transform &amp; recode</b></td><td>11</td><td><code>asFactorDS1</code> · <code>asFactorDS2</code> · <code>asIntegerDS</code> · <code>asCharacterDS</code> · <code>asDataMatrixDS</code> · <code>BooleDS</code> · <code>recodeValuesDS</code> · <code>recodeLevelsDS</code> · <code>changeRefGroupDS</code> · <code>repDS</code> · <code>replaceNaDS</code></td></tr>
 <tr><td><b>Data-frame manipulation</b></td><td>6</td><td><code>dataFrameDS</code> · <code>dataFrameSubsetDS1</code> · <code>dataFrameSubsetDS2</code> · <code>cbindDS</code> · <code>mergeDS</code> · <code>reShapeDS</code></td></tr>
 <tr><td><b>Modelling</b></td><td>5</td><td><code>glmDS1</code> · <code>glmDS2</code> · <code>glmSLMADS1</code> · <code>glmSLMADS.assign</code> · <code>lmerSLMADS2</code></td></tr>
-<tr><td><b>Session &amp; I/O</b></td><td>9</td><td><code>rmDS</code> · <code>login</code> · <code>workspace_save</code> · <code>workspace_load</code> · <code>assign.table</code> · <code>tables</code> · <code>profiles</code> · <code>workspaces</code> · <code>pkg_status</code></td></tr>
+<tr><td><b>DSI</b></td><td>9</td><td><code>rmDS</code> · <code>login</code> · <code>workspace_save</code> · <code>workspace_load</code> · <code>assign.table</code> · <code>tables</code> · <code>profiles</code> · <code>workspaces</code> · <code>pkg_status</code></td></tr>
 </tbody>
 </table>
 
@@ -186,6 +208,53 @@ Speed was benchmarked using the following common functions:
 </style>
 
 ---
+layout: content
+heading: Performance
+subheading: Repeats & shuffling
+section: Methods
+---
+
+Each call is timed over <b>5 shuffled passes</b> — every pass re-randomises the call order, then repeats each call <b>5 times</b>:
+
+<div v-click class="passes">
+  <div class="pcard">
+    <div class="ph">Pass 1</div>
+    <div class="ord"><span style="background:#E6B96A"></span><span style="background:#4285F4"></span><span style="background:#1E3A5F"></span><span style="background:#0097A7"></span><span style="background:#6A4C93"></span></div>
+    <div class="pr">×5 reps</div>
+  </div>
+  <div class="pcard">
+    <div class="ph">Pass 2</div>
+    <div class="ord"><span style="background:#4285F4"></span><span style="background:#6A4C93"></span><span style="background:#0097A7"></span><span style="background:#1E3A5F"></span><span style="background:#E6B96A"></span></div>
+    <div class="pr">×5 reps</div>
+  </div>
+  <div class="pcard">
+    <div class="ph">Pass 3</div>
+    <div class="ord"><span style="background:#0097A7"></span><span style="background:#1E3A5F"></span><span style="background:#E6B96A"></span><span style="background:#6A4C93"></span><span style="background:#4285F4"></span></div>
+    <div class="pr">×5 reps</div>
+  </div>
+  <div class="pcard">
+    <div class="ph">Pass 4</div>
+    <div class="ord"><span style="background:#6A4C93"></span><span style="background:#E6B96A"></span><span style="background:#4285F4"></span><span style="background:#1E3A5F"></span><span style="background:#0097A7"></span></div>
+    <div class="pr">×5 reps</div>
+  </div>
+  <div class="pcard">
+    <div class="ph">Pass 5</div>
+    <div class="ord"><span style="background:#1E3A5F"></span><span style="background:#0097A7"></span><span style="background:#6A4C93"></span><span style="background:#E6B96A"></span><span style="background:#4285F4"></span></div>
+    <div class="pr">×5 reps</div>
+  </div>
+</div>
+
+<style scoped>
+.passes { display: flex; gap: 1rem; justify-content: center; margin: 1.4rem 0 0.6rem; }
+.pcard { flex: 1; max-width: 8.5rem; border: 1px solid #dce3ef; border-radius: 10px; padding: 0.8rem 0.7rem; display: flex; flex-direction: column; align-items: center; gap: 0.7rem; background: #fafbfe; }
+.ph { font-family: var(--font-subtitle); font-weight: 600; color: var(--slidev-theme-primary); font-size: 14px; }
+.ord { display: flex; flex-direction: column; gap: 0.34rem; width: 100%; }
+.ord span { display: block; height: 14px; border-radius: 4px; }
+.pr { font-family: var(--font-subtitle); font-size: 12.5px; color: #8a94a6; }
+.pleg { text-align: center; font-size: 11.5px; color: #9aa4b0; margin-top: 0.5rem; font-family: var(--font-subtitle); }
+</style>
+
+---
 layout: section
 ---
 
@@ -194,38 +263,66 @@ layout: section
 
 ---
 layout: content
-heading: 1. Overall performance
+heading: Footprint
 section: Results
+subheading: Memory and disk space
 ---
 
-<img src="./public/total.png" class="plot" />
-
-<div class="cap">Median × faster than Opal per family; above the dashed line = Armadillo faster · IQR whiskers. <b>②</b> shows why.</div>
-
-<style scoped>
-.plot { max-height: 46vh; max-width: 100%; display: block; margin: 0.2rem auto 0; }
-.cap { text-align: center; color: #777; font-size: 12px; margin-top: 0.3rem; }
-</style>
+<div class="fit">
+  <div class="res-figs">
+    <img v-click src="./public/res_memory.png" />
+    <img v-click src="./public/res_storage.png" />
+  </div>
+</div>
 
 ---
 layout: content
-heading: "1b. Session & I/O"
-subheading: "Mixed: big wins, two sharp losses"
+heading: Speed
+subheading: Armadillo speed vs Opal
 section: Results
 ---
 
-<img src="./public/session_dsi.png" class="plot" />
+<div class="corner-note">
+  <div class="leg">
+    <span><span class="k" style="background:#4285F4"></span>Armadillo-Rock</span>
+    <span><span class="k" style="background:#0097A7"></span>Armadillo-Rserve</span>
+  </div>
+  <div class="formula">Opal round-trip ÷ Armadillo round-trip · log₂ scale</div>
+</div>
 
-<div class="cap">Fold-change vs Opal (0 = parity; right = Armadillo faster, left = slower), IQR whiskers. Locally Armadillo is much faster on most session ops (<code>assign.table</code> ~7×, <code>workspace_save</code> ~4×) but far slower on <code>login</code> and <code>workspace_load</code> (cold session / container spawn). Remotely the wins compress toward parity while those two stay slow — the targets of Conclusion #5.</div>
-
-<style scoped>
-.plot { max-height: 50vh; max-width: 100%; display: block; margin: 0.3rem auto 0; }
-.cap { text-align: center; color: #777; font-size: 12px; margin-top: 0.4rem; }
-</style>
+<div class="fit">
+  <div class="res-figs left">
+    <img v-click src="./public/total_local.png" />
+    <img v-click src="./public/total_remote.png" />
+  </div>
+</div>
 
 ---
 layout: content
-heading: 2. Decomposing the latency
+heading: Speed
+subheading: DSI variance
+section: Results
+---
+
+<div class="corner-note">
+  <div class="leg">
+    <span><span class="k" style="background:#4285F4"></span>Armadillo-Rock</span>
+    <span><span class="k" style="background:#0097A7"></span>Armadillo-Rserve</span>
+  </div>
+  <div class="formula">Opal round-trip ÷ Armadillo round-trip · log₂ scale</div>
+</div>
+
+<div class="fit">
+  <div class="res-figs left">
+    <img v-click src="./public/session_local.png" />
+    <img v-click src="./public/session_remote.png" />
+  </div>
+</div>
+
+---
+layout: content
+heading: Speed
+subheading: Where is Armadillo faster?
 section: Results
 ---
 
@@ -239,25 +336,6 @@ section: Results
 
 <style scoped>
 .cap { text-align: center; color: #888; font-size: 12px; margin-top: 1.2rem; }
-</style>
-
----
-layout: content
-heading: 3. Deployment footprint
-section: Results
----
-
-<div class="res-figs">
-  <img src="./public/res_memory.png" />
-  <img src="./public/res_storage.png" />
-</div>
-
-<div class="cap">Idle, 2-core/8 GB. <b>Memory</b>: Opal ~2.6 GiB vs Armadillo ~0.9 GiB (~3× lighter — no Mongo, leaner server). <b>Disk</b>: CNSIM 10k stored ~11× smaller as Parquet than as Mongo BSON. Install: both need the ~5.6 GB R-engine image; Opal adds ~2 GB (server + Mongo).</div>
-
-<style scoped>
-.res-figs { display: flex; gap: 1.2rem; justify-content: center; align-items: center; margin-top: 0.4rem; }
-.res-figs img { max-height: 44vh; max-width: 49%; }
-.cap { text-align: center; color: #777; font-size: 12px; margin-top: 0.4rem; line-height: 1.5; }
 </style>
 
 ---
@@ -276,12 +354,11 @@ section: Conclusions
 <v-clicks>
 
 - **Armadillo is faster than Opal** — locally **~3–4×** ; remotely **~1.2×**
-- **Rserve is faster than Rock** — notably so **locally**
-- **Deployment is dominated by network latency** (~220 ms, shared) — so Armadillo's comparative advantage **diminishes** when deployed
-- **Rserve probably isn't worth persevering with** — its advantage is minimal once deployed.
-- **We should improve the few operations where Armadillo did worse** — `login` and `workspace_load` (cold session / container spawn)
-- **Armadillo's leaner stack is a real deployment win** — ~3× less resting memory and ~11× smaller on disk
-
+- **Rserve is faster than Rock** — notably so locally
+- Deployment is dominated by **network latency** (~220 ms, shared) — so Armadillo's comparative advantage diminishes when deployed
+- **Rserve** probably isn't worth persevering with — its advantage is minimal once deployed.
+- We should **improve the few operations where Armadillo did worse** — `login` and `workspace_load`
+- We can confidently say that Armadillo is **quicker and more light-weight**
 </v-clicks>
 
 ---
@@ -293,14 +370,7 @@ section: Conclusions
 
 <v-clicks>
 
-**Anything else worth measuring?**
-
-- **Concurrency / capacity** — memory per active session, and how many concurrent sessions before a bigger VM is needed (Rock spawns a process per session; Rserve pools)
-- **Peak memory & CPU under load** — headroom, and whether the R engines saturate their cores
-- **Cold-start / warm-up** — first-call latency after a fresh start
-
-**Other**
-
-- Do we want to put these figures on the **website**?
+- Anything else worth measuring?
+- Do we want to put these figures in the docs/website?
 
 </v-clicks>

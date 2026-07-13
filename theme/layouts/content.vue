@@ -22,8 +22,8 @@ const sections = configs.themeConfig?.sections || ['Background', 'Methods', 'Res
 
 <template>
   <div class="slidev-layout content-layout">
-    <div class="slide-header">
-      <h1>{{ heading }}</h1>
+    <div v-if="heading || subheading" class="slide-header">
+      <h1 v-if="heading">{{ heading }}</h1>
       <h2 v-if="subheading">{{ subheading }}</h2>
     </div>
     <div class="slide-body">
