@@ -50,7 +50,7 @@ section: Background
 <ProcessCards size="lg" direction="column" :clicks="$clicks" :groups="[
   { steps: [
     { title: 'Footprint', desc: 'Resting memory and on-disk storage efficiency' },
-    { title: 'Speed', desc: 'How fast Armadillo (Rock, Rserve) and Opal are when deployed' },
+    { title: 'Speed', desc: 'How fast Armadillo (Rock) and Opal are when deployed' },
   ] }
 ]" />
 
@@ -72,8 +72,8 @@ section: Methods
 <table class="srv-tbl">
 <thead><tr><th>Server</th><th>R engine</th><th>Host</th><th>Version</th><th>Spec</th></tr></thead>
 <tbody>
-<tr v-click="1"><td><b>Armadillo</b></td><td>Rock, Rserve</td><td>armadillo-demo.molgenis.net</td><td>5.12.2</td><td>2 vCPU · 8 GiB</td></tr>
-<tr v-click="1"><td><b>Armadillo</b></td><td>Rock, Rserve</td><td>localhost</td><td>5.14.0-SNAPSHOT</td><td>2 vCPU · 8 GiB</td></tr>
+<tr v-click="1"><td><b>Armadillo</b></td><td>Rock</td><td>armadillo-demo.molgenis.net</td><td>5.12.2</td><td>2 vCPU · 8 GiB</td></tr>
+<tr v-click="1"><td><b>Armadillo</b></td><td>Rock</td><td>localhost</td><td>5.14.0-SNAPSHOT</td><td>2 vCPU · 8 GiB</td></tr>
 <tr v-click="2"><td><b>Opal</b></td><td>Rock</td><td>opal.molgeniscloud.org</td><td>5.7.2</td><td>2 vCPU · 8 GiB</td></tr>
 <tr v-click="2"><td><b>Opal</b></td><td>Rock</td><td>localhost</td><td>5.7.1</td><td>2 vCPU · 8 GiB</td></tr>
 </tbody>
@@ -98,7 +98,7 @@ section: Methods
 <table class="fp-tbl">
 <thead><tr><th>Metric</th><th>Armadillo</th><th>Opal</th></tr></thead>
 <tbody>
-<tr v-click><td><b>Resting memory</b></td><td>Armadillo + Rock or Rserve engine</td><td>Opal + MongoDB + Rock engine</td></tr>
+<tr v-click><td><b>Resting memory</b></td><td>Armadillo + Rock engine</td><td>Opal + MongoDB + Rock engine</td></tr>
 <tr v-click><td><b>Data on disk</b></td><td>Example 10,000-row data, stored as Parquet</td><td>Same data file, stored in MongoDB</td></tr>
 </tbody>
 </table>
@@ -292,8 +292,7 @@ section: Results
 
 <div class="corner-note">
   <div class="leg">
-    <span><span class="k" style="background:#4285F4"></span>Armadillo-Rock</span>
-    <span><span class="k" style="background:#0097A7"></span>Armadillo-Rserve</span>
+    <span><span class="k" style="background:#4285F4"></span>Armadillo</span>
   </div>
   <div class="formula">Opal round-trip ÷ Armadillo round-trip · log₂ scale</div>
 </div>
@@ -314,8 +313,7 @@ section: Results
 
 <div class="corner-note">
   <div class="leg">
-    <span><span class="k" style="background:#4285F4"></span>Armadillo-Rock</span>
-    <span><span class="k" style="background:#0097A7"></span>Armadillo-Rserve</span>
+    <span><span class="k" style="background:#4285F4"></span>Armadillo</span>
   </div>
   <div class="formula">Opal round-trip ÷ Armadillo round-trip · log₂ scale</div>
 </div>
@@ -337,7 +335,6 @@ section: Results
 <LatencyStack note="median total time (ms) per operation" :rows="[
   { backend: 'opal · remote', compute: 9.0, overhead: 72.3, network: 157.5 },
   { backend: 'armadillo-rock · remote', compute: 4.6, overhead: 21.4, network: 158.3 },
-  { backend: 'armadillo-rserve · remote', compute: 2.2, overhead: 16.6, network: 162.5 },
 ]"/>
 
 ---
@@ -355,10 +352,8 @@ section: Conclusions
 
 <v-clicks>
 
-- **Armadillo is faster than Opal** — locally **~3–4×** ; remotely **~1.2×**
-- **Rserve is faster than Rock** — notably so locally
+- **Armadillo is faster than Opal** — locally **~3×** ; remotely **~1.2×**
 - Deployment is dominated by **network latency** (~160 ms, shared) — so Armadillo's comparative advantage diminishes when deployed
-- **Rserve** probably isn't worth persevering with — its advantage is minimal once deployed.
 - We should **improve the few operations where Armadillo did worse** — `login` and `workspace_load`
 - We can confidently say that Armadillo is **quicker and more light-weight**
 </v-clicks>
