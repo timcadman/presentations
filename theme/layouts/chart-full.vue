@@ -28,7 +28,8 @@ const base = import.meta.env.BASE_URL
   display: flex;
   flex-direction: column;
   /* compact padding so the chart gets the vertical space */
-  padding: 2.5rem 3.5rem 1.25rem 3.5rem;
+  /* bottom padding clears the logo (~2.75rem) so content never overlaps it */
+  padding: 2.5rem 3.5rem 3rem 3.5rem;
   height: 100%;
 }
 

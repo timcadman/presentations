@@ -8,7 +8,7 @@ slidev_png_dir (optional): folder of rendered Slidev PNGs (1.png..N.png), used a
 whole-slide fallback for slides that can't be made editable (bespoke Vue diagrams).
 Produce it with:  npx slidev export slides.md --format png --output <dir>
 """
-import os, re, sys
+import html, os, re, sys
 from build_deck import DeckBuilder
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -64,7 +64,9 @@ def clean_inline(t):
     t = re.sub(r'<br\s*/?>', ' ', t)                 # line breaks -> space
     t = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', t)   # [text](url) -> text
     t = re.sub(r'\*\*?(.*?)\*\*?', r'\1', t)         # **bold** / *em* -> text
-    t = re.sub(r'<.*?>', '', t)                      # any stray tags
+    t = t.replace('`', '')                           # `code` -> text (no literal backticks)
+    t = re.sub(r'<.*?>', ' ', t)                     # any stray tags -> space (keep word gaps)
+    t = html.unescape(t)                             # &amp; &ensp; &nbsp; -> chars
     t = re.sub(r'\s+', ' ', t)
     return t.strip()
 
@@ -82,6 +84,34 @@ def md_bullets(body):
 def html_bullets(body):
     return [clean_inline(p) for p in re.findall(r'<p[^>]*>(.*?)</p>', body, re.S)
             if clean_inline(p)]
+
+
+def prose_lines(body):
+    """Bare markdown paragraph lines (not bullets/tags/directives) -> bullet items.
+    Fallback for content slides whose text isn't in `-` bullets or <p> tags."""
+    out = []
+    for line in body.splitlines():
+        s = line.strip()
+        if not s or s[0] in '<#-*:' or s.startswith('---'):
+            continue
+        c = clean_inline(s)
+        if c:
+            out.append(c)
+    return out
+
+
+def html_table_rows(body):
+    """Parse the first <table>'s <tr><th|td> cells into a list of row lists.
+    Header (<thead>) comes first; inline tags / v-click attrs are stripped."""
+    m = re.search(r'<table[^>]*>(.*?)</table>', body, re.S)
+    if not m:
+        return []
+    rows = []
+    for tr in re.findall(r'<tr[^>]*>(.*?)</tr>', m.group(1), re.S):
+        cells = [clean_inline(c) for c in re.findall(r'<t[hd][^>]*>(.*?)</t[hd]>', tr, re.S)]
+        if cells:
+            rows.append(cells)
+    return rows
 
 
 def resolve(src, base):
@@ -122,9 +152,58 @@ def to_spec(fm, body, idx, base, png_dir):
 
     heading, subheading = fm.get("heading", ""), fm.get("subheading", "")
     layout = fm.get("layout", "content")
+    body = re.sub(r'<style[^>]*>.*?</style>', '', body, flags=re.S)  # drop scoped CSS
 
     def png():  # whole-slide fallback image for this slide
         return os.path.join(png_dir, f"{idx + 1}.png") if png_dir else None
+
+    # ---- section divider (body is just `# Heading`): lift the H1 into the title ----
+    if layout == "section":
+        h = re.search(r'^#\s+(.*)', body, re.M)
+        return {"type": "bullets", "heading": clean_inline(h.group(1)) if h else heading,
+                "subheading": subheading, "bullets": []}
+
+    # ---- ProcessCards component -> info cards (must precede the bespoke branch) ----
+    m = re.search(r'<ProcessCards\b(.*?)/?>', body, re.S)
+    if m:
+        steps = re.findall(r"\{\s*title:\s*'([^']*)'\s*,\s*desc:\s*'([^']*)'", m.group(1))
+        return {"type": "cards", "heading": heading, "subheading": subheading,
+                "cards": [(clean_inline(t), clean_inline(d)) for t, d in steps],
+                "columns": len(steps) or 2}
+
+    # ---- LatencyStack (bespoke) -> a titled single figure (pre-rendered PNG) ----
+    if re.search(r'<LatencyStack\b', body):
+        return {"type": "figure", "heading": heading, "subheading": subheading,
+                "image": resolve("./public/latency.png", base)}
+
+    # ---- "Where the time goes" measurement cards (.mcard: name / desc / formula) ----
+    if "mcard" in body:
+        names = re.findall(r'class="mname"[^>]*>(.*?)</div>', body, re.S)
+        descs = re.findall(r'class="mdesc"[^>]*>(.*?)</div>', body, re.S)
+        cards = []
+        for i, chunk in enumerate(body.split('<div class="mcard">')[1:]):
+            mr = clean_inline(chunk.split('class="mr">', 1)[1]) if 'class="mr">' in chunk else ""
+            name = clean_inline(names[i]) if i < len(names) else ""
+            desc = clean_inline(descs[i]) if i < len(descs) else ""
+            cards.append((name, " — ".join(x for x in (desc, mr) if x)))
+        return {"type": "cards", "heading": heading, "subheading": subheading,
+                "cards": cards, "columns": 2}
+
+    # ---- HTML <table> (server/footprint/function tables) -> editable table ----
+    if "<table" in body:
+        return {"type": "table", "heading": heading, "subheading": subheading,
+                "rows": html_table_rows(body)}
+
+    # ---- figure slide: 1-2 chart PNGs in .res-figs/.fit, no <p> bullets ----
+    if ("res-figs" in body or 'class="fit"' in body) and not html_bullets(body):
+        figs = [resolve(s, base) for s in re.findall(r'<img[^>]*src="([^"]+)"', body)
+                if "logo" not in s]
+        if len(figs) >= 2:
+            return {"type": "two_images", "heading": heading, "subheading": subheading,
+                    "images": figs[:2]}
+        if figs:
+            return {"type": "figure", "heading": heading, "subheading": subheading,
+                    "image": figs[0]}
 
     # ---- team slide: avatar grid + group photo are bespoke -> whole-slide image ----
     if "team-rows" in body or "team-grid" in body:
@@ -199,7 +278,8 @@ def to_spec(fm, body, idx, base, png_dir):
                 "bullets": pbul, "image": resolve(imgs[0], base)}
 
     # ---- plain bullets (also handles bullets nested in a styling <div>) ----
-    return {"type": "bullets", "heading": heading, "subheading": subheading, "bullets": md_bullets(body)}
+    bul = md_bullets(body) or prose_lines(body)
+    return {"type": "bullets", "heading": heading, "subheading": subheading, "bullets": bul}
 
 
 def convert(md_path, out_path, png_dir=None):

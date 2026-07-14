@@ -53,6 +53,17 @@ ul ul {
   margin-top: 0.3rem;
 }
 
+/* Ordered lists */
+ol {
+  list-style-type: decimal;
+  padding-left: 1.75rem;
+}
+
+ol li {
+  margin-bottom: 0.4rem;
+  font-size: 18px;
+}
+
 /* Links */
 a {
   color: var(--slidev-theme-accent);
@@ -66,4 +77,69 @@ a:hover {
 /* Bold text */
 strong {
   font-weight: 700;
+}
+
+/* Tables — house style: theme-blue header rule, light row dividers */
+.slidev-layout table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.5rem 0;
+  font-size: 15.5px;
+}
+.slidev-layout thead th {
+  font-family: var(--font-subtitle);
+  font-weight: 600;
+  text-align: left;
+  color: var(--slidev-theme-primary);
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--slidev-theme-primary);
+}
+.slidev-layout tbody td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #e3e8f2;
+}
+.slidev-layout tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Auto-fit figure helpers — content that NEVER clips and never overlaps the
+   header (top) or logo (bottom).
+   A Slidev slide is a fixed canvas: NEVER size figures with `vh` (vh = the
+   browser viewport, not the slide, so it overflows the overflow:hidden body and
+   the bottom axis gets cut). Instead fill the body with flex and cap images at
+   100% of the leftover height. The content layout already reserves the header
+   and clears the logo, so anything inside `.fit` stays between them.
+
+   Single figure:   <img class="plot" src=… />
+   Figure pair:     <div class="fit">
+                      <div class="leg">…legend…</div>   (optional, fixed height)
+                      <div class="res-figs">…imgs…</div>   (add `left` to left-align)
+                    </div>
+--------------------------------------------------------------------------- */
+.slidev-layout .fit { height: 100%; min-height: 0; display: flex; flex-direction: column; }
+.slidev-layout .plot { max-height: 100%; max-width: 100%; margin: auto; display: block; }
+.slidev-layout .res-figs {
+  flex: 1 1 auto; min-height: 0;               /* take the leftover body height */
+  display: flex; gap: 1.5rem; align-items: center;
+  justify-content: flex-start;                 /* left-aligned + adjacent on every slide */
+}
+.slidev-layout .res-figs.center { justify-content: center; }    /* opt-in centring */
+.slidev-layout .res-figs img { max-height: 100%; max-width: 49%; }   /* fits its half + row */
+/* Legend + ratio note tucked into the top-right, level with the heading, so the
+   figures get the full body. */
+.slidev-layout .corner-note {
+  position: absolute; top: 9.4rem; right: 5rem; z-index: 5;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem;
+}
+.slidev-layout .leg {
+  display: flex; align-items: center; gap: 1.3rem;
+  font-family: var(--font-subtitle); font-size: 11px; color: #556;
+}
+.slidev-layout .leg .k {
+  display: inline-block; width: 12px; height: 12px; border-radius: 3px;
+  vertical-align: middle; margin-right: 0.35rem;
+}
+.slidev-layout .formula {
+  font-family: var(--font-subtitle); font-size: 10px; color: #778; text-align: right;
 }
