@@ -37,3 +37,17 @@ maths, and the LatencyStack:
 | Server compute | `#E6B96A` (text `#B9852A`) |
 | System overhead | `#0097A7` |
 | Network | `#1E3A5F` |
+
+## Ordinal-level semantics (low/medium/high — stage-webinar)
+
+For any 3-level ordinal scale (e.g. exposure level, risk, severity), reuse
+this low→high progression rather than introducing new hues:
+
+| Level | Hex | Name |
+|---|---|---|
+| Low | `#0097A7` | Teal |
+| Medium | `#E6B96A` | Gold |
+| High | `#D9534F` | Red |
+
+Used for the fitted exposure/cognitive-decline trajectory curves in
+`stage-webinar`.
