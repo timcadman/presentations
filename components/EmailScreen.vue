@@ -39,7 +39,7 @@ const { next } = useNav()
     <div class="em-body">
       <p>Dear data manager,</p>
       <p>
-        Morris Swertz has been approved access via the Data Access Committee for
+        A. Researcher has been approved access via the Data Access Committee for
         <strong>OncoLifeS</strong>, for a study entitled &ldquo;Predicting chemotherapy
         completion from baseline quality of life&rdquo;.
       </p>

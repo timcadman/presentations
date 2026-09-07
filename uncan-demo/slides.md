@@ -60,14 +60,14 @@ layout: default
 class: p-0
 ---
 
-<video src="/login.mov" muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
+<video src="/login.mov" controls muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
 
 ---
 layout: default
 class: p-0
 ---
 
-<video src="/project.mov" muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
+<video src="/project.mov" controls muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
 
 ---
 layout: content
@@ -76,7 +76,7 @@ subheading: Inbox
 ---
 
 <EmailScreen
-  link="http://localhost:8081/#/r/project-1/morris.swertz@umcg.nl/dW5jYW4tY29ubmVjdC9kYXRhL2NvcmUucGFycXVldHxxbDJfYmFzZWxpbmUsY2hlbW9fbW9kaWZpY2F0aW9uX3JlYXNvbixhZ2VfYXRfZGlhZ25vc2lzLGZpZ29fc3RhZ2UsY2hhcmxzb25fc2NvcmU="
+  link="http://localhost:8081/#/r/project-1/a.researcher@umcg.nl/dW5jYW4tY29ubmVjdC9kYXRhL2NvcmUucGFycXVldHxxbDJfYmFzZWxpbmUsY2hlbW9fbW9kaWZpY2F0aW9uX3JlYXNvbixhZ2VfYXRfZGlhZ25vc2lzLGZpZ29fc3RhZ2UsY2hhcmxzb25fc2NvcmU="
 />
 
 ---
@@ -84,7 +84,7 @@ layout: default
 class: p-0
 ---
 
-<video src="/approve.mov" autoplay muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
+<video src="/approve.mov" autoplay controls muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
 
 ---
 layout: section
