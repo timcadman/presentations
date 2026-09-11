@@ -7,7 +7,7 @@
     <div v-click="2" class="step dm" style="grid-column: 1; grid-row: 4;">Review &amp; whitelist app</div>
     <div v-click="3" class="step res" style="grid-column: 1; grid-row: 6;">Fetch access token &amp; run app</div>
     <div v-click="4" class="step res" style="grid-column: 1; grid-row: 8;">Push data into container</div>
-    <div v-click="5" class="step dm" style="grid-column: 1; grid-row: 10;">Data manager tools</div>
+    <div v-click="5" class="step res" style="grid-column: 1; grid-row: 10;">Researcher tools</div>
     <div v-click="6" class="step res" style="grid-column: 1; grid-row: 12;">Differential privacy</div>
     <div v-click="7" class="step dm" style="grid-column: 1; grid-row: 14;">Documentation</div>
     <div v-click="8" class="step dm" style="grid-column: 1; grid-row: 16;">End-to-end release test</div>
@@ -38,19 +38,19 @@
     </div>
 
     <div v-click="1" class="pr-stack" style="grid-column: 3; grid-row: 2;">
-      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/985" target="_blank"><span class="pr-title">PR #985 — Flower container classes &amp; Docker service integration <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">molgenis-service-armadillo</span></a>
+      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/985" target="_blank">PR #985 — Flower container classes &amp; Docker service integration<span class="pr-src">molgenis-service-armadillo</span></a>
       <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/tree/feat/%232053-ui-for-containers" target="_blank">feat #2053 — container UI<span class="pr-src">feat/#2053-ui-for-containers, molgenis-service-armadillo</span></a>
     </div>
     <div v-click="2" class="pr-stack" style="grid-column: 3; grid-row: 4;">
-      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/1066" target="_blank"><span class="pr-title">PR #1066 — whitelist config &amp; endpoint <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">molgenis-service-armadillo</span></a>
-      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/12" target="_blank">PR #12 — approve-app CLI (download, review, whitelist)<span class="pr-src">molgenis-flwr-armadillo</span></a>
+      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/1066" target="_blank">PR #1066 — whitelist config &amp; endpoint<span class="pr-src">molgenis-service-armadillo</span></a>
+      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/12" target="_blank">PR #12 — review-app &amp; approve-app CLIs<span class="pr-src">molgenis-flwr-armadillo</span></a>
       <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/11" target="_blank">PR #11 — custom superexec image to check app against whitelist<span class="pr-src">molgenis-flwr-armadillo</span></a>
     </div>
     <div v-click="3" class="pr-stack" style="grid-column: 3; grid-row: 6;">
       <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/5" target="_blank">PR #5 — Python auth CLI &amp; token routing<span class="pr-src">molgenis-flwr-armadillo</span></a>
     </div>
     <div v-click="4" class="pr-stack" style="grid-column: 3; grid-row: 8;">
-      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/986" target="_blank"><span class="pr-title">PR #986 — Flower push-data-to-container endpoint <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">molgenis-service-armadillo</span></a>
+      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/986" target="_blank">PR #986 — Flower push-data-to-container endpoint<span class="pr-src">molgenis-service-armadillo</span></a>
       <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/10" target="_blank">PR #10 — app load data helper<span class="pr-src">molgenis-flwr-armadillo</span></a>
     </div>
     <div v-click="5" class="pr-stack" style="grid-column: 3; grid-row: 10;">
@@ -64,7 +64,7 @@
       <div class="pr-box py pending">Python docs<span class="pr-src">molgenis-flwr-armadillo (to be done)</span></div>
     </div>
     <div v-click="8" class="pr-stack" style="grid-column: 3; grid-row: 16;">
-      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/tree/test/fab-whitelist-staging" target="_blank">Release test branch<span class="pr-src">test/fab-whitelist-staging, molgenis-flwr-armadillo</span></a>
+      <div class="pr-box armadillo pending">Release test<span class="pr-src">molgenis-service-armadillo (in progress)</span></div>
       <div class="pr-box py pending">Python release<span class="pr-src">molgenis-flwr-armadillo (PR pending)</span></div>
     </div>
   </div>

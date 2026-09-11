@@ -29,7 +29,6 @@ heading: Armadillo and Flower proposed flow
 ---
 layout: content
 heading: Implementation
-subheading: Two lines of development
 ---
 
 <style>
@@ -48,29 +47,27 @@ subheading: Two lines of development
 <div class="impl-row">
   <div v-click="1" class="impl-card armadillo">
     <h3>molgenis-service-armadillo</h3>
-    <p>Java — the Armadillo server</p>
     <ul>
-      <li>Flower container classes &amp; Docker service integration</li>
+      <li>Flower container classes &amp; Docker integration</li>
       <li>Push-data-to-container endpoint</li>
       <li>Whitelist config &amp; endpoint</li>
       <li>Container UI</li>
     </ul>
   </div>
   <div v-click="2" class="impl-card py">
-    <h3>molgenis-flwr-armadillo</h3>
-    <p>Python — new package</p>
+    <h3>molgenis-flwr-armadillo (Python)</h3>
     <ul>
       <li>Auth CLI &amp; token routing</li>
       <li>App load data helper, API helpers &amp; resources CLI</li>
       <li>Custom superexec image with whitelist plugin</li>
-      <li>Approve-app CLI, example app</li>
+      <li>Review-app &amp; approve-app CLIs, example app</li>
     </ul>
   </div>
 </div>
 
 ---
 layout: chart-full
-heading: Implementation — steps to PRs
+heading: Implementation
 ---
 
 <StepsToPRs />
