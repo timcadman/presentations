@@ -5,33 +5,33 @@
 
     <div v-click="1" class="wave" style="grid-column: 1; grid-row: 2;">1</div>
     <div v-click="1" class="cell" style="grid-column: 2; grid-row: 2;">
-      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/tree/feat/%232053-ui-for-containers" target="_blank">feat #2053 — container UI<span class="pr-src">closed PR #933, 82 commits behind: revive first</span></a>
-      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/985" target="_blank">PR #985 — container classes &amp; Docker service<span class="pr-src">everything Armadillo-side stacks on this</span></a>
+      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/tree/feat/%232053-ui-for-containers" target="_blank">feat #2053 — container UI<span class="pr-src">closed PR #933, 187 commits behind #985: rebase onto it</span></a>
+      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/985" target="_blank"><span class="pr-title">PR #985 — container classes &amp; Docker service <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">everything Armadillo-side stacks on this</span></a>
     </div>
     <div v-click="1" class="cell" style="grid-column: 3; grid-row: 2;">
-      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/5" target="_blank">PR #5 — auth CLI &amp; token routing<span class="pr-src">everything else Python-side stacks on this</span></a>
+      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/5" target="_blank"><span class="pr-title">PR #5 — auth CLI &amp; token routing <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">everything else Python-side stacks on this</span></a>
+      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/11" target="_blank"><span class="pr-title">PR #11 — custom superexec image <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">needed to test #985; merges after #10</span></a>
     </div>
 
     <div v-click="2" class="wave" style="grid-column: 1; grid-row: 3;">2</div>
     <div v-click="2" class="cell" style="grid-column: 2; grid-row: 3;">
-      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/986" target="_blank">PR #986 — push-data endpoint<span class="pr-src">stacked on #985</span></a>
+      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/986" target="_blank"><span class="pr-title">PR #986 — push-data endpoint <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">stacked on #985</span></a>
     </div>
     <div v-click="2" class="cell" style="grid-column: 3; grid-row: 3;">
-      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/10" target="_blank">PR #10 — app load data helper<span class="pr-src">stacked on #5; client of #986</span></a>
+      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/10" target="_blank"><span class="pr-title">PR #10 — app load data helper <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">stacked on #5; client of #986</span></a>
     </div>
 
     <div v-click="3" class="wave" style="grid-column: 1; grid-row: 4;">3</div>
     <div v-click="3" class="cell" style="grid-column: 2; grid-row: 4;">
-      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/1066" target="_blank">PR #1066 — whitelist config &amp; endpoint<span class="pr-src">stacked on #986</span></a>
+      <a class="pr-box armadillo" href="https://github.com/molgenis/molgenis-service-armadillo/pull/1066" target="_blank"><span class="pr-title">PR #1066 — whitelist config &amp; endpoint <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">stacked on #986</span></a>
     </div>
     <div v-click="3" class="cell" style="grid-column: 3; grid-row: 4;">
-      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/11" target="_blank">PR #11 — custom superexec image<span class="pr-src">independent; enforces #1066's whitelist</span></a>
-      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/12" target="_blank">PR #12 — approve-app CLI<span class="pr-src">stacked on #5; client of #1066</span></a>
+      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/12" target="_blank"><span class="pr-title">PR #12 — review-app &amp; approve-app CLIs <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">stacked on #5; client of #1066</span></a>
     </div>
 
     <div v-click="4" class="wave" style="grid-column: 1; grid-row: 5;">4</div>
     <div v-click="4" class="cell" style="grid-column: 3; grid-row: 5;">
-      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/6" target="_blank">PR #6 — API helpers &amp; resources CLI<span class="pr-src">stacked on #5</span></a>
+      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/6" target="_blank"><span class="pr-title">PR #6 — API helpers &amp; resources CLI <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">stacked on #5</span></a>
     </div>
 
     <div v-click="5" class="wave" style="grid-column: 1; grid-row: 6;">then</div>
@@ -39,9 +39,13 @@
       <div class="pr-box armadillo pending">Armadillo docs<span class="pr-src">to be done</span></div>
     </div>
     <div v-click="5" class="cell" style="grid-column: 3; grid-row: 6;">
-      <a class="pr-box py pending" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/4" target="_blank">PR #4 — example app<span class="pr-src">rebased onto #10, imports the package</span></a>
+      <a class="pr-box py" href="https://github.com/molgenis/molgenis-flwr-armadillo/pull/4" target="_blank"><span class="pr-title">PR #4 — example app <span class="pr-ready" title="Ready for review">&#10003;</span></span><span class="pr-src">stacked on #10; on Flower Hub as 1.0.4</span></a>
       <a class="pr-box py pending" href="https://github.com/molgenis/molgenis-flwr-armadillo/tree/feat/dp" target="_blank">feat — DP wrappers<span class="pr-src">feat/dp, unfinished</span></a>
       <div class="pr-box py pending">Python docs<span class="pr-src">to be done</span></div>
+    </div>
+
+    <div class="legend" style="grid-column: 2 / -1; grid-row: 7;">
+      <span class="pr-ready">&#10003;</span> Ready for review
     </div>
   </div>
 </template>
@@ -50,7 +54,7 @@
 .order-grid {
   display: grid;
   grid-template-columns: 3rem 1fr 1fr;
-  grid-template-rows: auto repeat(5, auto);
+  grid-template-rows: auto repeat(6, auto);
   row-gap: 0.6rem;
   column-gap: 0.8rem;
   align-items: stretch;
@@ -114,6 +118,21 @@
 }
 .pr-box.pending {
   border-style: dashed;
+}
+.pr-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+.pr-ready {
+  color: #0097A7;
+  font-weight: 700;
+  flex: none;
+}
+.legend {
+  font-size: 11px;
+  color: #9AA0A6;
 }
 .pr-src {
   font-size: 9px;
