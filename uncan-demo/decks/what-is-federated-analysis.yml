@@ -1,0 +1,5 @@
+title: What is federated analysis?
+slides: what-is-federated-analysis.md
+segments:
+  - fa-overview
+  - fa-architecture

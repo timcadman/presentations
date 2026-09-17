@@ -1,0 +1,14 @@
+id: researcher-modelling
+sourceSlide: "Federated analysis — Modelling the outcome"
+captureType: slidev
+steps:
+  - clicks: 1
+    text: >-
+      Finally, we can fit a regression model to understand whether starting quality of
+      life is associated with lower dropout for chemotherapy, or fewer treatment
+      modifications.
+  - clicks: 2
+    pauseAfterMs: 1200
+    text: >-
+      This gives a table of estimates for each cohort, and the combined estimate across
+      all cohorts.

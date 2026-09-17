@@ -1,0 +1,9 @@
+title: UNCAN demo — full walkthrough
+parts:
+  - what-is-federated-analysis
+  - armadillo-login
+  - armadillo-browse
+  - id: data-manager-inbox
+    pauseBeforeMs: 1000
+  - armadillo-approve
+  - researcher-perspective

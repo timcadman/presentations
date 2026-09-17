@@ -1,5 +1,8 @@
 <script setup>
+import { configs } from '@slidev/client'
+
 const base = import.meta.env.BASE_URL
+const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
 </script>
 
 <template>
@@ -8,7 +11,7 @@ const base = import.meta.env.BASE_URL
       <slot />
     </div>
     <div class="logo-bar">
-      <img :src="`${base}molgenis-logo.png`" class="slide-logo" />
+      <img :src="`${base}${logo}`" class="slide-logo" />
     </div>
   </div>
 </template>

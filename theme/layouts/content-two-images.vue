@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { configs } from '@slidev/client'
 
 const props = defineProps({
   heading: {
@@ -29,6 +30,7 @@ const props = defineProps({
 })
 
 const base = import.meta.env.BASE_URL
+const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
 function resolveImage(path) {
   if (!path) return ''
   return `${base}${path.replace(/^\.\/public\//, '')}`
@@ -55,7 +57,7 @@ const resolvedRight = computed(() => resolveImage(props.imageRight))
       </div>
     </div>
     <div class="logo-bar">
-      <img :src="`${base}molgenis-logo.png`" class="slide-logo" />
+      <img :src="`${base}${logo}`" class="slide-logo" />
     </div>
   </div>
 </template>
@@ -82,7 +84,7 @@ const resolvedRight = computed(() => resolveImage(props.imageRight))
   top: 0;
   left: 0;
   width: 33%;
-  height: 3px;
+  height: var(--slidev-theme-header-bar, 3px);
   background-color: var(--slidev-theme-primary);
 }
 
@@ -90,7 +92,7 @@ const resolvedRight = computed(() => resolveImage(props.imageRight))
   font-family: var(--font-title);
   font-size: 55px;
   font-weight: 400;
-  color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-heading);
   margin: 0;
   line-height: 1.2;
 }
@@ -99,7 +101,7 @@ const resolvedRight = computed(() => resolveImage(props.imageRight))
   font-family: var(--font-subtitle);
   font-size: 25px;
   font-weight: 400;
-  color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-heading);
   margin: 0.25rem 0 0 0;
 }
 

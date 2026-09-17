@@ -17,6 +17,7 @@ defineProps({
 })
 
 const base = import.meta.env.BASE_URL
+const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
 const sections = configs.themeConfig?.sections || ['Background', 'Methods', 'Results', 'Conclusions']
 </script>
 
@@ -30,7 +31,7 @@ const sections = configs.themeConfig?.sections || ['Background', 'Methods', 'Res
       <slot />
     </div>
     <div class="logo-bar">
-      <img :src="`${base}molgenis-logo.png`" class="slide-logo" />
+      <img :src="`${base}${logo}`" class="slide-logo" />
     </div>
     <div v-if="section" class="section-rail">
       <template v-for="(s, i) in sections" :key="s">
@@ -70,7 +71,7 @@ const sections = configs.themeConfig?.sections || ['Background', 'Methods', 'Res
   top: 0;
   left: 0;
   width: 33%;
-  height: 3px;
+  height: var(--slidev-theme-header-bar, 3px);
   background-color: var(--slidev-theme-primary);
 }
 
@@ -78,7 +79,7 @@ const sections = configs.themeConfig?.sections || ['Background', 'Methods', 'Res
   font-family: var(--font-title);
   font-size: 55px;
   font-weight: 400;
-  color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-heading);
   margin: 0;
   line-height: 1.2;
 }
@@ -87,7 +88,7 @@ const sections = configs.themeConfig?.sections || ['Background', 'Methods', 'Res
   font-family: var(--font-subtitle);
   font-size: 25px;
   font-weight: 400;
-  color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-heading);
   margin: 0.25rem 0 0 0;
 }
 

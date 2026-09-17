@@ -26,6 +26,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  showBanner: {
+    type: Boolean,
+    default: false,
+  },
   steps: {
     type: Array,
     default: () => [
@@ -217,8 +221,21 @@ const consoleEntries = computed(() =>
       </div>
 
       <div class="rs-pane">
-        <div class="rs-tabbar"><span class="rs-tab rs-tab-active">Console</span></div>
+        <div class="rs-tabbar">
+          <span class="rs-tab rs-tab-active">Console</span>
+          <span class="rs-tab rs-tab-inactive">Terminal <span class="rs-tab-close">&times;</span></span>
+          <span class="rs-tab rs-tab-inactive">Background Jobs <span class="rs-tab-close">&times;</span></span>
+        </div>
+        <div class="rs-statusbar">
+          <span class="rs-r-icon">R</span>
+          <span>R 4.4.2</span>
+          <span class="rs-statusbar-sep">&middot;</span>
+          <span>~/uncan-connect/</span>
+        </div>
         <div class="rs-body rs-console">
+          <pre v-if="showBanner" class="rs-out rs-banner">R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20</pre>
           <div v-if="leadingPrompt" class="rs-cmdline"><span class="rs-prompt">&gt;</span></div>
           <div v-for="entry in consoleEntries" :key="entry.cmdStep" class="rs-entry">
             <div v-if="entry.forest" v-show="alwaysShow || ($clicks >= entry.outStep && $clicks < entry.clearedAt)">
@@ -322,6 +339,45 @@ const consoleEntries = computed(() =>
   color: #1f2933;
 }
 
+.rs-tab-inactive {
+  color: #9aa4b0;
+}
+
+.rs-tab-close {
+  margin-left: 0.35rem;
+  opacity: 0.6;
+}
+
+.rs-statusbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.6rem;
+  background: #fff;
+  border-bottom: 1px solid #edf0f3;
+  font-family: var(--font-subtitle);
+  font-size: 9px;
+  color: #6b7480;
+}
+
+.rs-r-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--slidev-theme-primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 8px;
+}
+
+.rs-statusbar-sep {
+  opacity: 0.6;
+}
+
 .rs-body {
   flex: 1;
   min-height: 0;
@@ -393,6 +449,10 @@ const consoleEntries = computed(() =>
   color: #4285F4;
   font-weight: 700;
   width: 0.9rem;
+}
+
+.rs-banner {
+  margin-bottom: 0.5rem;
 }
 
 .rs-out {

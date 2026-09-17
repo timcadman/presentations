@@ -1,0 +1,17 @@
+id: armadillo-login
+sourceSlide: "Video — Armadillo institutional login"
+captureType: manual
+steps:
+  - clicks: 1
+    pauseAfterMs: 700
+    text: >-
+      Here we see the login page for Armadillo,
+  - clicks: 2
+    pauseAfterMs: 2500
+    text: >-
+      and you can click via institutional login and log in via the Life Sciences
+      Authentication and Authorization Infrastructure, or LS AAI, using our institution,
+      Groningen.
+  - clicks: 3
+    text: >-
+      This takes you to the Armadillo landing page.

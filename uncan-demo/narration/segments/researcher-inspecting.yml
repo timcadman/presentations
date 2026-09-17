@@ -1,0 +1,24 @@
+id: researcher-inspecting
+sourceSlide: "Federated analysis — Inspecting the data"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      Now we are logged in we can interact with the data. However, remember that with
+      federated analysis we can never see the data itself.
+  - clicks: 1
+    pauseAfterMs: 100
+    text: >-
+      We can, however, view summaries of the data. For example, we can return column
+      names,
+  - clicks: 2
+    text: >-
+      and see it matches the variables we were given access to through negotiator.
+  - clicks: 3
+    text: >-
+      We can also explore the distribution of the data, for example the quality of life
+      variable.
+  - clicks: 4
+    pauseAfterMs: 2000
+    text: >-
+      Here we produce histograms for each of the three cohorts.

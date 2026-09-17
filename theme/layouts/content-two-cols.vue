@@ -1,4 +1,6 @@
 <script setup>
+import { configs } from '@slidev/client'
+
 defineProps({
   heading: {
     type: String,
@@ -20,6 +22,7 @@ defineProps({
 })
 
 const base = import.meta.env.BASE_URL
+const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
 </script>
 
 <template>
@@ -44,7 +47,7 @@ const base = import.meta.env.BASE_URL
       </div>
     </div>
     <div class="logo-bar">
-      <img :src="`${base}molgenis-logo.png`" class="slide-logo" />
+      <img :src="`${base}${logo}`" class="slide-logo" />
     </div>
   </div>
 </template>
@@ -71,7 +74,7 @@ const base = import.meta.env.BASE_URL
   top: 0;
   left: 0;
   width: 33%;
-  height: 3px;
+  height: var(--slidev-theme-header-bar, 3px);
   background-color: var(--slidev-theme-primary);
 }
 
@@ -79,7 +82,7 @@ const base = import.meta.env.BASE_URL
   font-family: var(--font-title);
   font-size: 55px;
   font-weight: 400;
-  color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-heading);
   margin: 0;
   line-height: 1.2;
 }
@@ -100,7 +103,7 @@ const base = import.meta.env.BASE_URL
   font-family: var(--font-subtitle);
   font-size: 25px;
   font-weight: 600;
-  color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-heading);
   margin-bottom: 0.75rem;
 }
 

@@ -1,5 +1,5 @@
 ---
-theme: ../theme
+theme: ../theme-uncan
 title: UNCAN demo
 info: Placeholder deck
 author: Tim Cadman
@@ -22,21 +22,22 @@ clicks: 3
 
 <div class="fq-grid">
   <div class="fq-card" :class="{ 'fq-active': $clicks === 0 }">
-    <h3>Code travels, not data</h3>
-    <p>Analysis code is sent to where each dataset is stored.</p>
+    <h3>Remote analysis</h3>
+    <p>Combines multiple data sources in one model</p>
   </div>
   <div class="fq-card" :class="{ 'fq-active': $clicks === 1 }">
-    <h3>Computation stays local</h3>
+    <h3>Code travels, not data</h3>
     <p>Each site runs the computation <strong>locally, on its own data</strong>.</p>
   </div>
   <div class="fq-card" :class="{ 'fq-active': $clicks === 2 }">
-    <h3>Only aggregates return</h3>
-    <p>Only <strong>non-disclosive, aggregate results</strong> &mdash; summary statistics or model updates.</p>
+    <h3>Only summary-statistics return</h3>
+    <p>Only <strong>non-disclosive parameters </strong>are shared</p>
+    <p>&mdash; e.g. means, sd, coefficients.</p>
   </div>
   <div class="fq-card" :class="{ 'fq-active': $clicks === 3 }">
     <h3>The software</h3>
-    <p><strong>Armadillo</strong> &mdash; server app that lets data owners manage access.</p>
-    <p><strong>DataSHIELD</strong> &mdash; framework researchers use to analyse it.</p>
+    <p><strong>Armadillo</strong> &mdash; server application to manager data access;</p>
+    <p><strong>DataSHIELD</strong> &mdash; federated framework to analyse data.</p>
   </div>
 </div>
 
@@ -60,14 +61,14 @@ layout: default
 class: p-0
 ---
 
-<video src="/login.mov" controls muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
+<video src="/login.mov" muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
 
 ---
 layout: default
 class: p-0
 ---
 
-<video src="/project.mov" controls muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
+<video src="/project.mov" muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
 
 ---
 layout: content
@@ -84,7 +85,7 @@ layout: default
 class: p-0
 ---
 
-<video src="/approve.mov" autoplay controls muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
+<video src="/approve.mov" autoplay muted playsinline onclick="this.paused ? this.play() : this.pause()" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; cursor: pointer;"></video>
 
 ---
 layout: section
@@ -99,7 +100,7 @@ subheading: Logging in to the Armadillo servers
 clicks: 6
 ---
 
-<ResearcherSession :start-at="1" :end-at="5" />
+<ResearcherSession :start-at="1" :end-at="5" :show-banner="true" />
 
 <div v-show="$clicks === 4" style="position: absolute; inset: 0; background: rgba(0,0,0,0.55); display: flex; align-items: center; justify-content: center; z-index: 20;">
   <img src="/login-lsri.png" style="width: 78%; max-height: 74vh; object-fit: contain; border: 1px solid #9aa0a6; border-radius: 6px; box-shadow: 0 12px 40px rgba(0,0,0,0.4);" />

@@ -1,0 +1,26 @@
+id: fa-architecture
+sourceSlide: "Federated analysis — How it works"
+captureType: slidev
+steps:
+  - clicks: 1
+    text: >-
+      How does Federated Analysis work? Here you see an example with three cohorts.
+  - clicks: 2
+    pauseAfterMs: 300
+    text: >-
+      Each data owner installs Armadillo locally,
+  - clicks: 3
+    text: >-
+      and uploads a portion of their data to make it available for analysis.
+  - clicks: 4
+    text: >-
+      A researcher then requests access to the data via the negotiation process shown
+      before,
+  - clicks: 5
+    text: >-
+      and once granted, they receive credentials to log into a central portal.
+  - clicks: 6
+    text: >-
+      From here they can conduct analysis across the three cohorts, receiving summary
+      statistics, such as means, standard deviations and model parameters. We're going
+      to show how this works first from the data manager perspective.

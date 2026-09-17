@@ -1,0 +1,626 @@
+{
+  "fa-overview:0": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/fa-overview/0-0-f58c199e.mp3",
+        "alignmentPath": "narration/audio/fa-overview/0-0-f58c199e.json",
+        "hash": "f58c199e",
+        "durationMs": 6084
+      },
+      {
+        "audioPath": "narration/audio/fa-overview/0-1-a7ae340b.mp3",
+        "alignmentPath": "narration/audio/fa-overview/0-1-a7ae340b.json",
+        "hash": "a7ae340b",
+        "durationMs": 6177
+      }
+    ],
+    "durationMs": 12761
+  },
+  "fa-overview:1": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/fa-overview/1-0-541da898.mp3",
+        "alignmentPath": "narration/audio/fa-overview/1-0-541da898.json",
+        "hash": "541da898",
+        "durationMs": 3715
+      },
+      {
+        "audioPath": "narration/audio/fa-overview/1-1-8e420b21.mp3",
+        "alignmentPath": "narration/audio/fa-overview/1-1-8e420b21.json",
+        "hash": "8e420b21",
+        "durationMs": 3622
+      }
+    ],
+    "durationMs": 7837
+  },
+  "fa-overview:2": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/fa-overview/2-0-48de544e.mp3",
+        "alignmentPath": "narration/audio/fa-overview/2-0-48de544e.json",
+        "hash": "48de544e",
+        "durationMs": 7663
+      }
+    ],
+    "durationMs": 7663
+  },
+  "fa-overview:3": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/fa-overview/3-0-2e7b7aed.mp3",
+        "alignmentPath": "narration/audio/fa-overview/3-0-2e7b7aed.json",
+        "hash": "2e7b7aed",
+        "durationMs": 11981
+      }
+    ],
+    "durationMs": 11981
+  },
+  "fa-architecture:1": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/fa-architecture/1-0-8ad61182.mp3",
+        "alignmentPath": "narration/audio/fa-architecture/1-0-8ad61182.json",
+        "hash": "8ad61182",
+        "durationMs": 2229
+      },
+      {
+        "audioPath": "narration/audio/fa-architecture/1-1-430bb30c.mp3",
+        "alignmentPath": "narration/audio/fa-architecture/1-1-430bb30c.json",
+        "hash": "430bb30c",
+        "durationMs": 2926
+      }
+    ],
+    "durationMs": 5655
+  },
+  "fa-architecture:2": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/fa-architecture/2-0-191efd1e.mp3",
+        "alignmentPath": "narration/audio/fa-architecture/2-0-191efd1e.json",
+        "hash": "191efd1e",
+        "durationMs": 3111
+      }
+    ],
+    "durationMs": 3111
+  },
+  "fa-architecture:3": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/fa-architecture/3-0-279b1e5b.mp3",
+        "alignmentPath": "narration/audio/fa-architecture/3-0-279b1e5b.json",
+        "hash": "279b1e5b",
+        "durationMs": 3669
+      }
+    ],
+    "durationMs": 3669
+  },
+  "fa-architecture:4": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/fa-architecture/4-0-e7137fea.mp3",
+        "alignmentPath": "narration/audio/fa-architecture/4-0-e7137fea.json",
+        "hash": "e7137fea",
+        "durationMs": 4783
+      }
+    ],
+    "durationMs": 4783
+  },
+  "fa-architecture:5": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/fa-architecture/5-0-2ab71dc3.mp3",
+        "alignmentPath": "narration/audio/fa-architecture/5-0-2ab71dc3.json",
+        "hash": "2ab71dc3",
+        "durationMs": 4133
+      }
+    ],
+    "durationMs": 4133
+  },
+  "fa-architecture:6": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/fa-architecture/6-0-24f9f040.mp3",
+        "alignmentPath": "narration/audio/fa-architecture/6-0-24f9f040.json",
+        "hash": "24f9f040",
+        "durationMs": 9660
+      },
+      {
+        "audioPath": "narration/audio/fa-architecture/6-1-1d26da22.mp3",
+        "alignmentPath": "narration/audio/fa-architecture/6-1-1d26da22.json",
+        "hash": "1d26da22",
+        "durationMs": 4226
+      }
+    ],
+    "durationMs": 14386
+  },
+  "armadillo-approve:0": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-approve/0-0-ddb66c2a.mp3",
+        "alignmentPath": "narration/audio/armadillo-approve/0-0-ddb66c2a.json",
+        "hash": "ddb66c2a",
+        "durationMs": 3762
+      },
+      {
+        "audioPath": "narration/audio/armadillo-approve/0-1-bfdc5941.mp3",
+        "alignmentPath": "narration/audio/armadillo-approve/0-1-bfdc5941.json",
+        "hash": "bfdc5941",
+        "durationMs": 9845
+      }
+    ],
+    "durationMs": 14107
+  },
+  "armadillo-approve:1": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-approve/1-0-0dfa53b0.mp3",
+        "alignmentPath": "narration/audio/armadillo-approve/1-0-0dfa53b0.json",
+        "hash": "0dfa53b0",
+        "durationMs": 10170
+      }
+    ],
+    "durationMs": 10170
+  },
+  "armadillo-approve:2": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-approve/2-0-96ca159b.mp3",
+        "alignmentPath": "narration/audio/armadillo-approve/2-0-96ca159b.json",
+        "hash": "96ca159b",
+        "durationMs": 3483
+      }
+    ],
+    "durationMs": 3483
+  },
+  "armadillo-approve:3": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-approve/3-0-cf346e59.mp3",
+        "alignmentPath": "narration/audio/armadillo-approve/3-0-cf346e59.json",
+        "hash": "cf346e59",
+        "durationMs": 2508
+      }
+    ],
+    "durationMs": 2508
+  },
+  "armadillo-approve:4": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-approve/4-0-3d9f3a97.mp3",
+        "alignmentPath": "narration/audio/armadillo-approve/4-0-3d9f3a97.json",
+        "hash": "3d9f3a97",
+        "durationMs": 4412
+      },
+      {
+        "audioPath": "narration/audio/armadillo-approve/4-1-ae32e6c5.mp3",
+        "alignmentPath": "narration/audio/armadillo-approve/4-1-ae32e6c5.json",
+        "hash": "ae32e6c5",
+        "durationMs": 2322
+      }
+    ],
+    "durationMs": 7234
+  },
+  "armadillo-approve:5": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-approve/5-0-9701cdcd.mp3",
+        "alignmentPath": "narration/audio/armadillo-approve/5-0-9701cdcd.json",
+        "hash": "9701cdcd",
+        "durationMs": 9799
+      }
+    ],
+    "durationMs": 9799
+  },
+  "armadillo-approve:6": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-approve/6-0-90a17b83.mp3",
+        "alignmentPath": "narration/audio/armadillo-approve/6-0-90a17b83.json",
+        "hash": "90a17b83",
+        "durationMs": 8824
+      }
+    ],
+    "durationMs": 8824
+  },
+  "armadillo-approve:7": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-approve/7-0-3105f01f.mp3",
+        "alignmentPath": "narration/audio/armadillo-approve/7-0-3105f01f.json",
+        "hash": "3105f01f",
+        "durationMs": 4690
+      }
+    ],
+    "durationMs": 4690
+  },
+  "armadillo-login:0": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-login/0-0-1d26da22.mp3",
+        "alignmentPath": "narration/audio/armadillo-login/0-0-1d26da22.json",
+        "hash": "1d26da22",
+        "durationMs": 4458
+      }
+    ],
+    "durationMs": 4458
+  },
+  "armadillo-login:1": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-login/1-0-deaef1d3.mp3",
+        "alignmentPath": "narration/audio/armadillo-login/1-0-deaef1d3.json",
+        "hash": "deaef1d3",
+        "durationMs": 2415
+      }
+    ],
+    "durationMs": 2415
+  },
+  "armadillo-login:2": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-login/2-0-456cdee5.mp3",
+        "alignmentPath": "narration/audio/armadillo-login/2-0-456cdee5.json",
+        "hash": "456cdee5",
+        "durationMs": 10542
+      }
+    ],
+    "durationMs": 10542
+  },
+  "armadillo-login:3": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-login/3-0-5b114a8e.mp3",
+        "alignmentPath": "narration/audio/armadillo-login/3-0-5b114a8e.json",
+        "hash": "5b114a8e",
+        "durationMs": 2833
+      }
+    ],
+    "durationMs": 2833
+  },
+  "armadillo-browse:0": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-browse/0-0-46649427.mp3",
+        "alignmentPath": "narration/audio/armadillo-browse/0-0-46649427.json",
+        "hash": "46649427",
+        "durationMs": 7755
+      }
+    ],
+    "durationMs": 7755
+  },
+  "armadillo-browse:1": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-browse/1-0-f55be2cc.mp3",
+        "alignmentPath": "narration/audio/armadillo-browse/1-0-f55be2cc.json",
+        "hash": "f55be2cc",
+        "durationMs": 2322
+      }
+    ],
+    "durationMs": 2322
+  },
+  "armadillo-browse:2": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-browse/2-0-ee0adc22.mp3",
+        "alignmentPath": "narration/audio/armadillo-browse/2-0-ee0adc22.json",
+        "hash": "ee0adc22",
+        "durationMs": 1997
+      }
+    ],
+    "durationMs": 1997
+  },
+  "armadillo-browse:3": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-browse/3-0-e40fab92.mp3",
+        "alignmentPath": "narration/audio/armadillo-browse/3-0-e40fab92.json",
+        "hash": "e40fab92",
+        "durationMs": 3019
+      }
+    ],
+    "durationMs": 3019
+  },
+  "armadillo-browse:4": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-browse/4-0-bcd4deaf.mp3",
+        "alignmentPath": "narration/audio/armadillo-browse/4-0-bcd4deaf.json",
+        "hash": "bcd4deaf",
+        "durationMs": 3715
+      },
+      {
+        "audioPath": "narration/audio/armadillo-browse/4-1-469053e6.mp3",
+        "alignmentPath": "narration/audio/armadillo-browse/4-1-469053e6.json",
+        "hash": "469053e6",
+        "durationMs": 2461
+      }
+    ],
+    "durationMs": 6676
+  },
+  "armadillo-browse:5": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/armadillo-browse/5-0-42376482.mp3",
+        "alignmentPath": "narration/audio/armadillo-browse/5-0-42376482.json",
+        "hash": "42376482",
+        "durationMs": 7941
+      }
+    ],
+    "durationMs": 7941
+  },
+  "data-manager-inbox:0": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/data-manager-inbox/0-0-24c6b41e.mp3",
+        "alignmentPath": "narration/audio/data-manager-inbox/0-0-24c6b41e.json",
+        "hash": "24c6b41e",
+        "durationMs": 6966
+      },
+      {
+        "audioPath": "narration/audio/data-manager-inbox/0-1-d043af0e.mp3",
+        "alignmentPath": "narration/audio/data-manager-inbox/0-1-d043af0e.json",
+        "hash": "d043af0e",
+        "durationMs": 8638
+      },
+      {
+        "audioPath": "narration/audio/data-manager-inbox/0-2-478c36a5.mp3",
+        "alignmentPath": "narration/audio/data-manager-inbox/0-2-478c36a5.json",
+        "hash": "478c36a5",
+        "durationMs": 4690
+      },
+      {
+        "audioPath": "narration/audio/data-manager-inbox/0-3-2c92f038.mp3",
+        "alignmentPath": "narration/audio/data-manager-inbox/0-3-2c92f038.json",
+        "hash": "2c92f038",
+        "durationMs": 7338
+      },
+      {
+        "audioPath": "narration/audio/data-manager-inbox/0-4-da1cb0fd.mp3",
+        "alignmentPath": "narration/audio/data-manager-inbox/0-4-da1cb0fd.json",
+        "hash": "da1cb0fd",
+        "durationMs": 2926
+      }
+    ],
+    "durationMs": 32558
+  },
+  "researcher-login-servers:0": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-login-servers/0-0-8c667ef9.mp3",
+        "alignmentPath": "narration/audio/researcher-login-servers/0-0-8c667ef9.json",
+        "hash": "8c667ef9",
+        "durationMs": 3111
+      },
+      {
+        "audioPath": "narration/audio/researcher-login-servers/0-1-82c4deee.mp3",
+        "alignmentPath": "narration/audio/researcher-login-servers/0-1-82c4deee.json",
+        "hash": "82c4deee",
+        "durationMs": 9520
+      }
+    ],
+    "durationMs": 13131
+  },
+  "researcher-login-servers:1": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-login-servers/1-0-d20bfb9d.mp3",
+        "alignmentPath": "narration/audio/researcher-login-servers/1-0-d20bfb9d.json",
+        "hash": "d20bfb9d",
+        "durationMs": 4923
+      }
+    ],
+    "durationMs": 4923
+  },
+  "researcher-login-servers:2": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-login-servers/2-0-fc8cf02a.mp3",
+        "alignmentPath": "narration/audio/researcher-login-servers/2-0-fc8cf02a.json",
+        "hash": "fc8cf02a",
+        "durationMs": 3111
+      }
+    ],
+    "durationMs": 3111
+  },
+  "researcher-login-servers:3": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-login-servers/3-0-f0888a1c.mp3",
+        "alignmentPath": "narration/audio/researcher-login-servers/3-0-f0888a1c.json",
+        "hash": "f0888a1c",
+        "durationMs": 2043
+      }
+    ],
+    "durationMs": 2043
+  },
+  "researcher-login-servers:4": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-login-servers/4-0-c73bca3e.mp3",
+        "alignmentPath": "narration/audio/researcher-login-servers/4-0-c73bca3e.json",
+        "hash": "c73bca3e",
+        "durationMs": 6780
+      }
+    ],
+    "durationMs": 6780
+  },
+  "researcher-login-servers:6": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-login-servers/6-0-154dad75.mp3",
+        "alignmentPath": "narration/audio/researcher-login-servers/6-0-154dad75.json",
+        "hash": "154dad75",
+        "durationMs": 4505
+      }
+    ],
+    "durationMs": 4505
+  },
+  "researcher-login-assign:1": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-login-assign/1-0-e0802a81.mp3",
+        "alignmentPath": "narration/audio/researcher-login-assign/1-0-e0802a81.json",
+        "hash": "e0802a81",
+        "durationMs": 4133
+      }
+    ],
+    "durationMs": 4133
+  },
+  "researcher-login-assign:2": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-login-assign/2-0-bf96fc0f.mp3",
+        "alignmentPath": "narration/audio/researcher-login-assign/2-0-bf96fc0f.json",
+        "hash": "bf96fc0f",
+        "durationMs": 6641
+      }
+    ],
+    "durationMs": 6641
+  },
+  "researcher-inspecting:0": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-inspecting/0-0-7bedb766.mp3",
+        "alignmentPath": "narration/audio/researcher-inspecting/0-0-7bedb766.json",
+        "hash": "7bedb766",
+        "durationMs": 2972
+      },
+      {
+        "audioPath": "narration/audio/researcher-inspecting/0-1-ccdc6196.mp3",
+        "alignmentPath": "narration/audio/researcher-inspecting/0-1-ccdc6196.json",
+        "hash": "ccdc6196",
+        "durationMs": 5480
+      }
+    ],
+    "durationMs": 8952
+  },
+  "researcher-inspecting:1": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-inspecting/1-0-4714635c.mp3",
+        "alignmentPath": "narration/audio/researcher-inspecting/1-0-4714635c.json",
+        "hash": "4714635c",
+        "durationMs": 2601
+      },
+      {
+        "audioPath": "narration/audio/researcher-inspecting/1-1-0c26af8d.mp3",
+        "alignmentPath": "narration/audio/researcher-inspecting/1-1-0c26af8d.json",
+        "hash": "0c26af8d",
+        "durationMs": 2740
+      }
+    ],
+    "durationMs": 5841
+  },
+  "researcher-inspecting:2": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-inspecting/2-0-0419de67.mp3",
+        "alignmentPath": "narration/audio/researcher-inspecting/2-0-0419de67.json",
+        "hash": "0419de67",
+        "durationMs": 4830
+      }
+    ],
+    "durationMs": 4830
+  },
+  "researcher-inspecting:3": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-inspecting/3-0-d2960bdb.mp3",
+        "alignmentPath": "narration/audio/researcher-inspecting/3-0-d2960bdb.json",
+        "hash": "d2960bdb",
+        "durationMs": 4830
+      }
+    ],
+    "durationMs": 4830
+  },
+  "researcher-inspecting:4": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-inspecting/4-0-27ba4a7a.mp3",
+        "alignmentPath": "narration/audio/researcher-inspecting/4-0-27ba4a7a.json",
+        "hash": "27ba4a7a",
+        "durationMs": 3297
+      }
+    ],
+    "durationMs": 3297
+  },
+  "researcher-tabulating:1": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-tabulating/1-0-b64a9fc5.mp3",
+        "alignmentPath": "narration/audio/researcher-tabulating/1-0-b64a9fc5.json",
+        "hash": "b64a9fc5",
+        "durationMs": 2183
+      }
+    ],
+    "durationMs": 2183
+  },
+  "researcher-tabulating:2": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-tabulating/2-0-5a673ba2.mp3",
+        "alignmentPath": "narration/audio/researcher-tabulating/2-0-5a673ba2.json",
+        "hash": "5a673ba2",
+        "durationMs": 4505
+      }
+    ],
+    "durationMs": 4505
+  },
+  "researcher-modelling:1": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-modelling/1-0-62d8de82.mp3",
+        "alignmentPath": "narration/audio/researcher-modelling/1-0-62d8de82.json",
+        "hash": "62d8de82",
+        "durationMs": 9567
+      }
+    ],
+    "durationMs": 9567
+  },
+  "researcher-modelling:2": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-modelling/2-0-f707fa23.mp3",
+        "alignmentPath": "narration/audio/researcher-modelling/2-0-f707fa23.json",
+        "hash": "f707fa23",
+        "durationMs": 5108
+      }
+    ],
+    "durationMs": 5108
+  },
+  "researcher-pooling:1": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-pooling/1-0-9044687f.mp3",
+        "alignmentPath": "narration/audio/researcher-pooling/1-0-9044687f.json",
+        "hash": "9044687f",
+        "durationMs": 4737
+      }
+    ],
+    "durationMs": 4737
+  },
+  "researcher-pooling:2": {
+    "clips": [
+      {
+        "audioPath": "narration/audio/researcher-pooling/2-0-d0a8d566.mp3",
+        "alignmentPath": "narration/audio/researcher-pooling/2-0-d0a8d566.json",
+        "hash": "d0a8d566",
+        "durationMs": 9613
+      },
+      {
+        "audioPath": "narration/audio/researcher-pooling/2-1-a273975a.mp3",
+        "alignmentPath": "narration/audio/researcher-pooling/2-1-a273975a.json",
+        "hash": "a273975a",
+        "durationMs": 6037
+      },
+      {
+        "audioPath": "narration/audio/researcher-pooling/2-2-aae944d5.mp3",
+        "alignmentPath": "narration/audio/researcher-pooling/2-2-aae944d5.json",
+        "hash": "aae944d5",
+        "durationMs": 4458
+      }
+    ],
+    "durationMs": 20608
+  }
+}

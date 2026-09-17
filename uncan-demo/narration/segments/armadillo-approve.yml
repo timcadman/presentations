@@ -1,0 +1,35 @@
+id: armadillo-approve
+sourceSlide: "Video — Approve access"
+captureType: manual
+steps:
+  - clicks: 0
+    text: >-
+      This takes them to an access and approval page within Armadillo. Here they can see
+      an overview of the project that's been requested, the researcher that has requested
+      access, and a list of the individual variables the researcher has requested.
+  - clicks: 1
+    text: >-
+      In this simplified example the researcher has requested 5 variables: quality of
+      life, age at diagnosis, and some information about chemotherapy outcomes.
+  - clicks: 2
+    text: >-
+      To approve the request, the data manager clicks the approve button,
+  - clicks: 3
+    pauseAfterMs: 1000
+    text: >-
+      and then they are shown a confirmation message.
+  - clicks: 4
+    text: >-
+      Now if we navigate to the projects page we can see what's been created — a new
+      project called "Project 1".
+  - clicks: 5
+    text: >-
+      This contains a subset of the data for this project, and we also see that
+      a.researcher@umcg.nl has been granted access to this project via DataSHIELD.
+  - clicks: 6
+    text: >-
+      If we click on this like before, we can see a table with just five columns: the
+      subset based on the agreed variables from the negotiation process.
+  - clicks: 7
+    text: >-
+      This data is now available for this researcher to analyse via DataSHIELD.

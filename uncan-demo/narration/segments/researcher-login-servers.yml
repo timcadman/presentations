@@ -1,0 +1,28 @@
+id: researcher-login-servers
+sourceSlide: "Federated analysis — Logging in to the Armadillo servers"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      Now, what does it look like from the researcher perspective? Once the researcher
+      has been through the negotiation process and has been granted access to the data,
+      they can conduct their analysis using RStudio.
+  - clicks: 1
+    text: >-
+      First of all they need to enter a few details, like the URLs of the remote
+      servers.
+  - clicks: 2
+    text: >-
+      Next they run a command to request access tokens.
+  - clicks: 3
+    pauseAfterMs: 350
+    text: >-
+      A browser window will be opened,
+  - clicks: 4
+    text: >-
+      as before, we use life sciences authentication to log in via the institution and
+      get access tokens for each of the cohort.
+  - clicks: 6
+    text: >-
+      Once these access tokens have been received they can be used to build a login
+      object,

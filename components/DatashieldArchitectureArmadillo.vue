@@ -99,12 +99,12 @@
         <div class="col-spacer"></div>
         <div style="position: absolute; top: 98.8px; left: 12.5%; right: 12.5%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 0.7rem;">
           <div style="height: 10px; display: flex; align-items: center; width: 100%;">
-            <div style="width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-right: 9px solid #E6B96A; flex: none;"></div>
-            <div class="flow-line flow-left" style="flex: 1; height: 2px; color: #E6B96A;"></div>
+            <div style="width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-right: 9px solid var(--slidev-theme-secondary); flex: none;"></div>
+            <div class="flow-line flow-left" style="flex: 1; height: 2px; color: var(--slidev-theme-secondary);"></div>
           </div>
           <div style="height: 10px; display: flex; align-items: center; width: 100%;">
-            <div class="flow-line flow-right" style="flex: 1; height: 2px; color: var(--slidev-theme-primary);"></div>
-            <div style="width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-left: 9px solid var(--slidev-theme-primary); flex: none;"></div>
+            <div class="flow-line flow-right" style="flex: 1; height: 2px; color: var(--slidev-theme-accent);"></div>
+            <div style="width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-left: 9px solid var(--slidev-theme-accent); flex: none;"></div>
           </div>
         </div>
       </div>
@@ -121,13 +121,13 @@
       <!-- Connect arrow: researcher to CAS (click 5, with the CAS). Same
            98.8px anchor as the rest of this row (see column 4's comment).
            CSS-drawn triangle (not a "←" glyph, for the same reason as the
-           upload arrows) + a dashed line (same 2px dashed #4285F4 style as
+           upload arrows) + a dashed line (same 2px dashed primary-colour style as
            the access line below) spanning the column width. -->
       <div v-click="5" style="grid-column: 6; position: relative;">
         <div class="col-spacer"></div>
         <div style="position: absolute; top: 98.8px; left: 12.5%; right: 12.5%; transform: translateY(-50%); display: flex; align-items: center;">
           <div style="width: 0; height: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-right: 10px solid var(--slidev-theme-primary);"></div>
-          <div style="flex: 1; height: 0; border-top: 2px dashed #4285F4;"></div>
+          <div style="flex: 1; height: 0; border-top: 2px dashed var(--slidev-theme-primary);"></div>
         </div>
       </div>
 
@@ -157,9 +157,9 @@
            That lets the horizontal bar's margins reach exactly the ticks' x-position by
            arithmetic instead of guessing against content-dependent auto-sized columns. -->
       <div v-click="4" style="grid-column: 1 / -1; grid-row: 2; display: grid; grid-template-columns: subgrid; height: 24px; margin-top: 0.3rem;">
-        <div style="grid-column: 1; grid-row: 1; justify-self: center; width: 2px; height: 100%; border-right: 2px dashed #4285F4;"></div>
-        <div style="grid-column: 7; grid-row: 1; justify-self: center; width: 2px; height: 100%; border-right: 2px dashed #4285F4;"></div>
-        <div style="grid-column: 1 / -1; grid-row: 1; align-self: end; height: 2px; margin-left: 59px; margin-right: 27px; border-bottom: 2px dashed #4285F4;"></div>
+        <div style="grid-column: 1; grid-row: 1; justify-self: center; width: 2px; height: 100%; border-right: 2px dashed var(--slidev-theme-primary);"></div>
+        <div style="grid-column: 7; grid-row: 1; justify-self: center; width: 2px; height: 100%; border-right: 2px dashed var(--slidev-theme-primary);"></div>
+        <div style="grid-column: 1 / -1; grid-row: 1; align-self: end; height: 2px; margin-left: 59px; margin-right: 27px; border-bottom: 2px dashed var(--slidev-theme-primary);"></div>
       </div>
 
     </div>
@@ -168,15 +168,15 @@
          line styles used across the diagram. -->
     <div v-click="6" style="display: flex; justify-content: center; gap: 1.75rem; margin-top: 0.6rem;">
       <div style="display: flex; align-items: center; gap: 0.4rem;">
-        <div style="width: 22px; height: 0; border-top: 2px dashed #4285F4;"></div>
+        <div style="width: 22px; height: 0; border-top: 2px dashed var(--slidev-theme-primary);"></div>
         <span style="font-size: 12px; color: #555;">Authentication</span>
       </div>
       <div style="display: flex; align-items: center; gap: 0.4rem;">
-        <div style="width: 22px; height: 2px; background-image: repeating-linear-gradient(90deg, #E6B96A 0 2px, transparent 2px 4px);"></div>
+        <div style="width: 22px; height: 2px; background-image: repeating-linear-gradient(90deg, var(--slidev-theme-secondary) 0 2px, transparent 2px 4px);"></div>
         <span style="font-size: 12px; color: #555;">Analysis commands</span>
       </div>
       <div style="display: flex; align-items: center; gap: 0.4rem;">
-        <div style="width: 22px; height: 2px; background: var(--slidev-theme-primary);"></div>
+        <div style="width: 22px; height: 2px; background-image: repeating-linear-gradient(90deg, var(--slidev-theme-accent) 0 2px, transparent 2px 4px);"></div>
         <span style="font-size: 12px; color: #555;">Summary statistics</span>
       </div>
     </div>
@@ -242,7 +242,7 @@
   font-weight: 700;
   font-size: 0.95rem;
   line-height: 1.15;
-  color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-heading);
 }
 .col-spacer {
   min-height: 1.9rem;

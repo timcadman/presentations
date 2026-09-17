@@ -1,0 +1,9 @@
+title: Researcher perspective — RStudio
+slides: researcher-perspective.md
+segments:
+  - researcher-login-servers
+  - researcher-login-assign
+  - researcher-inspecting
+  - researcher-tabulating
+  - researcher-modelling
+  - researcher-pooling

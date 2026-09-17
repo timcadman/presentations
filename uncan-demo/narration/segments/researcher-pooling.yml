@@ -1,0 +1,25 @@
+id: researcher-pooling
+sourceSlide: "Federated analysis — Pooling across cohorts"
+captureType: slidev
+steps:
+  - clicks: 1
+    text: >-
+      We can also take these estimates and make a forest plot to visualise the
+      associations.
+  - clicks: 2
+    useClauseContext: true
+    clausePausesMs:
+      - null
+      - 0
+    voiceSettings:
+      - null
+      - null
+      - stability: 0.4
+        similarity_boost: 0.8
+        style: 0.3
+        speed: 0.93
+    text: >-
+      This is run with synthetic data, but illustrates in this example that higher
+      quality of life is associated with lower chemotherapy discontinuation. In this demo
+      we have seen how we can go from variable discovery through to access and analysis —
+      with no participant data ever leaving the participating STUDIES.

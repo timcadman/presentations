@@ -1,0 +1,26 @@
+id: armadillo-browse
+sourceSlide: "Video — Browsing the UncanConnect project"
+captureType: manual
+steps:
+  - clicks: 0
+    text: >-
+      On this landing page you can already see that one project has been created,
+      called UncanConnect, and this just contains synthetic data.
+  - clicks: 1
+    text: >-
+      We can explore this project here,
+  - clicks: 2
+    text: >-
+      opening the folder and the file,
+  - clicks: 3
+    text: >-
+      and see a preview of the data that's been uploaded
+  - clicks: 4
+    pauseAfterMs: 0
+    text: >-
+      Here we just have one table as a simplified example. We can also go to the
+      metadata preview
+  - clicks: 5
+    text: >-
+      and see more details on each of these columns: what the data type is, and also
+      what the level of missing data is.

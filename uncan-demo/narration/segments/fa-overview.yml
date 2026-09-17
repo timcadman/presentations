@@ -1,0 +1,22 @@
+id: fa-overview
+sourceSlide: "Federated analysis — What is it"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      In this presentation, we're going to show how our UncanConnect data can be analysed
+      using Federated Analysis. Federated Analysis is the remote analysis of data which
+      combines multiple data sources in one model.
+  - clicks: 1
+    text: >-
+      With Federated Analysis, code travels, not the data — each site runs the computation
+      locally, on its own data.
+  - clicks: 2
+    text: >-
+      Only the summary statistics are returned to the researchers; anything that could
+      disclose or recreate individual-level data is blocked.
+  - clicks: 3
+    text: >-
+      We're going to demonstrate two parts of the UncanConnect software stack: Armadillo, a server
+      application to manage data access, and DataSHIELD, a federated framework to analyse
+      data.

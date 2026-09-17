@@ -2,8 +2,11 @@
 
 :root {
   --slidev-theme-primary: #4285F4;
+  --slidev-theme-secondary: #E6B96A;
   --slidev-theme-accent: #0097A7;
   --slidev-theme-section-bg: #F7D38C;
+  --slidev-theme-section-fg: var(--slidev-theme-primary);
+  --slidev-theme-heading: var(--slidev-theme-primary);
   --slidev-theme-text: #333333;
   --slidev-theme-text-light: #D9D9D9;
   --font-title: 'Bebas Neue', sans-serif;
@@ -26,14 +29,14 @@
 h1 {
   font-family: var(--font-title);
   font-weight: 400;
-  color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-heading);
 }
 
 h2 {
   font-family: var(--font-subtitle);
   font-weight: 400;
   font-size: 18px;
-  color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-heading);
   margin-top: 0.25rem;
 }
 
@@ -90,7 +93,7 @@ strong {
   font-family: var(--font-subtitle);
   font-weight: 600;
   text-align: left;
-  color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-heading);
   padding: 0.5rem 0.75rem;
   border-bottom: 2px solid var(--slidev-theme-primary);
 }

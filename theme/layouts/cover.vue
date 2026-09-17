@@ -33,7 +33,7 @@
 .cover :deep(p:first-of-type:not(.author-info p)) {
   font-family: var(--font-subtitle);
   font-size: 25px;
-  color: var(--slidev-theme-primary);
+  color: var(--slidev-theme-heading);
   margin-bottom: 2rem;
 }
 

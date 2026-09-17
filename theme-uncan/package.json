@@ -1,0 +1,16 @@
+{
+  "name": "slidev-theme-uncan",
+  "version": "1.0.0",
+  "slidev": {
+    "colorSchema": "light",
+    "defaults": {
+      "layout": "content",
+      "heading": "",
+      "subheading": "",
+      "themeConfig": {
+        "logo": "uncan-connect-logo.png",
+        "logoOnDark": "uncan-white.png"
+      }
+    }
+  }
+}
