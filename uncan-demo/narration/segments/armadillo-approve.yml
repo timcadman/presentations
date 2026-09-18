@@ -4,9 +4,9 @@ captureType: manual
 steps:
   - clicks: 0
     text: >-
-      This takes them to an access and approval page within Armadillo. Here they can see
-      an overview of the project that's been requested, the researcher that has requested
-      access, and a list of the individual variables the researcher has requested.
+      Here they can see an overview of the project that's been requested, the researcher
+      that has requested access, and a list of the individual variables the researcher
+      has requested.
   - clicks: 1
     text: >-
       In this simplified example the researcher has requested 5 variables: quality of

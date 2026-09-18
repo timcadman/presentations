@@ -3,10 +3,8 @@ sourceSlide: "Data manager — Mock email inbox slide"
 captureType: slidev
 steps:
   - clicks: 0
+    pauseAfterMs: 200
     text: >-
-      Now, as we saw in the negotiation process, researchers request a subset of the
-      dataset for their analysis. This negotiation process connects with Armadillo, so
-      that once the process is complete, this subset can be created in Armadillo. Once
-      access has been approved for a researcher, for example, a.researcher — the data
-      manager will receive a confirmation email stating that a.researcher has been given
-      approval to access the data. To approve the request they can click this link.
+      Now, once the researcher has completed the negotiation process, the data manager
+      needs to give the researcher access to the data. They will be provided a link,
+      which once clicked, takes them to a project approval page in Armadillo.

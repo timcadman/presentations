@@ -136,19 +136,13 @@
   "armadillo-approve:0": {
     "clips": [
       {
-        "audioPath": "narration/audio/armadillo-approve/0-0-ddb66c2a.mp3",
-        "alignmentPath": "narration/audio/armadillo-approve/0-0-ddb66c2a.json",
-        "hash": "ddb66c2a",
-        "durationMs": 3762
-      },
-      {
-        "audioPath": "narration/audio/armadillo-approve/0-1-bfdc5941.mp3",
-        "alignmentPath": "narration/audio/armadillo-approve/0-1-bfdc5941.json",
+        "audioPath": "narration/audio/armadillo-approve/0-0-bfdc5941.mp3",
+        "alignmentPath": "narration/audio/armadillo-approve/0-0-bfdc5941.json",
         "hash": "bfdc5941",
-        "durationMs": 9845
+        "durationMs": 9752
       }
     ],
-    "durationMs": 14107
+    "durationMs": 9752
   },
   "armadillo-approve:1": {
     "clips": [
@@ -352,37 +346,19 @@
   "data-manager-inbox:0": {
     "clips": [
       {
-        "audioPath": "narration/audio/data-manager-inbox/0-0-24c6b41e.mp3",
-        "alignmentPath": "narration/audio/data-manager-inbox/0-0-24c6b41e.json",
-        "hash": "24c6b41e",
-        "durationMs": 6966
+        "audioPath": "narration/audio/data-manager-inbox/0-0-a69032f2.mp3",
+        "alignmentPath": "narration/audio/data-manager-inbox/0-0-a69032f2.json",
+        "hash": "a69032f2",
+        "durationMs": 7848
       },
       {
-        "audioPath": "narration/audio/data-manager-inbox/0-1-d043af0e.mp3",
-        "alignmentPath": "narration/audio/data-manager-inbox/0-1-d043af0e.json",
-        "hash": "d043af0e",
-        "durationMs": 8638
-      },
-      {
-        "audioPath": "narration/audio/data-manager-inbox/0-2-478c36a5.mp3",
-        "alignmentPath": "narration/audio/data-manager-inbox/0-2-478c36a5.json",
-        "hash": "478c36a5",
-        "durationMs": 4690
-      },
-      {
-        "audioPath": "narration/audio/data-manager-inbox/0-3-2c92f038.mp3",
-        "alignmentPath": "narration/audio/data-manager-inbox/0-3-2c92f038.json",
-        "hash": "2c92f038",
-        "durationMs": 7338
-      },
-      {
-        "audioPath": "narration/audio/data-manager-inbox/0-4-da1cb0fd.mp3",
-        "alignmentPath": "narration/audio/data-manager-inbox/0-4-da1cb0fd.json",
-        "hash": "da1cb0fd",
-        "durationMs": 2926
+        "audioPath": "narration/audio/data-manager-inbox/0-1-e08d3db6.mp3",
+        "alignmentPath": "narration/audio/data-manager-inbox/0-1-e08d3db6.json",
+        "hash": "e08d3db6",
+        "durationMs": 5573
       }
     ],
-    "durationMs": 32558
+    "durationMs": 13921
   },
   "researcher-login-servers:0": {
     "clips": [

@@ -7,7 +7,7 @@ steps:
     text: >-
       Here we see the login page for Armadillo,
   - clicks: 2
-    pauseAfterMs: 2500
+    pauseAfterMs: 1000
     text: >-
       and you can click via institutional login and log in via the Life Sciences
       Authentication and Authorization Infrastructure, or LS AAI, using our institution,
