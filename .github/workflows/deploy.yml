@@ -23,6 +23,11 @@ jobs:
         with:
           node-version: 22
       - name: Build published presentations
+        env:
+          # Some decks optionally pull in playwright-chromium via @slidev/cli;
+          # its postinstall tries to download a browser build that isn't
+          # available for every CI runner image. Not needed for `slidev build`.
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
         run: |
           mkdir -p _site
           shopt -s nullglob
