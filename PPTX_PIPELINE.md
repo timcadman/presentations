@@ -19,7 +19,8 @@ Everything is **self-verified by rendering to PDF/PNG** before showing the user 
     Then view the PNGs with the Read tool.
 - **Fonts** installed in `~/Library/Fonts`: **Bebas Neue, IBM Plex Mono, Nunito** (Google Fonts). Required for correct rendering.
 - **Template:** `presentations/molgenis-template-STARTER.pptx` (10×5.625 in, 16:9). Regenerate with `presentations/build_template.py` (run from `molgenis-demonstrator/`; needs `/tmp/default-ref.pptx` = `pandoc --print-default-data-file reference.pptx > /tmp/default-ref.pptx`).
-  - Layouts (exact names matter): **Title, Bullets, Photo Right, Photo Left, Image Right, Image Left, Table**.
+  - Layouts (exact names matter): **Title, Bullets, Section, Photo Right, Photo Left, Image Right, Image Left, Table**.
+  - **Section** = divider slide: section-background gold `#F7D38C`, heading centred in blue, no logo (matches `theme/layouts/section.vue`).
   - **Photo \*** = full-bleed cover image (Slidev `content-img-*` style); **Image \*** = contained whole image with border (NCC feature-slide style).
   - Styling baked into layouts: titles **Bebas Neue #4285F4** (55pt on Title, 40pt content), subheadings **IBM Plex Mono #4285F4** (25/18pt), bullets **Nunito #000** (18pt), blue **accent bar** above titles, **MOLGENIS logo** bottom-right (bottom-left on Photo/Image where the image covers that corner), author name/role bottom-left on Title.
   - **Title model:** the TITLE placeholder carries heading (outline level 0) + subheading (outline level 1). The builder sets both.
@@ -45,15 +46,43 @@ Parses `slides.md`, strips HTML/Vue/markdown, emits `build_deck.py` specs, build
 |---|---|
 | `cover` (implicit first slide)   | `title` → **Title** |
 | `content`                        | `bullets` → **Bullets** |
-| `content-img-right`              | `image` (contained, right) → **Image Right** |
+| `content-img-right`              | `image` (contained, right) → **Image Right**; `<img>`s in the body become a logo row under the bullets (SVGs are rendered to PNG) |
 | `content-img-left`               | `image` (contained, left) → **Image Left** |
 | `content-two-images`             | `two_images` (two contained, drawn on Bullets) |
-| `section` / `default`            | `bullets` |
+| `content-two-cols`               | `photo` (left bullets + one plain right-hand image) → **Photo Right** |
+| `chart-full`                     | `bullets`; in practice its body is bespoke, so see the rule below |
+| `section`                        | `section` → **Section** (divider) |
+| `default`                        | `bullets` |
+
+**What stays editable, and what becomes a picture.** A slide converts to editable text only if
+its body holds nothing but bullets/prose, the inline tags in `EDITABLE_TAGS`, and styling
+`<div>` wrappers around them. Other markup (a Vue component, an `<img>`, a terminal, or a
+`<div>` diagram with no text to keep) has no editable equivalent, so `has_bespoke_markup()`
+sends the slide to `slide_image` (whole-slide PNG from `slidev_png_dir`). The converter warns and lists the slides if a PNG is missing. Content with a
+native equivalent is listed in the special cases and never reaches this rule.
 
 Body-pattern special cases (in `to_spec`) override the map: team grid → `photo` + name bullets;
 `deploy-card`/`adv-card` → `bullets`; `hw-grid` → `bullets` (variants + hardware rows);
 bespoke `<Component/>` (e.g. `DatashieldArchitectureFinal`) → `slide_image` (whole-slide PNG
-from `slidev_png_dir`); `DemoSlide` → `demo`; legacy `journey-grid`/`stack-card` → `table`/`stack`.
+from `slidev_png_dir`); `DemoSlide` → `demo`; legacy `journey-grid`/`stack-card` → `table`/`stack`;
+`<VideoPlayer>` → `video` (playable clips side by side, labelled by the `<div>` before each);
+`<StatTiles>`, `<ProcessCards>` and any class in `CARD_CLASSES` → `cards` (grid sized by
+`grid_columns`).
+
+**Videos** are embedded as H.264 `.mp4` with a first-frame poster, because PowerPoint on Windows
+does not reliably play `.mov`. `build_deck.prepare_video` converts each clip once (cached in the
+system temp dir) using `ffmpeg` from `PATH`, else a deck's `node_modules/ffmpeg-static`.
+
+**Exporting the slide pictures.** Timed animations (simulated terminals, highlights) must have
+finished, so wait before capturing:
+`npx slidev export slides.md --format png --with-clicks --wait 15000 --timeout 120000 --output <dir>`
+
+**Click builds.** With `--with-clicks` Slidev writes one picture per click state
+(`009-01.png`, `009-02.png`, …). A picture slide shows its final state unless its frontmatter
+has `pptxClicks: true`; it then becomes one PowerPoint slide per state, so pressing "next"
+steps through the build (states that look identical to the one before are dropped). Editable
+slides are always a single slide. Export the whole deck each time: Slidev empties the output
+folder first, so a `--range` export would delete the other slides' pictures.
 
 **Per-slide override:** add `pptx: photo` (or another spec type) to a slide's frontmatter to
 force the treatment — e.g. full-bleed instead of the default contained image.
@@ -62,6 +91,15 @@ geometry), so they're ignored by the converter.
 
 **Verify before handing over:** render the pptx (LibreOffice → PDF → PNG) and the Slidev deck
 (`npx slidev export slides.md --format png`) and compare slide-for-slide.
+
+## Animated slides need a recording
+Slides that run in the browser (simulated terminals with typed commands and timed output,
+highlights keyed to that output, any other timed animation) cannot be reproduced in
+PowerPoint: the pipeline can only place a still picture of them, or one picture per click.
+For the PowerPoint version, screen-record the whole slide playing in Slidev (title included),
+save the clip in the deck's `public/` folder and add `pptxVideo: ./public/<clip>.mov` to the
+slide's frontmatter. The converter then places the recording full-slide (`slide_video`) in
+place of the picture. Slidev ignores the key, so the live slide is unchanged.
 
 ## Gotchas
 - LibreOffice prints `Task policy set failed` to stderr — harmless.

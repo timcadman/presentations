@@ -1,0 +1,12 @@
+id: researcher-login-assign
+sourceSlide: "Federated analysis — Logging in and assigning the data"
+captureType: slidev
+steps:
+  - clicks: 1
+    text: >-
+      and then with this the researcher can log into a DataSHIELD session.
+  - clicks: 2
+    pauseAfterMs: 1200
+    text: >-
+      It takes a few seconds, and then we receive confirmation that we are logged in
+      and that the data is available to be used.

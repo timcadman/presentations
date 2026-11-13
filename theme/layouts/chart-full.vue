@@ -6,10 +6,15 @@ defineProps({
     type: String,
     default: '',
   },
+  section: {
+    type: String,
+    default: '',
+  },
 })
 
 const base = import.meta.env.BASE_URL
 const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
+const sections = configs.themeConfig?.sections || ['Background', 'Methods', 'Results', 'Conclusions']
 </script>
 
 <template>
@@ -22,6 +27,12 @@ const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
     </div>
     <div class="logo-bar">
       <img :src="`${base}${logo}`" class="slide-logo" />
+    </div>
+    <div v-if="section" class="section-rail">
+      <template v-for="(s, i) in sections" :key="s">
+        <span :class="{ cur: s.toLowerCase() === section.toLowerCase() }">{{ s }}</span>
+        <span v-if="i < sections.length - 1" class="sep">·</span>
+      </template>
     </div>
   </div>
 </template>
@@ -75,5 +86,26 @@ const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
 .slide-logo {
   height: 32px;
   opacity: 0.8;
+}
+
+/* Same section rail as the content layout, aligned to this layout's left padding. */
+.section-rail {
+  position: absolute;
+  bottom: 1.15rem;
+  left: 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-subtitle);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: #9aa4b0;
+}
+.section-rail .cur {
+  color: var(--slidev-theme-primary);
+  font-weight: 600;
+}
+.section-rail .sep {
+  opacity: 0.5;
 }
 </style>

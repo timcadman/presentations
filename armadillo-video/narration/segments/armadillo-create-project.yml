@@ -1,0 +1,14 @@
+id: armadillo-create-project
+sourceSlide: "Video — Create a project"
+captureType: manual
+steps:
+  - clicks: 0
+    text: >-
+      First, we create a project. A project holds the data for one study, and controls
+      who can access it.
+  - clicks: 1
+    text: >-
+      We add a new project and give it a name,
+  - clicks: 2
+    text: >-
+      and it now appears in the list of projects.

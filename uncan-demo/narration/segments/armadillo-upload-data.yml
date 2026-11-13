@@ -1,0 +1,13 @@
+id: armadillo-upload-data
+sourceSlide: "Video — Upload data"
+captureType: manual
+steps:
+  - clicks: 0
+    text: >-
+      Next, we upload some data. We open the project and create a folder,
+  - clicks: 1
+    text: >-
+      then choose a data file to upload.
+  - clicks: 2
+    text: >-
+      We can preview the uploaded table to check it looks right.

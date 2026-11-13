@@ -1,0 +1,7 @@
+id: combine-one-cohort
+sourceSlide: "Combining data — Scenario 1: One birth cohort (participants)"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      With a single birth cohort, we only observe participants over a narrow age range.

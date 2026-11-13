@@ -1,0 +1,7 @@
+id: combine-many-cohorts-trajectories
+sourceSlide: "Combining data — Scenario 2: Combining birth cohorts (trajectories)"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      Now we can model trajectories from childhood into old age.

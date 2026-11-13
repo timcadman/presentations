@@ -821,7 +821,7 @@ subheading:
 section: Federated Analysis
 ---
 
-<DatashieldArchitectureSimple />
+<DatashieldArchitecture />
 
 ---
 layout: content

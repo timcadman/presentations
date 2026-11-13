@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "playwright-chromium": "^1.63.0",
+    "yaml": "^2.9.0"
+  }
+}

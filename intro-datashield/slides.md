@@ -55,7 +55,7 @@ heading: Architecture
 subheading: How DataSHIELD works
 ---
 
-<DatashieldArchitectureSimple />
+<DatashieldArchitecture />
 
 ---
 layout: content-img-left

@@ -3,7 +3,7 @@
 Shared palette for the decks under `presentations/`. Two themes exist —
 `theme/` (DataSHIELD/MOLGENIS, default) and `theme-uncan/` (UNCAN) — each
 defining the same set of `--slidev-theme-*` CSS variables with different
-values, so shared components (e.g. `DatashieldArchitectureArmadillo.vue`)
+values, so shared components (e.g. `DatashieldArchitecture.vue`)
 render correctly under either just by changing a deck's `theme:` frontmatter.
 This file is the quick reference, including chart/component colours that
 aren't theme variables.
@@ -92,6 +92,10 @@ From the live website's own CSS custom properties (`--uncan-*`):
 | Purple | `#6A4C93` | totals / sums |
 | Red | `#D9534F` | alerts; `#B52B27` dark |
 | Grey | `#9AA0A6` | muted, captions |
+| DataSHIELD orange | `#E35000` | DataSHIELD / Rock; sampled from the DataSHIELD logo |
+| Opal orange | `#D3621F` | Opal (OBiBa) cards, e.g. Armadillo vs Opal; from the existing "Deploying DataSHIELD" slide |
+| Flower yellow | `#FDAE00` | Flower outlines; sampled from Flower's own diagrams. Pair with `#B9852A` for text |
+| Flower yellow tint | `#FFEFCC` | Flower fills; sampled from Flower's own diagrams |
 
 ## Decomposition semantics (armadillo-opal-comparison)
 

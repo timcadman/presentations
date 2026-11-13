@@ -1,0 +1,15 @@
+id: armadillo-start-container
+sourceSlide: "Video — Start a container"
+captureType: manual
+steps:
+  - clicks: 0
+    text: >-
+      Finally, analyses run inside a container: an isolated R environment with the
+      DataSHIELD packages installed.
+  - clicks: 1
+    text: >-
+      On the profiles page we can see the available containers, and start one with a
+      single click.
+  - clicks: 2
+    text: >-
+      Once it is running, researchers who have been granted access can analyse the data.

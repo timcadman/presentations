@@ -1,0 +1,13 @@
+{
+  "name": "armadillo-video",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "slidev combining-data.md --open",
+    "build": "slidev build combining-data.md"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.15.2",
+    "@slidev/theme-default": "^0.25.0"
+  }
+}

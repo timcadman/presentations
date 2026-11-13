@@ -1,0 +1,12 @@
+title: Why combine data?
+slides: combining-data.md
+segments:
+  - combine-why
+  - combine-question
+  - combine-one-cohort
+  - combine-one-cohort-trajectories
+  - combine-many-cohorts
+  - combine-many-cohorts-trajectories
+  - combine-option-transfer
+  - combine-option-meta-analysis
+  - combine-option-federated

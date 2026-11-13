@@ -1,0 +1,12 @@
+id: combine-why
+sourceSlide: "Combining data — Why"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      Large amounts of research data already exist, in cohort studies, biobanks and
+      registries.
+  - clicks: 1
+    text: >-
+      Combining these sources gives us more statistical power, lets us replicate
+      findings across different settings, and extends coverage across the lifecourse.

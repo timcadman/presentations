@@ -1,0 +1,9 @@
+id: combine-option-federated
+sourceSlide: "Combining data — Option 3: Federated analysis"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      The third option is federated analysis. The analysis code is sent to the data,
+      and only aggregate results come back. The data never leaves its location, and
+      owners keep control of who can access it.

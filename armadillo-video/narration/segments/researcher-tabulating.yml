@@ -1,0 +1,11 @@
+id: researcher-tabulating
+sourceSlide: "Federated analysis — Tabulating the outcome"
+captureType: slidev
+steps:
+  - clicks: 1
+    text: >-
+      We can also look at tabular data.
+  - clicks: 2
+    pauseAfterMs: 2200
+    text: >-
+      In this example we can see counts of different chemotherapy outcomes per study.

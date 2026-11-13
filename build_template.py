@@ -9,6 +9,7 @@ HERE=os.path.dirname(os.path.abspath(__file__))
 OUT=os.path.join(HERE,"molgenis-template-STARTER.pptx")
 LOGO=os.path.join(HERE,"molgenis-armadillo","public","molgenis-logo.png")
 BLUE="4285F4"; BLACK="000000"
+SECTION_BG="F7D38C"   # --slidev-theme-section-bg; the divider heading uses BLUE (section-fg)
 TITLEF="Bebas Neue"; SUBF="IBM Plex Mono"; BODYF="Nunito"
 BODY_SZ=14   # single body font size used across ALL content layouts (uniform, no per-slide autofit)
 def sub(p,t,**a):
@@ -59,6 +60,10 @@ def add_bar(layout,x,y,w):
     ln=spPr.find(qn('a:ln'));  ln=sub(spPr,'a:ln') if ln is None else ln
     for c in list(ln): ln.remove(c)
     sub(ln,'a:noFill')
+def set_background(layout,color):
+    cSld=layout._element.cSld
+    bg=etree.Element(qn('p:bg')); cSld.insert(0,bg)
+    pr=sub(bg,'p:bgPr'); sub(sub(pr,'a:solidFill'),'a:srgbClr',val=color); sub(pr,'a:effectLst')
 def add_logo(container,part,x,y,gw,gh):
     container._spTree.add_pic(nid(container._spTree),"Logo","Logo",part.get_or_add_image_part(LOGO)[1],int(x),int(y),gw,gh)
 
@@ -124,12 +129,22 @@ for idx in (3,4):
 L=lname(prs,"Title Only"); L._element.cSld.set('name',"Table")
 add_bar(L,0.7,0.6,3.0); t=byt(L,PP_PLACEHOLDER.TITLE)[0]; pos(t,0.7,0.9,8.6,1.4); title_block(t,40)
 
+# Section (divider: gold background, heading centred on the slide, no logo)
+L=lname(prs,"Section Header"); L._element.cSld.set('name',"Section")
+L._element.set('showMasterSp','0')                       # the Slidev divider carries no logo
+set_background(L,SECTION_BG)
+t=byt(L,PP_PLACEHOLDER.TITLE)[0]; pos(t,0.7,0,8.6,SH)
+t._element.find(qn('p:txBody')).find(qn('a:bodyPr')).set('anchor','ctr')
+set_lvl(t,1,55,BLUE,TITLEF,align='ctr',bullet='none')
+set_lvl(t,2,25,BLUE,SUBF,align='ctr',bullet='none',sb=300)
+for b in byt(L,PP_PLACEHOLDER.BODY): b._element.getparent().remove(b._element)
+
 for m in prs.slide_masters: add_logo(m.shapes,m.part,*LOGO_BR,gw,gh)
-keep={"Title","Bullets","Photo Right","Photo Left","Image Left","Image Right","Table"}
+keep={"Title","Bullets","Photo Right","Photo Left","Image Left","Image Right","Table","Section"}
 for m in prs.slide_masters:
     l=m.element.get_or_add_sldLayoutIdLst()
     for sid in list(l):
         rid=sid.get(qn('r:id'))
         if m.part.related_part(rid)._element.cSld.get('name') not in keep:
             l.remove(sid); m.part.drop_rel(rid)
-prs.save(OUT); print("7-layout template:", [x.name for x in prs.slide_layouts])
+prs.save(OUT); print("template layouts:", [x.name for x in prs.slide_layouts])

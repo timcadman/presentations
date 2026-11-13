@@ -1,0 +1,30 @@
+id: why-combine-data
+sourceSlide: "Combining data — Why, example question, scenarios 1-2"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      Large amounts of research data already exist, in cohort studies, biobanks and
+      registries.
+  - clicks: 1
+    text: >-
+      Combining these sources gives us more statistical power, lets us replicate
+      findings across different settings, and extends coverage across the lifecourse.
+  - clicks: 2
+    text: >-
+      Take this example question: how does chemical exposure in early life affect
+      cognitive decline in later life?
+  - clicks: 3
+    text: >-
+      With a single birth cohort, we only observe participants over a narrow age range.
+  - clicks: 4
+    text: >-
+      So we can only estimate trajectories over that short period, and cannot link
+      early exposures to outcomes decades later.
+  - clicks: 5
+    text: >-
+      If we combine several cohorts, each covering different ages, together they span
+      the whole lifecourse.
+  - clicks: 6
+    text: >-
+      Now we can model trajectories from childhood into old age.

@@ -6,6 +6,19 @@ defineProps({
     type: String,
     default: '',
   },
+  subheading: {
+    type: String,
+    default: '',
+  },
+  section: {
+    type: String,
+    default: '',
+  },
+  // width of the left column as a % of the row; the right column takes the rest
+  leftWidth: {
+    type: String,
+    default: '',
+  },
   leftHeading: {
     type: String,
     default: '',
@@ -23,15 +36,17 @@ defineProps({
 
 const base = import.meta.env.BASE_URL
 const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
+const sections = configs.themeConfig?.sections || ['Background', 'Methods', 'Results', 'Conclusions']
 </script>
 
 <template>
   <div class="slidev-layout content-two-cols">
     <div class="slide-header">
       <h1>{{ heading }}</h1>
+      <h2 v-if="subheading">{{ subheading }}</h2>
     </div>
     <div class="cols-row">
-      <div class="col">
+      <div class="col" :style="leftWidth ? { flex: `0 0 ${leftWidth}%` } : {}">
         <div v-if="leftHeading" class="col-heading">{{ leftHeading }}</div>
         <div class="slide-body"><slot name="left" /></div>
       </div>
@@ -48,6 +63,12 @@ const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
     </div>
     <div class="logo-bar">
       <img :src="`${base}${logo}`" class="slide-logo" />
+    </div>
+    <div v-if="section" class="section-rail">
+      <template v-for="(s, i) in sections" :key="s">
+        <span :class="{ cur: s.toLowerCase() === section.toLowerCase() }">{{ s }}</span>
+        <span v-if="i < sections.length - 1" class="sep">·</span>
+      </template>
     </div>
   </div>
 </template>
@@ -85,6 +106,14 @@ const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
   color: var(--slidev-theme-heading);
   margin: 0;
   line-height: 1.2;
+}
+
+.slide-header h2 {
+  font-family: var(--font-subtitle);
+  font-size: 25px;
+  font-weight: 400;
+  color: var(--slidev-theme-heading);
+  margin: 0.25rem 0 0 0;
 }
 
 .cols-row {
@@ -128,5 +157,25 @@ const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
 .slide-logo {
   height: 36px;
   opacity: 0.8;
+}
+
+.section-rail {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-subtitle);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: #9aa4b0;
+}
+.section-rail .cur {
+  color: var(--slidev-theme-primary);
+  font-weight: 600;
+}
+.section-rail .sep {
+  opacity: 0.5;
 }
 </style>

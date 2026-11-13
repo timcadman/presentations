@@ -1,0 +1,8 @@
+id: combine-option-meta-analysis
+sourceSlide: "Combining data — Option 2: Share script, meta-analysis"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      The second option is to send an analysis script to each site, and meta-analyse
+      the results. No data is shared, but it is slow, and limited to two-stage methods.

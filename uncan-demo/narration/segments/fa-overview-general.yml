@@ -1,0 +1,21 @@
+id: fa-overview-general
+sourceSlide: "Federated analysis — What is it"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      Let's look at federated analysis in more detail. Federated Analysis is the remote
+      analysis of data which combines multiple data sources in one model.
+  - clicks: 1
+    text: >-
+      With Federated Analysis, code travels, not the data — each site runs the computation
+      locally, on its own data.
+  - clicks: 2
+    text: >-
+      Only the summary statistics are returned to the researchers; anything that could
+      disclose or recreate individual-level data is blocked.
+  - clicks: 3
+    text: >-
+      In this video we introduce two pieces of software that make this possible:
+      Armadillo, a server application to manage data and who can access it, and
+      DataSHIELD, a framework to analyse that data.

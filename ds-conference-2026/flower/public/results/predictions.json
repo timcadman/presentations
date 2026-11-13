@@ -1,0 +1,50 @@
+{
+ "source": "local stand-in: 20,000 images, 5 epochs",
+ "accuracy": 0.5511000156402588,
+ "per_class": {
+  "cat": 0.3790000081062317,
+  "dog": 0.47999998927116394
+ },
+ "items": [
+  {
+   "file": "pred-0.png",
+   "truth": "dog",
+   "predicted": "frog"
+  },
+  {
+   "file": "pred-1.png",
+   "truth": "dog",
+   "predicted": "dog"
+  },
+  {
+   "file": "pred-2.png",
+   "truth": "dog",
+   "predicted": "horse"
+  },
+  {
+   "file": "pred-3.png",
+   "truth": "dog",
+   "predicted": "dog"
+  },
+  {
+   "file": "pred-4.png",
+   "truth": "cat",
+   "predicted": "cat"
+  },
+  {
+   "file": "pred-5.png",
+   "truth": "cat",
+   "predicted": "cat"
+  },
+  {
+   "file": "pred-6.png",
+   "truth": "cat",
+   "predicted": "cat"
+  },
+  {
+   "file": "pred-7.png",
+   "truth": "cat",
+   "predicted": "cat"
+  }
+ ]
+}

@@ -30,10 +30,15 @@ const props = defineProps({
     type: String,
     default: 'center',
   },
+  section: {
+    type: String,
+    default: '',
+  },
 })
 
 const base = import.meta.env.BASE_URL
 const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
+const sections = configs.themeConfig?.sections || ['Background', 'Methods', 'Results', 'Conclusions']
 const resolvedImage = computed(() => {
   if (!props.image) return ''
   const path = props.image.replace(/^\.\/public\//, '')
@@ -59,6 +64,12 @@ const resolvedImage = computed(() => {
     </div>
     <div class="logo-bar">
       <img :src="`${base}${logo}`" class="slide-logo" />
+    </div>
+    <div v-if="section" class="section-rail">
+      <template v-for="(s, i) in sections" :key="s">
+        <span :class="{ cur: s.toLowerCase() === section.toLowerCase() }">{{ s }}</span>
+        <span v-if="i < sections.length - 1" class="sep">·</span>
+      </template>
     </div>
   </div>
 </template>
@@ -152,5 +163,26 @@ const resolvedImage = computed(() => {
 .slide-logo {
   height: 36px;
   opacity: 0.8;
+}
+
+/* Same section rail as the content layout. */
+.section-rail {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-subtitle);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: #9aa4b0;
+}
+.section-rail .cur {
+  color: var(--slidev-theme-primary);
+  font-weight: 600;
+}
+.section-rail .sep {
+  opacity: 0.5;
 }
 </style>

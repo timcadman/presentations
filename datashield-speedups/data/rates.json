@@ -1,0 +1,8 @@
+[
+  {"name": "Summary statistics", "n": 14, "original": 0.6091, "refactored": 1.1987, "speedup": 1.93, "q1": 1.20, "q3": 2.97},
+  {"name": "Plots", "n": 7, "original": 0.3228, "refactored": 0.7140, "speedup": 2.04, "q1": 1.76, "q3": 2.22},
+  {"name": "Metadata / introspection", "n": 13, "original": 1.0608, "refactored": 1.6772, "speedup": 2.16, "q1": 1.15, "q3": 2.27},
+  {"name": "Transform & recode", "n": 52, "original": 0.5832, "refactored": 1.1980, "speedup": 2.37, "q1": 1.67, "q3": 2.91},
+  {"name": "Data-frame manipulation", "n": 8, "original": 0.2874, "refactored": 0.6357, "speedup": 2.08, "q1": 1.28, "q3": 2.42},
+  {"name": "Modelling", "n": 4, "original": 0.7325, "refactored": 0.9901, "speedup": 1.93, "q1": 1.44, "q3": 2.40}
+]

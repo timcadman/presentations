@@ -105,6 +105,45 @@ strong {
   border-bottom: none;
 }
 
+/* Cards — flat tint at rest; on clicks the active card fills solid and the
+   others dim. Colour per card: style="--c: <palette hex>; --t: <text on solid>";
+   add --h for a darker heading on the tint (gold: --h: #B9852A; --t: #333333). */
+.tint-card {
+  --c: var(--slidev-theme-primary);
+  --t: #ffffff;
+  border-radius: 14px;
+  padding: 0.7rem 1rem;
+  background: color-mix(in srgb, var(--c) 12%, white);
+  transition: background 0.45s ease, color 0.45s ease, opacity 0.45s ease;
+}
+.tint-card h3 {
+  margin: 0 0 0.3rem 0;
+  font-family: var(--font-subtitle);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--h, var(--c));
+  transition: color 0.45s ease;
+}
+.tint-card p { margin: 0 0 0.15rem 0; font-size: 14px; line-height: 1.4; }
+.tint-card.active { background: var(--c); color: var(--t); }
+.tint-card.active h3 { color: var(--t); }
+.tint-card.dimmed { opacity: 0.35; }
+.tint-card h3 svg { font-size: 1.3em; vertical-align: -0.25em; margin-right: 0.35rem; }
+
+/* Sticky note — one discussion prompt or aside per slide, at most */
+.sticky-note {
+  position: absolute;
+  width: 220px;
+  padding: 1rem 1.1rem;
+  background: var(--slidev-theme-section-bg);
+  color: var(--slidev-theme-text);
+  font-family: 'Marker Felt', 'Comic Sans MS', cursive;
+  font-size: 16px;
+  line-height: 1.4;
+  box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.18);
+  transform: rotate(-2.5deg);
+}
+
 /* ---------------------------------------------------------------------------
    Auto-fit figure helpers — content that NEVER clips and never overlaps the
    header (top) or logo (bottom).

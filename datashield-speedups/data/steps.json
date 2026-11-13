@@ -1,0 +1,19 @@
+{
+  "arms": [
+    { "key": "v635", "label": "6.3.5", "color": "#9AA0A6" },
+    { "key": "v70", "label": "7.0", "color": "#4285F4" },
+    { "key": "wait", "label": "7.0 + dsWait", "color": "#0097A7" },
+    { "key": "together", "label": "7.0 + dsWait + together", "color": "#E6B96A" }
+  ],
+  "functions": [
+    { "name": "meanDS", "v635": 924, "v70": 942, "wait": 629, "together": 395 },
+    { "name": "asIntegerDS", "v635": 1232, "v70": 1262, "wait": 627, "together": 396 },
+    { "name": "ds.mean", "v635": 926, "v70": 947, "wait": 626, "together": 404 },
+    { "name": "ds.cov", "v635": 4120, "v70": 942, "wait": 633, "together": 404 },
+    { "name": "ds.glm", "v635": 4958, "v70": 4002, "wait": 2769, "together": 1793 }
+  ],
+  "requests": [
+    { "name": "ds.cov", "v635": 65, "v70": 15, "wait": 10 },
+    { "name": "ds.glm", "v635": 75, "v70": 60, "wait": 40 }
+  ]
+}

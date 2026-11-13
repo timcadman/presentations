@@ -4,11 +4,15 @@ editable, branded PowerPoint via build_deck.DeckBuilder.
 
     python3 convert_slidev.py molgenis-armadillo/slides.md /tmp/out.pptx [slidev_png_dir]
 
-slidev_png_dir (optional): folder of rendered Slidev PNGs (1.png..N.png), used as a
-whole-slide fallback for slides that can't be made editable (bespoke Vue diagrams).
-Produce it with:  npx slidev export slides.md --format png --output <dir>
+slidev_png_dir (optional): folder of rendered Slidev PNGs, used as a whole-slide
+fallback for slides that can't be made editable (bespoke Vue diagrams). Produce it with
+    npx slidev export slides.md --format png --with-clicks --wait 15000 --output <dir>
+With --with-clicks each click state is a picture (009-01.png, 009-02.png, ...); a slide
+with `pptxClicks: true` in its frontmatter then becomes one PowerPoint slide per state.
+Every other picture slide shows its final state.
 """
 import html, os, re, sys
+from PIL import Image, ImageChops
 from build_deck import DeckBuilder
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -21,10 +25,13 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 #     hw-grid table, bespoke <Component/> diagrams) override these.
 #   - Per-slide override: add `pptx: <type>` to a slide's frontmatter to force a
 #     spec type (e.g. `pptx: photo` for a full-bleed image instead of contained).
+#   - `pptxVideo: ./public/clip.mov` in a slide's frontmatter replaces the slide,
+#     in PowerPoint only, with a full-slide recording of it (for animated slides).
+#   - `pptxClicks: true` splits a picture slide into one slide per click state.
 #   - content-img-* carry side via the layout name; imageScale/imageWidth/
 #     imageAlign are Slidev-only and don't affect the PPTX (the template's
 #     Image/Photo layouts have fixed geometry).
-# PPTX template layouts these resolve to: Title, Bullets, Image Right/Left,
+# PPTX template layouts these resolve to: Title, Bullets, Section, Image Right/Left,
 #   Photo Right/Left, Table  (plus two_images/slide_image drawn on Bullets).
 # ---------------------------------------------------------------------------
 LAYOUT_MAP = {
@@ -33,9 +40,20 @@ LAYOUT_MAP = {
     "content-img-right": "image",        # contained image, right column
     "content-img-left":  "image",        # contained image, left column
     "content-two-images": "two_images",
-    "section":           "bullets",
+    "content-two-cols":  "photo",        # left bullets + a right-hand image, full-bleed
+    "chart-full":        "bullets",      # compact layout; its body is usually bespoke
+    "section":           "section",      # divider slide
     "default":           "bullets",
 }
+
+# Card grids written as <div class="..."><h3>title</h3><p>text</p></div>.
+CARD_CLASSES = ("adv-card", "fq-card")
+
+# Tags a slide body may contain and still convert to editable text. Anything
+# else (a Vue component, a hand-built <div> diagram, an <img>, a terminal) has
+# no editable equivalent, so the slide is placed as a picture of itself.
+EDITABLE_TAGS = {"v-clicks", "v-click", "template", "p", "span", "br",
+                 "strong", "em", "b", "i", "code", "a"}
 
 
 def parse_frontmatter(block):
@@ -68,6 +86,7 @@ def clean_inline(t):
     t = re.sub(r'<.*?>', ' ', t)                     # any stray tags -> space (keep word gaps)
     t = html.unescape(t)                             # &amp; &ensp; &nbsp; -> chars
     t = re.sub(r'\s+', ' ', t)
+    t = re.sub(r' ([,.;:])', r'\1', t)               # gap left by a stripped tag before punctuation
     return t.strip()
 
 
@@ -120,6 +139,66 @@ def resolve(src, base):
     return os.path.join(base, src.replace('./public/', 'public/'))
 
 
+def resolve_public(src, base):
+    """Path on disk of an asset referenced as ./public/x, public/x or /x."""
+    return os.path.join(base, "public", re.sub(r'^(\./)?(public)?/', '', src))
+
+
+def has_bespoke_markup(body, also_allowed=()):
+    """True if the body holds markup with no editable equivalent."""
+    body = re.sub(r'<!--.*?-->', '', body, flags=re.S)
+    allowed = EDITABLE_TAGS | set(also_allowed)
+    return any(tag not in allowed for tag in re.findall(r'<([A-Za-z][\w-]*)', body))
+
+
+def find_slide_pngs(png_dir, number):
+    """Exported pictures of slide `number` in click order: one per click state
+    (NNN-CC.png) if the export used --with-clicks, else the single N.png."""
+    if not png_dir or not os.path.isdir(png_dir):
+        return []
+    states = {}
+    for name in os.listdir(png_dir):
+        m = re.fullmatch(r'0*(\d+)(?:-(\d+))?\.png', name, re.I)
+        if m and int(m.group(1)) == number:
+            states[int(m.group(2) or 0)] = os.path.join(png_dir, name)
+    return [states[click] for click in sorted(states)]
+
+
+def drop_repeated_images(paths):
+    """Remove a picture identical to the one before it (a click that changed nothing visible)."""
+    kept = []
+    for path in paths:
+        if kept and not ImageChops.difference(Image.open(kept[-1]).convert("RGB"),
+                                              Image.open(path).convert("RGB")).getbbox():
+            continue
+        kept.append(path)
+    return kept
+
+
+def slot_content(body, name):
+    """Content of a <template #name> slot, or '' if the slide has none."""
+    m = re.search(r'<template\s+#%s\s*>(.*?)</template>' % name, body, re.S)
+    return m.group(1) if m else ""
+
+
+def grid_columns(count):
+    """Columns for a card grid: one row up to three cards, two rows up to six, else three."""
+    rows = 1 if count <= 3 else 2 if count <= 6 else 3
+    return max(-(-count // rows), 1)
+
+
+def video_clips(body, base):
+    """[{path, label}] for each <VideoPlayer>; the label is the text <div> before it."""
+    clips, start = [], 0
+    for m in re.finditer(r'<VideoPlayer\b[^>]*\bsrc="([^"]+)"[^>]*>', body):
+        before = re.sub(r'<!--.*?-->', '', body[start:m.start()], flags=re.S)
+        labels = re.findall(r'<div[^>]*>([^<]+)</div>', before)
+        clips.append({"path": resolve_public(m.group(1), base),
+                      "label": clean_inline(labels[-1]) if labels else ""})
+        start = m.end()
+    return clips
+
+
 def attrs(tag):
     return dict(re.findall(r'(\w+)="([^"]*)"', tag))
 
@@ -145,36 +224,58 @@ def to_spec(fm, body, idx, base, png_dir):
             if s and not s.startswith('#') and not s.startswith('<'):
                 sub = clean_inline(s); break
         ps = [clean_inline(p) for p in re.findall(r'<p>(.*?)</p>', body)]
+        # a cover that names its authors has no role line unless it gives one
+        role = ps[1] if len(ps) > 1 else ("" if ps else "Senior Data Scientist")
         return {"type": "title", "heading": clean_inline(h.group(1)) if h else "",
                 "subheading": sub,
-                "name": ps[0] if ps else "Tim Cadman",
-                "role": ps[1] if len(ps) > 1 else "Senior Data Scientist"}
+                "name": ps[0] if ps else "Tim Cadman", "role": role}
 
     heading, subheading = fm.get("heading", ""), fm.get("subheading", "")
     layout = fm.get("layout", "content")
     body = re.sub(r'<style[^>]*>.*?</style>', '', body, flags=re.S)  # drop scoped CSS
 
-    def png():  # whole-slide fallback image for this slide
-        return os.path.join(png_dir, f"{idx + 1}.png") if png_dir else None
+    # ---- recording of the whole slide, for slides that only work animated ----
+    if fm.get("pptxVideo"):
+        return {"type": "slide_video", "video": resolve_public(fm["pptxVideo"], base)}
+
+    def slide_picture():  # whole-slide fallback: the final state, or every click state
+        states = find_slide_pngs(png_dir, idx + 1)
+        if fm.get("pptxClicks", "").lower() != "true":
+            return {"type": "slide_image", "images": states[-1:]}
+        return {"type": "slide_image", "images": drop_repeated_images(states)}
 
     # ---- section divider (body is just `# Heading`): lift the H1 into the title ----
     if layout == "section":
         h = re.search(r'^#\s+(.*)', body, re.M)
-        return {"type": "bullets", "heading": clean_inline(h.group(1)) if h else heading,
-                "subheading": subheading, "bullets": []}
+        return {"type": LAYOUT_MAP[layout], "heading": clean_inline(h.group(1)) if h else heading,
+                "subheading": subheading}
 
     # ---- ProcessCards component -> info cards (must precede the bespoke branch) ----
     m = re.search(r'<ProcessCards\b(.*?)/?>', body, re.S)
     if m:
-        steps = re.findall(r"\{\s*title:\s*'([^']*)'\s*,\s*desc:\s*'([^']*)'", m.group(1))
+        steps = re.findall(r"\{\s*title:\s*'([^']*)'(?:\s*,\s*desc:\s*'([^']*)')?", m.group(1))
         return {"type": "cards", "heading": heading, "subheading": subheading,
                 "cards": [(clean_inline(t), clean_inline(d)) for t, d in steps],
-                "columns": len(steps) or 2}
+                "columns": grid_columns(len(steps))}
 
-    # ---- LatencyStack (bespoke) -> a titled single figure (pre-rendered PNG) ----
-    if re.search(r'<LatencyStack\b', body):
+    # ---- video clips -> playable movies, side by side under the title ----
+    clips = video_clips(re.sub(r'<!--.*?-->', '', body, flags=re.S), base)
+    if clips:
+        return {"type": "video", "heading": heading, "subheading": subheading, "videos": clips}
+
+    # ---- StatTiles component (value + label tiles) -> info cards ----
+    m = re.search(r'<StatTiles\b(.*?)/>', body, re.S)
+    if m:
+        tiles = re.findall(r"\{\s*value:\s*([\d.]+)\s*,\s*label:\s*'([^']*)'", m.group(1))
+        return {"type": "cards", "heading": heading, "subheading": subheading,
+                "cards": [(f"{float(v):,.10g}", clean_inline(l)) for v, l in tiles],
+                "columns": grid_columns(len(tiles))}
+
+    # ---- LatencyStack (bespoke) -> a titled single figure, where the deck ships one ----
+    latency = resolve("./public/latency.png", base)
+    if re.search(r'<LatencyStack\b', body) and os.path.exists(latency):
         return {"type": "figure", "heading": heading, "subheading": subheading,
-                "image": resolve("./public/latency.png", base)}
+                "image": latency}
 
     # ---- "Where the time goes" measurement cards (.mcard: name / desc / formula) ----
     if "mcard" in body:
@@ -207,7 +308,7 @@ def to_spec(fm, body, idx, base, png_dir):
 
     # ---- team slide: avatar grid + group photo are bespoke -> whole-slide image ----
     if "team-rows" in body or "team-grid" in body:
-        return {"type": "slide_image", "image": png()}
+        return slide_picture()
 
     # ---- two-image slide ----
     if layout == "content-two-images":
@@ -216,7 +317,7 @@ def to_spec(fm, body, idx, base, png_dir):
 
     # ---- bespoke Vue component (e.g. architecture diagram): whole-slide image ----
     if re.search(r'<[A-Z][A-Za-z0-9]+\s*/?>', body) and "DemoSlide" not in body:
-        return {"type": "slide_image", "image": png()}
+        return slide_picture()
 
     # ---- DemoSlide component (other decks) ----
     m = re.search(r'<DemoSlide\b([^>]*?)/?>', body)
@@ -232,10 +333,11 @@ def to_spec(fm, body, idx, base, png_dir):
                 "intro": clean_inline(intro.group(1)) if intro else "",
                 "cards": _cards(body), "columns": 2}
 
-    # ---- "potential advantages" cards (2x2 grid) ----
-    if "adv-card" in body:
+    # ---- card grids (potential advantages, spotlight cards) ----
+    if any(c in body for c in CARD_CLASSES):
+        cards = _cards(body)
         return {"type": "cards", "heading": heading, "subheading": subheading,
-                "cards": _cards(body), "columns": 2}
+                "cards": cards, "columns": grid_columns(len(cards))}
 
     # ---- Deployment Variants: variant/requirement bullets (left) + hardware table (right) ----
     if "hw-grid" in body:
@@ -264,21 +366,38 @@ def to_spec(fm, body, idx, base, png_dir):
         side = "right" if "right" in layout else "left"
         img = fm["image"]
         t = fm.get("pptx") or LAYOUT_MAP.get(layout, "image")
+        # images written in the body (a row of funder/partner logos) sit under the bullets
+        logos = [resolve(src, base) for src in re.findall(r'<img[^>]*\bsrc="([^"]+)"', body)]
         spec = {"type": t, "side": side, "heading": heading, "subheading": subheading,
-                "bullets": md_bullets(body), "image": resolve(img, base)}
+                "bullets": md_bullets(body), "image": resolve(img, base), "logos": logos}
         if t == "image":
             spec["border"] = "logo" not in img
         return spec
 
+    # ---- two columns: bullets on the left, one plain image on the right ----
+    if layout == "content-two-cols":
+        left, right = slot_content(body, "left"), slot_content(body, "right")
+        imgs = re.findall(r'<img[^>]*\bsrc="([^"]+)"', right)
+        if len(imgs) == 1 and not has_bespoke_markup(right, also_allowed=("img",)):
+            return {"type": fm.get("pptx") or LAYOUT_MAP[layout], "side": "right",
+                    "heading": heading, "subheading": subheading,
+                    "bullets": md_bullets(left), "image": resolve(imgs[0], base)}
+
     # ---- legacy inline flex image + <p> bullets ----
     imgs = [s for s in re.findall(r'<img src="([^"]+)"', body) if "logo" not in s and "icon-" not in s]
     pbul = html_bullets(body)
-    if imgs and pbul:
+    if imgs and pbul and not has_bespoke_markup(body, also_allowed=("div", "img")):
         return {"type": "image", "side": "left", "heading": heading, "subheading": subheading,
                 "bullets": pbul, "image": resolve(imgs[0], base)}
 
-    # ---- plain bullets (also handles bullets nested in a styling <div>) ----
+    # ---- no editable equivalent -> whole-slide image ----
+    # Bullets wrapped in a styling <div> stay editable; a slide becomes a picture
+    # if it holds a component/image/diagram, or markup but no text to keep.
     bul = md_bullets(body) or prose_lines(body)
+    if has_bespoke_markup(body, also_allowed=("div",)) or (not bul and has_bespoke_markup(body)):
+        return slide_picture()
+
+    # ---- plain bullets ----
     return {"type": "bullets", "heading": heading, "subheading": subheading, "bullets": bul}
 
 
@@ -287,6 +406,10 @@ def convert(md_path, out_path, png_dir=None):
     text = open(md_path).read()
     slides = split_slides(text)
     specs = [to_spec(fm, body, i, base, png_dir) for i, (fm, body) in enumerate(slides)]
+    missing = [i + 1 for i, s in enumerate(specs) if s["type"] == "slide_image" and not s["images"]]
+    if missing:
+        print(f"WARNING: no exported PNG for slides {missing}; they will be blank. Export them with: "
+              f"npx slidev export slides.md --format png --with-clicks --wait 15000 --output <dir>")
     DeckBuilder().build(specs).save(out_path)
     print(f"converted {len(specs)} slides -> {out_path}")
     return specs

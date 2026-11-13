@@ -1,0 +1,8 @@
+id: combine-one-cohort-trajectories
+sourceSlide: "Combining data — Scenario 1: One birth cohort (trajectories)"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      So we can only estimate how cognitive function differs by exposure over that
+      short period, and cannot link early exposures to outcomes decades later.

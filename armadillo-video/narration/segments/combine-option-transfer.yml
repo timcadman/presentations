@@ -1,0 +1,10 @@
+id: combine-option-transfer
+sourceSlide: "Combining data — Option 1: Data transfer"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      So how do we combine data? The first option is to transfer all the data to one
+      location. This is simple for the analyst, but it raises ethical and legal
+      barriers, data owners lose control of their data, and large datasets are costly
+      to store.

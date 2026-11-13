@@ -47,4 +47,4 @@ heading: Federated analysis
 subheading: How it works
 ---
 
-<DatashieldArchitectureArmadillo />
+<DatashieldArchitecture server="armadillo" />

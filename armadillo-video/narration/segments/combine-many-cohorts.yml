@@ -1,0 +1,8 @@
+id: combine-many-cohorts
+sourceSlide: "Combining data — Scenario 2: Combining birth cohorts (participants)"
+captureType: slidev
+steps:
+  - clicks: 0
+    text: >-
+      If we combine several cohorts, each covering different ages, together they span
+      the whole lifecourse.

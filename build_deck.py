@@ -11,11 +11,15 @@ Usage:
 Each slide is a dict with a "type":
   {"type":"title",   "heading":..., "subheading":..., "name":..., "role":...}
   {"type":"bullets", "heading":..., "subheading":..., "bullets":[...]}
+  {"type":"section", "heading":..., "subheading":...}
   {"type":"photo",   "side":"right"|"left", "heading":..., "subheading":..., "bullets":[...], "image":path}
-  {"type":"image",   "side":"right"|"left", "heading":..., "subheading":..., "bullets":[...], "image":path}
+  {"type":"image",   "side":"right"|"left", "heading":..., "subheading":..., "bullets":[...], "image":path,
+                     "logos":[path,...]}   # optional row of small logos under the bullets
   {"type":"table",   "heading":..., "subheading":..., "rows":[[...],...]}
   {"type":"stack",   "heading":..., "subheading":..., "rows":[(label,desc),...]}
   {"type":"demo",    "step":..., "image":path, "text":...}
+  {"type":"video",   "heading":..., "subheading":..., "videos":[{"path":..., "label":...}]}
+  {"type":"slide_video", "video":path}
 """
 from pptx import Presentation
 from pptx.util import Inches, Pt
@@ -25,7 +29,7 @@ from pptx.enum.shapes import MSO_SHAPE, PP_PLACEHOLDER
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from lxml import etree
 from PIL import Image as PImage
-import os
+import glob, hashlib, os, shutil, subprocess, tempfile
 
 TEMPLATE = os.path.join(os.path.dirname(__file__), "molgenis-template-STARTER.pptx")
 ASSET_ROOT = os.path.dirname(__file__)
@@ -36,6 +40,54 @@ GREY = RGBColor(0x44, 0x44, 0x44)
 GRAD = [("Local data", "93c5fd", "ffffff"), ("Catalogue", "60a5fa", "ffffff"),
         ("Request", "3b82f6", "ffffff"), ("Access", "2563eb", "ffffff"),
         ("Analyse", "1e3a5f", "ffffff")]
+
+
+def find_ffmpeg():
+    """ffmpeg on PATH, else the ffmpeg-static binary a deck has installed."""
+    found = shutil.which("ffmpeg")
+    if found:
+        return found
+    bundled = sorted(glob.glob(os.path.join(ASSET_ROOT, "*", "node_modules", "ffmpeg-static", "ffmpeg")))
+    if not bundled:
+        raise RuntimeError("ffmpeg not found: install it, or `npm i ffmpeg-static` in a deck")
+    return bundled[0]
+
+
+def prepare_video(path):
+    """Return (mp4, poster_png) for a clip, converting once and reusing the result.
+
+    PowerPoint on Windows does not reliably play QuickTime .mov, so every clip
+    is embedded as H.264 .mp4; the poster is the frame shown before playback.
+    """
+    stat = os.stat(path)
+    key = hashlib.sha1(f"{path}:{stat.st_mtime_ns}:{stat.st_size}".encode()).hexdigest()[:16]
+    cache = os.path.join(tempfile.gettempdir(), "slidev_pptx_media")
+    os.makedirs(cache, exist_ok=True)
+    mp4, poster = os.path.join(cache, key + ".mp4"), os.path.join(cache, key + ".png")
+    ffmpeg = find_ffmpeg()
+    if not os.path.exists(mp4):
+        subprocess.run([ffmpeg, "-y", "-loglevel", "error", "-i", path, "-an", "-c:v", "libx264",
+                        "-pix_fmt", "yuv420p", "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2",
+                        "-movflags", "+faststart", mp4], check=True)
+    if not os.path.exists(poster):
+        subprocess.run([ffmpeg, "-y", "-loglevel", "error", "-i", mp4, "-frames:v", "1", poster],
+                       check=True)
+    return mp4, poster
+
+
+def as_raster(path):
+    """Path to a picture PowerPoint can embed: an SVG is rendered once to a cached PNG."""
+    if not path.lower().endswith(".svg"):
+        return path
+    import fitz  # PyMuPDF, already required by the pipeline to check its output
+    stat = os.stat(path)
+    key = hashlib.sha1(f"{path}:{stat.st_mtime_ns}:{stat.st_size}".encode()).hexdigest()[:16]
+    cache = os.path.join(tempfile.gettempdir(), "slidev_pptx_media")
+    os.makedirs(cache, exist_ok=True)
+    png = os.path.join(cache, key + ".png")
+    if not os.path.exists(png):
+        fitz.open(path)[0].get_pixmap(dpi=300, alpha=True).save(png)
+    return png
 
 
 def _sub(parent, tag, **a):
@@ -115,6 +167,12 @@ class DeckBuilder:
         self._bullets(self._ph(s, PP_PLACEHOLDER.OBJECT), bullets)
         return s
 
+    def section(self, heading, subheading="", **_):
+        """Divider between parts of the talk: heading centred on the section colour."""
+        s = self.prs.slides.add_slide(self._layout("Section"))
+        self._title_sub(s, heading, subheading)
+        return s
+
     def photo(self, side, heading, subheading="", bullets=(), image=None, **_):
         s = self.prs.slides.add_slide(self._layout(f"Photo {side.capitalize()}"))
         self._title_sub(s, heading, subheading)
@@ -123,9 +181,22 @@ class DeckBuilder:
             self._ph(s, PP_PLACEHOLDER.PICTURE).insert_picture(image)  # cover/crop = full-bleed
         return s
 
-    def image(self, side, heading, subheading="", bullets=(), image=None, border=True, **_):
+    def _logo_row(self, s, logos, left, top, height=Inches(0.3), gap=Inches(0.2)):
+        """Small logos side by side at a common height, starting at (left, top)."""
+        x = left
+        for logo in logos:
+            picture = as_raster(logo)
+            w, h = PImage.open(picture).size
+            width = int(height * w / h)
+            s.shapes.add_picture(picture, x, top, width, height)
+            x += width + gap
+
+    def image(self, side, heading, subheading="", bullets=(), image=None, border=True, logos=(), **_):
         s = self.prs.slides.add_slide(self._layout(f"Image {side.capitalize()}"))
         self._title_sub(s, heading, subheading)
+        if logos:
+            body = self._ph(s, PP_PLACEHOLDER.BODY)
+            self._logo_row(s, logos, body.left, body.top + body.height + Inches(0.1))
         # screenshot is top-aligned in its region; bullets sit at the layout's fixed top.
         # both share the same top point and the layout height never changes per slide.
         if image:
@@ -158,14 +229,51 @@ class DeckBuilder:
             pic.line.color.rgb = RGBColor(0xD9, 0xD9, 0xD9); pic.line.width = Pt(1)
         return s
 
-    def slide_image(self, image=None, **_):
+    def slide_image(self, images=(), **_):
         """Whole-slide image fallback for slides that can't be made editable
-        (e.g. a bespoke Vue diagram). The image already contains its own title."""
+        (e.g. a bespoke Vue diagram). Each image already contains its own title;
+        several images are the slide's click states and become consecutive slides."""
+        for image in list(images) or [None]:
+            s = self.prs.slides.add_slide(self._layout("Bullets"))
+            for p in list(s.placeholders):
+                p._element.getparent().remove(p._element)
+            if image:
+                s.shapes.add_picture(image, 0, 0, self.prs.slide_width, self.prs.slide_height)
+        return s
+
+    def video(self, heading, subheading="", videos=(), **_):
+        """Playable clips side by side under the title, each with an optional label."""
+        s = self.prs.slides.add_slide(self._layout("Table"))
+        self._title_sub(s, heading, subheading)
+        margin, gap, top, bottom = 0.7, 0.3, 2.1, 5.25
+        label_h = 0.35 if any(v.get("label") for v in videos) else 0.0
+        cell_w = (10.0 - 2 * margin - (len(videos) - 1) * gap) / max(len(videos), 1)
+        cell_h = bottom - top - label_h
+        for i, clip in enumerate(videos):
+            x = margin + i * (cell_w + gap)
+            if clip.get("label"):
+                tb = s.shapes.add_textbox(Inches(x), Inches(top), Inches(cell_w), Inches(label_h))
+                r = tb.text_frame.paragraphs[0].add_run(); r.text = clip["label"]
+                r.font.bold = True; r.font.size = Pt(14); r.font.name = "IBM Plex Mono"
+                r.font.color.rgb = RGBColor.from_string(BLUE_HEX)
+            mp4, poster = prepare_video(clip["path"])
+            pw, ph = PImage.open(poster).size
+            scale = min(cell_w / pw, cell_h / ph)
+            s.shapes.add_movie(mp4, Inches(x), Inches(top + label_h), Inches(pw * scale),
+                               Inches(ph * scale), poster_frame_image=poster, mime_type="video/mp4")
+        return s
+
+    def slide_video(self, video, **_):
+        """A recording of the whole slide, filling the slide (it shows its own title)."""
         s = self.prs.slides.add_slide(self._layout("Bullets"))
         for p in list(s.placeholders):
             p._element.getparent().remove(p._element)
-        if image:
-            s.shapes.add_picture(image, 0, 0, self.prs.slide_width, self.prs.slide_height)
+        mp4, poster = prepare_video(video)
+        pw, ph = PImage.open(poster).size
+        scale = min(self.prs.slide_width / pw, self.prs.slide_height / ph)
+        w, h = int(pw * scale), int(ph * scale)
+        s.shapes.add_movie(mp4, (self.prs.slide_width - w) // 2, (self.prs.slide_height - h) // 2,
+                           w, h, poster_frame_image=poster, mime_type="video/mp4")
         return s
 
     def _infobox(self, s, x, y, w, h, title, desc):
@@ -319,6 +427,7 @@ class DeckBuilder:
             t = spec["type"]
             if t == "title": self.title(**spec)
             elif t == "bullets": self.bullets(**spec)
+            elif t == "section": self.section(**spec)
             elif t == "photo": self.photo(**spec)
             elif t == "image": self.image(**spec)
             elif t == "two_images": self.two_images(**spec)
@@ -328,6 +437,8 @@ class DeckBuilder:
             elif t == "table": self.table(**spec)
             elif t == "stack": self.stack(**spec)
             elif t == "demo": self.demo(**spec)
+            elif t == "video": self.video(**spec)
+            elif t == "slide_video": self.slide_video(**spec)
             else: raise ValueError(f"unknown slide type {t!r}")
         return self.prs
 
