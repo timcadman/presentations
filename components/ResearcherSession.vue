@@ -10,6 +10,19 @@ const props = defineProps({
     type: String,
     default: 'uncan_demo.R',
   },
+  title: {
+    type: String,
+    default: 'RStudio \u2014 UNCAN demo',
+  },
+  wd: {
+    type: String,
+    default: '~/uncan-connect/',
+  },
+  // component drawn in the console where a step sets `plot: true`
+  plotComponent: {
+    type: [Object, Function],
+    default: () => Ql2Histograms,
+  },
   startAt: {
     type: Number,
     default: 1,
@@ -206,7 +219,7 @@ const consoleEntries = computed(() =>
       <span class="rs-dot rs-dot-r"></span>
       <span class="rs-dot rs-dot-y"></span>
       <span class="rs-dot rs-dot-g"></span>
-      <span class="rs-title">RStudio &mdash; UNCAN demo</span>
+      <span class="rs-title">{{ title }}</span>
     </div>
 
     <div class="rs-panes">
@@ -230,7 +243,7 @@ const consoleEntries = computed(() =>
           <span class="rs-r-icon">R</span>
           <span>R 4.4.2</span>
           <span class="rs-statusbar-sep">&middot;</span>
-          <span>~/uncan-connect/</span>
+          <span>{{ wd }}</span>
         </div>
         <div class="rs-body rs-console">
           <pre v-if="showBanner" class="rs-out rs-banner">R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
@@ -249,7 +262,7 @@ Platform: aarch64-apple-darwin20</pre>
             </div>
             <div v-else-if="entry.plot" v-show="alwaysShow || ($clicks >= entry.outStep && $clicks < entry.clearedAt)">
               <pre v-if="entry.output && !entry.done" class="rs-out" v-html="entry.output"></pre>
-              <Ql2Histograms v-if="entry.done" />
+              <component :is="plotComponent" v-if="entry.done" />
               <div v-if="entry.done" v-show="$clicks >= entry.promptStep" class="rs-cmdline"><span class="rs-prompt">&gt;</span></div>
             </div>
             <div v-else-if="entry.output" v-show="alwaysShow || ($clicks >= entry.outStep && $clicks < entry.clearedAt)">

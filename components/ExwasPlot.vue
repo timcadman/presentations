@@ -4,11 +4,11 @@
 // are generated, not real results — this figure shows the shape of an ExWAS, it
 // does not report one.
 const GROUPS = [
-  { name: 'Air', colour: '#4285F4', n: 14 },
-  { name: 'Built', colour: '#119DA1', n: 12 },
-  { name: 'Noise', colour: '#E2A517', n: 8 },
-  { name: 'Green', colour: '#5D408A', n: 10 },
-  { name: 'Social', colour: '#DA594A', n: 12 },
+  { name: 'Air', colour: 'var(--c-blue)', n: 14 },
+  { name: 'Built', colour: 'var(--c-teal)', n: 12 },
+  { name: 'Noise', colour: 'var(--c-gold)', n: 8 },
+  { name: 'Green', colour: 'var(--c-purple)', n: 10 },
+  { name: 'Social', colour: 'var(--c-red)', n: 12 },
 ]
 const THRESHOLD = 4.2
 
@@ -44,8 +44,8 @@ const ticks = [0, 2, 4, 6, 8]
           transform="translate(22,140) rotate(-90)">−log₁₀(p)</text>
 
     <line :x1="X0" :y1="yOf(THRESHOLD)" :x2="X1" :y2="yOf(THRESHOLD)"
-          stroke="#9AA0A6" stroke-width="1.5" stroke-dasharray="6 5" />
-    <text style="font-size: 13px" :x="X1" :y="yOf(THRESHOLD) - 7" fill="#9AA0A6"
+          stroke="var(--c-grey)" stroke-width="1.5" stroke-dasharray="6 5" />
+    <text style="font-size: 13px" :x="X1" :y="yOf(THRESHOLD) - 7" fill="var(--c-grey)"
           text-anchor="end">significance threshold</text>
 
     <circle v-for="(p, n) in points" :key="n" :cx="p.x" :cy="p.y" r="4.5"

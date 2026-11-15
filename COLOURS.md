@@ -13,9 +13,9 @@ aren't theme variables.
 | Role | Variable | Hex |
 |---|---|---|
 | Primary — blue | `--slidev-theme-primary` | `#4285F4` |
-| Secondary — gold | `--slidev-theme-secondary` | `#E6B96A` |
-| Accent — teal | `--slidev-theme-accent` | `#0097A7` |
-| Section background — gold | `--slidev-theme-section-bg` | `#F7D38C` |
+| Secondary — gold | `--slidev-theme-secondary` | `#E2A517` |
+| Accent — teal | `--slidev-theme-accent` | `#119DA1` |
+| Section background — gold tint | `--slidev-theme-section-bg` | `#F9D28C` |
 | Section foreground | `--slidev-theme-section-fg` | = primary |
 | Text | `--slidev-theme-text` | `#333333` |
 
@@ -84,13 +84,13 @@ From the live website's own CSS custom properties (`--uncan-*`):
 
 | Name | Hex | Use |
 |---|---|---|
-| Gold | `#E6B96A` | fills; pair with `#B9852A` for text |
-| Dark gold | `#B9852A` | gold text on light backgrounds |
-| Teal | `#0097A7` | = accent |
-| Navy | `#1E3A5F` | deep anchor |
+| Gold | `#E2A517` | fills; pair with `#BA8118` for text on light backgrounds |
+| Dark gold | `#BA8118` | gold text, and gold fills that must carry white text |
+| Teal | `#119DA1` | = accent |
+| Blue-dark | `#02529B` | deep anchor (was navy `#1E3A5F`) |
 | Blue | `#4285F4` | = primary |
-| Purple | `#6A4C93` | totals / sums |
-| Red | `#D9534F` | alerts; `#B52B27` dark |
+| Purple | `#5D408A` | totals / sums |
+| Red | `#DA594A` | alerts |
 | Grey | `#9AA0A6` | muted, captions |
 | DataSHIELD orange | `#E35000` | DataSHIELD / Rock; sampled from the DataSHIELD logo |
 | Opal orange | `#D3621F` | Opal (OBiBa) cards, e.g. Armadillo vs Opal; from the existing "Deploying DataSHIELD" slide |

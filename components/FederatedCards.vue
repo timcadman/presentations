@@ -15,12 +15,12 @@ const props = defineProps({
 const { $clicks } = useSlideContext()
 
 const BASE = [
-  { c: '#4285F4', title: 'Remote analysis', body: 'One model across data held at several sites' },
-  { c: '#119DA1', title: 'Code travels, not data', body: 'Code is sent to the data; each site computes <strong>locally</strong>' },
-  { c: '#BA8118', h: '#BA8118', title: 'Only aggregates return', body: 'Means, SDs, coefficients — <strong>never individual-level data</strong>' },
-  { c: '#5D408A', title: 'Data never moves', body: 'Governance and access stay with the data holder' },
+  { c: 'var(--c-blue)', title: 'Remote analysis', body: 'One model across data held at several sites' },
+  { c: 'var(--c-teal)', title: 'Code travels, not data', body: 'Code is sent to the data; each site computes <strong>locally</strong>' },
+  { c: 'var(--c-gold-dark)', title: 'Only aggregates return', body: 'Means, SDs, coefficients — <strong>never individual-level data</strong>' },
+  { c: 'var(--c-purple)', title: 'Data never moves', body: 'Governance and access stay with the data holder' },
 ]
-const EXTRA = { c: '#02529B', title: 'The software', body: '<strong>Armadillo</strong> manages data access; <strong>DataSHIELD</strong> runs the analysis' }
+const EXTRA = { c: 'var(--c-blue-dark)', title: 'The software', body: '<strong>Armadillo</strong> manages data access; <strong>DataSHIELD</strong> runs the analysis' }
 
 const cards = computed(() => (props.software ? [...BASE, EXTRA] : BASE).map((card, i) => ({
   ...card,

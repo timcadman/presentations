@@ -1,13 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Nunito:wght@400;600;700&display=swap');
 
 :root {
-  --slidev-theme-primary: #4285F4;
-  --slidev-theme-secondary: #E2A517;
-  --slidev-theme-accent: #119DA1;
-  --slidev-theme-section-bg: #F9D28C;
-  --slidev-theme-section-fg: var(--slidev-theme-primary);
+  /* Palette — the single source of truth for every colour in the decks.
+     COLOURS.md documents these; nothing should hard-code a hex. */
+  --c-blue: #4285F4;
+  --c-blue-dark: #02529B;
+  --c-blue-light: #40A2C7;
+  --c-teal: #119DA1;
+  --c-gold: #E2A517;
+  --c-gold-dark: #BA8118;
+  --c-gold-tint: #F9D28C;
+  --c-purple: #5D408A;
+  --c-red: #DA594A;
+  --c-grey: #9AA0A6;
+  --c-text: #333333;
+
+  --slidev-theme-primary: var(--c-blue);
+  --slidev-theme-secondary: var(--c-gold);
+  --slidev-theme-accent: var(--c-teal);
+  --slidev-theme-section-bg: var(--c-gold-tint);
+  --slidev-theme-section-fg: var(--c-blue);
   --slidev-theme-heading: var(--slidev-theme-primary);
-  --slidev-theme-text: #333333;
+  --slidev-theme-text: var(--c-text);
   --slidev-theme-text-light: #D9D9D9;
   --font-title: 'Bebas Neue', sans-serif;
   --font-subtitle: 'IBM Plex Mono', monospace;
@@ -107,7 +121,7 @@ strong {
 
 /* Cards — flat tint at rest; on clicks the active card fills solid and the
    others dim. Colour per card: style="--c: <palette hex>; --t: <text on solid>";
-   add --h for a darker heading on the tint (gold: --h: #B9852A; --t: #333333). */
+   add --h for a darker heading on the tint (gold: --h: #B9852A; --t: var(--c-text)). */
 .tint-card {
   --c: var(--slidev-theme-primary);
   --t: #ffffff;
@@ -245,19 +259,19 @@ strong {
 .fair-notes { align-self: center; max-height: 100%; }
 .fair-notes b { font-weight: 700; }
 .fair-box .n { font-size: 12px; margin-top: 0.25rem; }
-.fair-box.f { left: 0; top: 0; background: #4285F4; }
-.fair-box.a { right: 0; top: 0; background: #E2A517; color: #333333; }
-.fair-box.i { right: 0; bottom: 0; background: #119DA1; }
-.fair-box.r { left: 0; bottom: 0; background: #5D408A; }
+.fair-box.f { left: 0; top: 0; background: var(--c-blue); }
+.fair-box.a { right: 0; top: 0; background: var(--c-gold); color: var(--c-text); }
+.fair-box.i { right: 0; bottom: 0; background: var(--c-teal); }
+.fair-box.r { left: 0; bottom: 0; background: var(--c-purple); }
 
 .fair-links { list-style: none; padding: 0 !important; margin: 0; }
 .fair-links li { display: flex; align-items: center; gap: 0.75rem; font-size: 22px !important; margin-bottom: 1.25rem !important; }
 .chips { display: flex; gap: 0.3rem; min-width: 6.9rem; }
 .chip { width: 2.1rem; height: 2.1rem; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; color: #fff; }
-.chip.f { background: #4285F4; }
-.chip.a { background: #E2A517; color: #333333; }
-.chip.i { background: #119DA1; }
-.chip.r { background: #5D408A; }
+.chip.f { background: var(--c-blue); }
+.chip.a { background: var(--c-gold); color: var(--c-text); }
+.chip.i { background: var(--c-teal); }
+.chip.r { background: var(--c-purple); }
 
 /* ---------------------------------------------------------------------------
    Federated query map (FederatedQuery.vue): basemap image with nodes, the
@@ -272,7 +286,7 @@ strong {
 /* zero-size anchor exactly on the coordinate: the dot centres on it and only
    the label moves, so a label side never shifts the marker off its city */
 .slidev-layout .fq-node { position: absolute; width: 0; height: 0; }
-.slidev-layout .fq-dot { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); width: 9px; height: 9px; border-radius: 50%; background: #4285F4; border: 2px solid #fff; }
+.slidev-layout .fq-dot { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--c-blue)); border: 2px solid #fff; }
 .slidev-layout .fq-name { position: absolute; font-size: 13px; color: #333; white-space: nowrap; }
 .slidev-layout .fq-node.right .fq-name { left: 9px; top: 0; transform: translateY(-50%); }
 .slidev-layout .fq-node.left .fq-name { right: 9px; top: 0; transform: translateY(-50%); }
@@ -283,12 +297,46 @@ strong {
 .slidev-layout .fq-key { position: absolute; right: 1.5%; bottom: 3%; align-items: flex-start; font-size: 13px; color: #333; display: flex; flex-direction: column; gap: 0.3rem; }
 .slidev-layout .fq-key div { display: flex; align-items: center; gap: 0.45rem; }
 .slidev-layout .fq-key .k { width: 22px; height: 0; border-top-width: 2px; border-top-style: solid; flex: none; }
-.slidev-layout .fq-key .k.out { border-color: #119DA1; border-top-style: dashed; }
-.slidev-layout .fq-key .k.back { border-color: #E2A517; }
+.slidev-layout .fq-key .k.out { border-color: var(--c-teal); border-top-style: dashed; }
+.slidev-layout .fq-key .k.back { border-color: var(--c-gold); }
 .slidev-layout .fq-tag { position: absolute; font-size: 13px; padding: 0.15rem 0.5rem; border-radius: 6px; }
-.slidev-layout .fq-tag.out { bottom: 14%; left: 20%; color: #119DA1; background: color-mix(in srgb, #119DA1 12%, white); }
-.slidev-layout .fq-tag.back { bottom: 5%; left: 20%; color: #BA8118; background: color-mix(in srgb, #E2A517 14%, white); }
+.slidev-layout .fq-tag.out { bottom: 14%; left: 20%; color: var(--c-teal); background: color-mix(in srgb, var(--c-teal) 12%, white); }
+.slidev-layout .fq-tag.back { bottom: 5%; left: 20%; color: var(--c-gold-dark); background: color-mix(in srgb, var(--c-gold) 14%, white); }
 
 .slidev-layout .fq-steps { list-style: disc; padding-left: 1.3rem !important; margin: 0 0 1rem 0; }
 .slidev-layout .fq-steps li { font-size: 17px; line-height: 1.4; margin-bottom: 0.8rem; }
 
+/* Live pooled-mean calculator (PooledMean.vue), used in the group exercise */
+/* formula and result left, table right, both starting at the top of the body */
+.slidev-layout .pm { display: flex; gap: 3rem; align-items: flex-start; height: 100%; }
+.slidev-layout .pm-left { flex: 1; min-width: 0; }
+.slidev-layout .pm-right { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+.slidev-layout .pm-left :deep(p) { margin-top: 0; }
+.slidev-layout .pm-table { width: auto; margin: 0; }
+.slidev-layout .pm-table td, .slidev-layout .pm-table th { padding: 0.15rem 0.6rem 0.15rem 0; }
+.slidev-layout .pm-table th { text-align: left; }
+.slidev-layout .pm-table input { width: 5rem; font-size: 15px; padding: 0.05rem 0.3rem; border: 1px solid #ccc; border-radius: 4px; font-family: var(--font-body); }
+.slidev-layout .pm-actions { display: flex; gap: 0.5rem; }
+.slidev-layout .pm-actions button { font-family: var(--font-subtitle); font-size: 14px; padding: 0.2rem 0.7rem; border: 1px solid var(--c-blue); color: var(--c-blue); background: #fff; border-radius: 6px; cursor: pointer; }
+.slidev-layout .pm-result { font-size: 20px; margin: 0; }
+.slidev-layout .pm-result strong { color: var(--c-blue); margin: 0 0.3rem; }
+
+/* DataSHIELD node map (NodeMap.vue): world map left, grouped node list right */
+.slidev-layout .nm { display: flex; gap: 2rem; height: 100%; min-height: 0; align-items: flex-start; }
+.slidev-layout .nm-map { position: relative; flex: 1 1 auto; min-width: 0; max-height: 100%; }
+.slidev-layout .nm-base { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.slidev-layout .nm-side { flex: 0 0 15rem; min-width: 0; }
+.slidev-layout .nm-group + .nm-group { margin-top: 1rem; }
+.slidev-layout .nm-group h3 { display: flex; align-items: center; gap: 0.45rem; margin: 0 0 0.3rem 0; font-family: var(--font-subtitle); font-size: 16px; font-weight: 600; color: var(--c); }
+.slidev-layout .nm-group h3::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--c); flex: none; }
+.slidev-layout .nm-note { margin: 0 0 0.3rem 0; font-size: 14px; color: var(--c-text); }
+.slidev-layout .nm-list { margin: 0; padding: 0; list-style: none; columns: 2; font-size: 13px; color: var(--c-text); }
+.slidev-layout .nm-list li { margin: 0 0 0.1rem 0; break-inside: avoid; }
+
+/* Example papers (ExamplePapers.vue): a coloured journal plate per paper */
+.slidev-layout .papers { display: flex; flex-direction: column; gap: 0.3rem; }
+.slidev-layout .paper { display: grid; grid-template-columns: 2.1rem 1fr; gap: 0.9rem; align-items: center; }
+.slidev-layout .paper .cover { width: 2.1rem; height: auto; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.18); }
+.slidev-layout .paper .cover-plate { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 4; padding: 0.15rem; background: color-mix(in srgb, var(--c-blue) 14%, white); color: var(--c-blue-dark); font-family: var(--font-subtitle); font-size: 8px; line-height: 1.1; text-align: center; box-shadow: none; }
+.slidev-layout .paper .t { display: block; font-size: 16px; line-height: 1.2; }
+.slidev-layout .paper .m { display: block; font-size: 13px; color: var(--c-grey); }

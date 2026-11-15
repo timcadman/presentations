@@ -5,7 +5,7 @@ Rules for cards, click emphasis and Slidev features, agreed 2026-11-13 from `sty
 ## Cards
 
 - Flat tint at rest (`.tint-card`), solid fill when active. One palette colour per card, kept the same for that category across the deck.
-- Set the colour per card: `--c` (fill), `--h` (heading on tint, if `--c` is too light), `--t` (text on solid). Gold uses `--h: #B9852A; --t: #333333`.
+- Set the colour per card: `--c` (fill), `--h` (heading on tint, if `--c` is too light). Active text is always white, so a gold card uses `--c: var(--c-gold-dark)` — white on the lighter gold is 2.18:1 and fails.
 
 ```html
 <div class="tint-card" style="--c: #4285F4;" :class="$clicks === 1 ? 'active' : 'dimmed'">

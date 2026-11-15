@@ -60,12 +60,12 @@ const showBack = computed(() => $clicks.value >= 3)
     <svg class="fq-overlay" viewBox="0 0 100 100" preserveAspectRatio="none">
       <g v-if="showOut">
         <path v-for="n in nodes" :key="`o${n.name}`" :d="arc(n, 5)"
-              fill="none" stroke="#119DA1" stroke-width="0.6"
+              fill="none" stroke="var(--c-teal)" stroke-width="0.6"
               vector-effect="non-scaling-stroke" stroke-dasharray="2 1.5" />
       </g>
       <g v-if="showBack">
         <path v-for="n in nodes" :key="`b${n.name}`" :d="arc(n, -5)"
-              fill="none" stroke="#E2A517" stroke-width="0.6"
+              fill="none" stroke="var(--c-gold)" stroke-width="0.6"
               vector-effect="non-scaling-stroke" />
       </g>
     </svg>

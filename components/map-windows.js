@@ -2,7 +2,7 @@
 // that draws it in ihen-26/build_maps.py — the component places nodes as
 // percentages of these bounds, so the two cannot drift apart.
 export const WINDOWS = {
-  world: { file: '/world-base.png', lon: [-112, 95], lat: [-35, 60], size: [2070, 950] },
+  world: { file: '/world-base.png', lon: [-112, 95], lat: [-38, 72], size: [2070, 1100] },
   europe: { file: '/europe-base.png', lon: [-11, 32], lat: [36, 58], size: [1200, 950] },
 }
 

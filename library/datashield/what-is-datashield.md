@@ -1,7 +1,7 @@
 ---
 layout: content
-heading: Key ideas
-subheading:
+heading: DataSHIELD
+subheading: Key ideas
 clicks: 3
 ---
 

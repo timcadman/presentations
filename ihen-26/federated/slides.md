@@ -5,7 +5,7 @@ author: Juan Carlos Rivillas, Tim Cadman & Hüseyin Küçükali
 aspectRatio: '16/9'
 publish: true
 themeConfig:
-  sections: [Reusing data, 'What is DataSHIELD?', DataSHIELD demo, Sharing your data, Discussion]
+  sections: [Reusing data, DataSHIELD, Demonstration, Sharing your data, Discussion]
 transition: slide-left
 mdc: true
 ---
@@ -59,17 +59,22 @@ section: Reusing data
 layout: section
 ---
 
-# Federated analysis
+# DataSHIELD
+
+---
+src: ../../library/datashield/introducing-datashield.md
+section: 'DataSHIELD'
+---
 
 ---
 src: ../../library/datashield/what-is-datashield.md
-section: 'Federated analysis'
+section: 'DataSHIELD'
 ---
 
 ---
 layout: figure-cite
-heading: The data stays put
-section: 'What is DataSHIELD?'
+heading: How it works
+section: 'DataSHIELD'
 sideWidth: '36'
 ---
 
@@ -94,24 +99,55 @@ sideWidth: '36'
 </template>
 
 ---
-layout: content
-heading: How it works
-subheading: 
-section: 'What is DataSHIELD?'
+src: ../../library/datashield/group-exercise.md
+section: 'DataSHIELD'
 ---
 
-<DatashieldArchitecture />
+---
+src: ../../library/datashield/pooling-means.md
+section: 'DataSHIELD'
+---
+
+---
+layout: content
+heading: Privacy-preserving statistics
+subheading: 
+section: 'DataSHIELD'
+---
+
+<table>
+<thead>
+<tr><th>Result</th><th>Condition</th></tr>
+</thead>
+<tbody>
+<tr v-click><td>Mean, SD, quantiles</td><td>Group has at least N participants</td></tr>
+<tr v-click><td>Counts and tables</td><td>Minimun cell size to display</td></tr>
+<tr v-click><td>Model coefficients and SEs</td><td>Model not saturated; no cell too small</td></tr>
+<tr v-click><td>Correlations, covariances</td><td>Minimum N, and not a near-perfect fit</td></tr>
+<tr v-click><td>Plots (histograms, heatmaps)</td><td>Binned or noise-added</td></tr>
+</tbody>
+</table>
 
 ---
 src: ../../library/datashield/analysis-options.md
-section: 'What is DataSHIELD?'
+section: 'DataSHIELD'
 ---
+
+---
+layout: content
+heading: Exposome research using DataSHIELD
+subheading: A few examples
+section: 'DataSHIELD'
+---
+
+<ExamplePapers />
+
 
 ---
 layout: section
 ---
 
-# DataSHIELD demo
+# Demonstration
 
 ---
 layout: section
