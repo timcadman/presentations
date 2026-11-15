@@ -39,6 +39,15 @@ Rules for cards, click emphasis and Slidev features, agreed 2026-11-13 from `sty
 </div>
 ```
 
+## How much text
+
+- One idea per slide; aim for 30-40 words total, and no more than four bullets or four cards.
+- Bullet: at most two lines at the deck's 18px. Card body: one line, 12 words at most — past that a 2x2 grid wraps to three lines and silently overflows the slide body.
+- Body text never below 18px (the deck's size); figure text no smaller than 14px.
+- Don't put on screen what you will say out loud: identical spoken and written text measurably hurts comprehension (Mayer's redundancy principle). Slides carry the claim and the evidence, not the script.
+- Prefer a heading that makes an assertion over one that names a topic — "Only aggregates return" rather than "What is it". This is the assertion-evidence structure (Alley), which tests better than bullet decks on technical talks.
+- The 6x6 and 10/20/30 rules are folklore, not evidence; use them as a smell test, not a target.
+
 ## Slidev features
 
 Use sparingly: at most once or twice per deck, on the slide's key claim, not as decoration.

@@ -130,6 +130,12 @@ strong {
 .tint-card.dimmed { opacity: 0.35; }
 .tint-card h3 svg { font-size: 1.3em; vertical-align: -0.25em; margin-right: 0.35rem; }
 
+/* Four tint cards in a 2x2 grid (STYLE.md default emphasis: tint at rest,
+   solid when active, the rest dimmed) */
+.fq-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.7rem; height: 100%; }
+.fq-grid.five { grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; }
+.fq-grid .tint-card { display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+
 /* Expand the active card: a row of tint cards; the active one widens and shows its <p> */
 .tint-row { display: flex; gap: 0.7rem; height: 80%; }
 .tint-row .tint-card { flex: 1; transition: flex 0.45s ease, background 0.45s ease, color 0.45s ease, opacity 0.45s ease; }
@@ -223,10 +229,10 @@ strong {
    specificity and loses to the deck's own rules, which rendered them ~3x too
    big. Only the arrows stay as SVG. The box geometry is a percentage of the
    original 480x420 drawing, so the arcs still line up. */
-.fair-diagram { position: relative; flex: 0 0 48%; margin-right: auto; aspect-ratio: 480 / 420; max-height: 100%; }
+.fair-diagram { position: relative; flex: 0 0 48%; margin-right: auto; aspect-ratio: 420 / 360; max-height: 100%; }
 .fair-arrows { position: absolute; inset: 0; width: 100%; height: 100%; }
 .fair-box {
-  position: absolute; width: 29.2%; height: 26.2%; border-radius: 8px;
+  position: absolute; width: 33.3%; height: 30.6%; border-radius: 8px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   color: #fff; line-height: 1;
 }
@@ -239,10 +245,10 @@ strong {
 .fair-notes { align-self: center; max-height: 100%; }
 .fair-notes b { font-weight: 700; }
 .fair-box .n { font-size: 12px; margin-top: 0.25rem; }
-.fair-box.f { left: 6.25%; top: 7.1%; background: #4285F4; }
-.fair-box.a { right: 6.25%; top: 7.1%; background: #E2A517; color: #333333; }
-.fair-box.i { right: 6.25%; bottom: 7.1%; background: #119DA1; }
-.fair-box.r { left: 6.25%; bottom: 7.1%; background: #5D408A; }
+.fair-box.f { left: 0; top: 0; background: #4285F4; }
+.fair-box.a { right: 0; top: 0; background: #E2A517; color: #333333; }
+.fair-box.i { right: 0; bottom: 0; background: #119DA1; }
+.fair-box.r { left: 0; bottom: 0; background: #5D408A; }
 
 .fair-links { list-style: none; padding: 0 !important; margin: 0; }
 .fair-links li { display: flex; align-items: center; gap: 0.75rem; font-size: 22px !important; margin-bottom: 1.25rem !important; }
@@ -252,3 +258,37 @@ strong {
 .chip.a { background: #E2A517; color: #333333; }
 .chip.i { background: #119DA1; }
 .chip.r { background: #5D408A; }
+
+/* ---------------------------------------------------------------------------
+   Federated query map (FederatedQuery.vue): basemap image with nodes, the
+   researcher and the query arcs positioned as percentages on top of it.
+--------------------------------------------------------------------------- */
+/* size from the width and let aspect-ratio set the height: an explicit height
+   would win over aspect-ratio and letterbox the image inside its own box, which
+   pushes the map down relative to the text column beside it */
+.slidev-layout .fq-map { position: relative; width: 100%; height: auto; max-height: 100%; margin-right: auto; }
+.slidev-layout .fq-base { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.slidev-layout .fq-overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* zero-size anchor exactly on the coordinate: the dot centres on it and only
+   the label moves, so a label side never shifts the marker off its city */
+.slidev-layout .fq-node { position: absolute; width: 0; height: 0; }
+.slidev-layout .fq-dot { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); width: 9px; height: 9px; border-radius: 50%; background: #4285F4; border: 2px solid #fff; }
+.slidev-layout .fq-name { position: absolute; font-size: 13px; color: #333; white-space: nowrap; }
+.slidev-layout .fq-node.right .fq-name { left: 9px; top: 0; transform: translateY(-50%); }
+.slidev-layout .fq-node.left .fq-name { right: 9px; top: 0; transform: translateY(-50%); }
+.slidev-layout .fq-node.below .fq-name { left: 0; top: 9px; transform: translateX(-50%); }
+.slidev-layout .fq-me { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
+.slidev-layout .fq-me img { width: 46px; height: 46px; }
+.slidev-layout .fq-me span { font-size: 13px; color: #333; }
+.slidev-layout .fq-key { position: absolute; right: 1.5%; bottom: 3%; align-items: flex-start; font-size: 13px; color: #333; display: flex; flex-direction: column; gap: 0.3rem; }
+.slidev-layout .fq-key div { display: flex; align-items: center; gap: 0.45rem; }
+.slidev-layout .fq-key .k { width: 22px; height: 0; border-top-width: 2px; border-top-style: solid; flex: none; }
+.slidev-layout .fq-key .k.out { border-color: #119DA1; border-top-style: dashed; }
+.slidev-layout .fq-key .k.back { border-color: #E2A517; }
+.slidev-layout .fq-tag { position: absolute; font-size: 13px; padding: 0.15rem 0.5rem; border-radius: 6px; }
+.slidev-layout .fq-tag.out { bottom: 14%; left: 20%; color: #119DA1; background: color-mix(in srgb, #119DA1 12%, white); }
+.slidev-layout .fq-tag.back { bottom: 5%; left: 20%; color: #BA8118; background: color-mix(in srgb, #E2A517 14%, white); }
+
+.slidev-layout .fq-steps { list-style: disc; padding-left: 1.3rem !important; margin: 0 0 1rem 0; }
+.slidev-layout .fq-steps li { font-size: 17px; line-height: 1.4; margin-bottom: 0.8rem; }
+

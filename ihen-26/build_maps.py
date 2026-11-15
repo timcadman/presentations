@@ -123,6 +123,35 @@ def build_ses_no2_map():
     layer('ihen_ses_no2_map_lower.png', lower, basemap=False)
 
 
+def build_federated_basemap():
+    """Plain basemaps for the federated-query figure (FederatedQuery.vue).
+
+    Nodes, the researcher and the arcs are drawn in the slide so they can appear on
+    click; this is only the land underneath, lightened so the arcs read over it.
+    The windows must stay in step with WINDOWS in components/map-windows.js.
+    """
+    for name, lon, lat, figsize in (
+        # figsize must match the window's own ratio, or matplotlib letterboxes the
+        # axes and every percentage position in the component is wrong
+        ('world-base.png', (-112, 95), (-35, 60), (10.35, 4.75)),
+        ('europe-base.png', (-11, 32), (36, 58), (6, 4.75)),
+    ):
+        fig, ax = plt.subplots(figsize=figsize, dpi=200)
+        fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
+        fig.patch.set_facecolor('white')
+        draw_countries(ax)
+        for patch in ax.patches:
+            patch.set_facecolor('#E4E4E4')
+        ax.set_xlim(*lon)
+        ax.set_ylim(*lat)
+        ax.set_aspect(1.0 if name.startswith('world') else 1.55)
+        ax.axis('off')
+        out = os.path.join(FEDERATED_PUBLIC, name)
+        fig.savefig(out, dpi=200)
+        plt.close(fig)
+        print('saved', out)
+
+
 def build_ihen_nodes_map():
     """LifeCycle, ATHLETE and LongITools cohorts, one marker each, coloured by project."""
     fig, ax = plt.subplots(figsize=(12, 10.5), dpi=100)
@@ -155,4 +184,5 @@ def build_ihen_nodes_map():
 
 if __name__ == '__main__':
     build_ses_no2_map()
+    build_federated_basemap()
     build_ihen_nodes_map()

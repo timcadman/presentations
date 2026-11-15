@@ -801,16 +801,9 @@ layout: section
 # Federated Analysis
 
 ---
-layout: content
-heading: What is it
-subheading: 
+src: ../library/datashield/what-is-datashield.md
 section: Federated Analysis
 ---
-
-- Analysis code — not raw data — is sent to where each dataset is stored
-- Each site runs the computation **locally, on its own data**
-- Only **non-disclosive, aggregate results** (summary statistics or model updates) are returned
-- Data never leaves its original location — governance, access control and ownership stay with the data holder
 
 ---
 layout: content
