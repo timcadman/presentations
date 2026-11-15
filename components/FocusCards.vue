@@ -30,6 +30,7 @@ const activeIndex = computed(() => Math.min($clicks.value, props.items.length - 
       :key="i"
       class="fc-card"
       :class="{ 'fc-active': i === activeIndex }"
+      :style="item.color ? { '--c': item.color } : {}"
     >
       <h3>{{ item.title }}</h3>
       <p v-for="(line, j) in item.body" :key="j" v-html="line"></p>
@@ -46,24 +47,27 @@ const activeIndex = computed(() => Math.min($clicks.value, props.items.length - 
 }
 
 .fc-card {
-  border: 2px solid #ddd;
-  border-left: 5px solid var(--slidev-theme-primary);
-  border-radius: 10px;
+  --c: var(--slidev-theme-primary);
+  --t: #ffffff;
+  border-radius: 14px;
   padding: 0.7rem 1rem;
-  background: rgba(66, 133, 244, 0.05);
+  background: color-mix(in srgb, var(--c) 12%, white);
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  opacity: 0.28;
-  filter: grayscale(85%);
-  transition: opacity 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
+  opacity: 0.35;
+  transition: background 0.45s ease, color 0.45s ease, opacity 0.45s ease;
 }
 
 .fc-card.fc-active {
   opacity: 1;
-  filter: grayscale(0%);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+  background: var(--c);
+  color: var(--t);
+}
+
+.fc-card.fc-active h3 {
+  color: var(--t);
 }
 
 .fc-card h3 {
@@ -71,7 +75,8 @@ const activeIndex = computed(() => Math.min($clicks.value, props.items.length - 
   font-family: var(--font-subtitle);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--slidev-theme-primary);
+  color: var(--h, var(--c));
+  transition: color 0.45s ease;
 }
 
 .fc-card p {
