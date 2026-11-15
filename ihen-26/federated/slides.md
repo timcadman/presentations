@@ -195,34 +195,19 @@ section: Setting up DataSHIELD
 </v-clicks>
 
 ---
-layout: content-two-cols
-heading: Setting up DataSHIELD
-subheading: As a data owner — two options
+src: ../../library/infrastructure/setup-options.md
 section: Setting up DataSHIELD
 ---
 
-<template #left>
+---
+src: ../../library/infrastructure/armadillo-setup-short.md
+section: Setting up DataSHIELD
+---
 
-**Option 1: Set it up yourself**
-
-- Server or virtual machine: 8–32 GB memory, 100 GB disk, 4–8 CPU cores
-- Administration rights, Java 21 and Docker
-- A domain name and SSL certificate
-- Tutorial: [escri11.github.io/datashield-workshop-2025](https://escri11.github.io/datashield-workshop-2025/)
-
-</template>
-
-<template #right>
-
-**Option 2: We set it up for you**
-
-- The MOLGENIS team at UMCG can set up and maintain a server
-- Fully private: only you have access to the data
-- Contact [support@molgenis.org](mailto:support@molgenis.org)
-
-<p style="font-size: 14px; color: #9AA0A6; margin-top: 2rem;">More: <a href="https://wiki.datashield.org/en/home">wiki.datashield.org</a> · <a href="https://datashield.org/">datashield.org</a></p>
-
-</template>
+---
+src: ../../library/infrastructure/hosted-by-us.md
+section: Setting up DataSHIELD
+---
 
 ---
 layout: section

@@ -147,7 +147,7 @@ strong {
 /* Four tint cards in a 2x2 grid (STYLE.md default emphasis: tint at rest,
    solid when active, the rest dimmed) */
 .fq-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.7rem; height: 100%; }
-.fq-grid.five { grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; }
+.fq-grid.five { grid-template-columns: repeat(var(--n, 3), 1fr); grid-template-rows: 1fr 1fr; }
 .fq-grid .tint-card { display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
 
 /* Expand the active card: a row of tint cards; the active one widens and shows its <p> */
@@ -320,6 +320,33 @@ strong {
 .slidev-layout .pm-actions button { font-family: var(--font-subtitle); font-size: 14px; padding: 0.2rem 0.7rem; border: 1px solid var(--c-blue); color: var(--c-blue); background: #fff; border-radius: 6px; cursor: pointer; }
 .slidev-layout .pm-result { font-size: 20px; margin: 0; }
 .slidev-layout .pm-result strong { color: var(--c-blue); margin: 0 0.3rem; }
+
+/* Armadillo setup slides (library/infrastructure/armadillo-setup.md) */
+.slidev-layout .setup-split { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+.slidev-layout .setup-note { margin: 1rem 0 0 0; font-size: 14px; color: var(--c-grey); }
+.slidev-layout .setup-note code { font-size: 13px; }
+
+/* One-slide Armadillo setup (SetupSteps.vue): numbered steps left to right */
+.slidev-layout .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 0; padding: 0; list-style: none; height: 100%; min-height: 0; }
+.slidev-layout .step { position: relative; padding: 0 1.4rem 0 0; }
+.slidev-layout .step + .step { padding-left: 1.4rem; border-left: 1px solid #e4e4e4; }
+.slidev-layout .step-n { display: inline-flex; align-items: center; justify-content: center; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--c-blue); color: #fff; font-family: var(--font-subtitle); font-size: 15px; font-weight: 600; }
+.slidev-layout .step h3 { margin: 0.6rem 0 0.5rem 0; font-family: var(--font-subtitle); font-size: 19px; font-weight: 600; color: var(--c-blue); }
+.slidev-layout .step ul { margin: 0; padding: 0; list-style: none; }
+.slidev-layout .step ul li { position: relative; padding-left: 0.9rem; margin-bottom: 0.5rem; font-size: 15px; line-height: 1.4; color: var(--c-text); }
+.slidev-layout .step ul li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 4px; height: 4px; border-radius: 50%; background: var(--c-grey); }
+.slidev-layout .step code { font-size: 13.5px; }
+
+/* Setting up a node (SetupRoutes.vue): one card per route to a running server */
+.slidev-layout .routes { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); gap: 1.1rem; height: 100%; min-height: 0; }
+.slidev-layout .route { position: relative; display: flex; flex-direction: column; padding: 1.1rem 1.1rem 1rem; border-radius: 12px; background: color-mix(in srgb, var(--c) 9%, white); border-top: 3px solid var(--c); overflow: hidden; }
+.slidev-layout .route-n { position: absolute; top: 0.7rem; right: 1rem; font-family: var(--font-title); font-size: 34px; line-height: 1; color: color-mix(in srgb, var(--c) 22%, white); }
+.slidev-layout .route-icon { width: 26px; height: 26px; color: var(--c); margin-bottom: 0.5rem; }
+.slidev-layout .route h3 { margin: 0 0 0.25rem 0; font-family: var(--font-subtitle); font-size: 19px; font-weight: 600; color: var(--c); }
+.slidev-layout .route-lead { margin: 0 0 0.7rem 0; min-height: 2.8em; font-size: 15px; line-height: 1.4; color: var(--c-text); }
+.slidev-layout .route ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid color-mix(in srgb, var(--c) 22%, white); padding-top: 0.6rem; }
+.slidev-layout .route li { position: relative; padding-left: 0.9rem; margin-bottom: 0.45rem; font-size: 14px; line-height: 1.4; color: var(--c-text); }
+.slidev-layout .route li::before { content: ''; position: absolute; left: 0; top: 0.52em; width: 4px; height: 4px; border-radius: 50%; background: var(--c); }
 
 /* DataSHIELD node map (NodeMap.vue): map left, grouped key right. Sized from the
    width so the map keeps its own ratio, as on the figure slides. */
