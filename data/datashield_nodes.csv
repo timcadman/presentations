@@ -1,21 +1,21 @@
 cohort,institution,country,city,lon,lat,LifeCycle,Athlete,Longitools,IPEC,NCC,NDTD,STAGE,JOIN-MIND,FEDHAFRICA,Other,status,sources
-ABCD,AMC,NL,Amsterdam,4.9041,52.3676,,x,,,,,,,,,live,csv+datashield.org map+map+project list
-ALSPAC,UNIVBRIS,UK,Bristol,-2.5879,51.4545,x,,x,,,,x,,,,live,csv+datashield.org map+map+project list
-Amsterdam UMC,,,Amsterdam,4.9041,52.3676,,,,,,x,,,,,live,datashield.org map+map
-BAMSE,,,Stockholm,18.0686,59.3293,,,,,,,,,,x,live,datashield.org map+map
+ABCD,AMC,Netherlands,Amsterdam,4.9041,52.3676,,x,,,,,,,,,live,csv+datashield.org map+map+project list
+ALSPAC,UNIVBRIS,United Kingdom,Bristol,-2.5879,51.4545,x,,x,,,,x,,,,live,csv+datashield.org map+map+project list
+Amsterdam UMC,,Netherlands,Amsterdam,4.9041,52.3676,,,,,,x,,,,,live,datashield.org map+map
+BAMSE,,Sweden,Stockholm,18.0686,59.3293,,,,,,,,,,x,live,datashield.org map+map
 BISC,ISGLOBAL,Spain,Barcelona,2.1686,41.3874,,x,,,,,,,,,live,csv+datashield.org map+map+project list
-"Born in Bradford, BIB",BTHFT,UK,Bradford,-1.7594,53.796,x,x,,,,,,,,,live,csv+datashield.org map+inferred+project list
-CELSPAC-TNG (Recetox),,Czech Republic,Brno,16.6068,49.1951,,x,,,,,,,,,live,csv+datashield.org map+map+project list
+"Born in Bradford, BIB",BTHFT,United Kingdom,Bradford,-1.7594,53.796,x,x,,,,,,,,,live,csv+datashield.org map+inferred+project list
+CELSPAC-TNG (Recetox),,Czechia,Brno,16.6068,49.1951,,x,,,,,,,,,live,csv+datashield.org map+map+project list
 CHOP,LMU,Germany,Munich,11.582,48.1351,x,,,,,,,,,,live,csv+datashield.org map+map+project list
-Co.N.ER,,,Bologna,11.3426,44.4949,,,,,,,,,,x,live,datashield.org map+map
-De Maastricht Studie,,,Maastricht,5.6909,50.8514,,,,,x,,,,,,live,datashield.org map+map
+Co.N.ER,,Italy,Bologna,11.3426,44.4949,,,,,,,,,,x,live,datashield.org map+map
+De Maastricht Studie,,Netherlands,Maastricht,5.6909,50.8514,,,,,x,,,,,,live,datashield.org map+map
 DNBC,UCPH,Denmark,Copenhagen,12.5683,55.6761,x,x,,,,,,,,,live,csv+datashield.org map+map+project list
-Doetinchem Cohort,,,Doetinchem,6.2887,51.9645,,,,,x,,,,,,live,datashield.org map+map
+Doetinchem Cohort,,Netherlands,Doetinchem,6.2887,51.9645,,,,,x,,,,,,live,datashield.org map+map
 EDEN,INSERM,France,Paris,2.3522,48.8566,x,x,x,,,,,,,,live,csv+datashield.org map+map+project list
 ELFE,INSERM,France,Paris,2.3522,48.8566,x,,x,,,,,,,,live,csv+datashield.org map+map+project list
 EnvironAGE,,Belgium,Hasselt,5.3378,50.9307,,x,,,,,,,,,live,csv+datashield.org map+map+project list
-Epic-NL,,,Utrecht,5.1214,52.0907,,,,,x,,,,,,live,datashield.org map+map
-FCOU,,,Warsaw,21.0122,52.2297,,,,,,,,,,x,live,datashield.org map+map
+Epic-NL,,Netherlands,Utrecht,5.1214,52.0907,,,,,x,,,,,,live,datashield.org map+map
+FCOU,,Poland,Warsaw,21.0122,52.2297,,,,,,,,,,x,live,datashield.org map+map
 FEDHAFRICA Dakar,,Senegal,Dakar,-17.4677,14.7167,,,,,,,,,x,,planned,FEDHAFRICA site illustrative
 FEDHAFRICA Dar es Salaam,,Tanzania,Dar es Salaam,39.2083,-6.7924,,,,,,,,,x,,planned,FEDHAFRICA site illustrative
 FEDHAFRICA Dodoma,,Tanzania,Dodoma,35.7516,-6.163,,,,,,,,,x,,planned,FEDHAFRICA site illustrative
@@ -28,54 +28,54 @@ FEDHAFRICA Mwanza,,Tanzania,Mwanza,32.899,-2.5164,,,,,,,,,x,,planned,FEDHAFRICA 
 FEDHAFRICA Nairobi,,Kenya,Nairobi,36.8219,-1.2921,,,,,,,,,x,,planned,FEDHAFRICA site illustrative
 FEDHAFRICA Saint-Louis,,Senegal,Saint-Louis,-16.4896,16.0179,,,,,,,,,x,,planned,FEDHAFRICA site illustrative
 FEDHAFRICA Thies,,Senegal,Thies,-16.9246,14.791,,,,,,,,,x,,planned,FEDHAFRICA site illustrative
-GASPII,,,Pisa,10.4017,43.7228,,,,,,,,,,x,live,datashield.org map+map
-GECKO,UMCG,NL,Groningen,6.5665,53.2194,x,,,,,,,,,,live,csv+datashield.org map+map+project list
-Gen-R,ERASMUSMC,NL,Rotterdam,4.4777,51.9244,x,x,x,,,,x,,,,live,csv+datashield.org map+map+project list
-Generation R Next,ERASMUSMC,NL,Rotterdam,4.4777,51.9244,x,x,,,,,,,,,live,csv+datashield.org map+inferred+project list
+GASPII,,Italy,Pisa,10.4017,43.7228,,,,,,,,,,x,live,datashield.org map+map
+GECKO,UMCG,Netherlands,Groningen,6.5665,53.2194,x,,,,,,,,,,live,csv+datashield.org map+map+project list
+Gen-R,ERASMUSMC,Netherlands,Rotterdam,4.4777,51.9244,x,x,x,,,,x,,,,live,csv+datashield.org map+map+project list
+Generation R Next,ERASMUSMC,Netherlands,Rotterdam,4.4777,51.9244,x,x,,,,,,,,,live,csv+datashield.org map+inferred+project list
 Generation XXI / G21,ISPUP,Portugal,Porto,-8.6291,41.1579,,x,,,,,,,,,live,csv+datashield.org map+map+project list
 Genesis,,Greece,Athens,23.7275,37.9838,,,,,,,,,,x,live,csv+datashield.org map+map
 Geneva,,Switzerland,Geneva,6.1432,46.2044,,,,,,,,x,,,planned,JOIN-MIND
-GGZ inGeest,,NL,Amsterdam,4.9041,52.3676,,,,,,x,,,,,live,Tim+datashield.org map
-GINI/LISA-plus,,,Munich,11.582,48.1351,,,,,,,,,,x,live,datashield.org map+map
-HBCS,SF,,Helsinki,24.9384,60.1699,x,,,,,,,,,,live,csv+datashield.org map+map+project list
-Helius,,,Amsterdam,4.9041,52.3676,,,,,x,,,,,,live,datashield.org map+map
+GGZ inGeest,,Netherlands,Amsterdam,4.9041,52.3676,,,,,,x,,,,,live,Tim+datashield.org map
+GINI/LISA-plus,,Germany,Munich,11.582,48.1351,,,,,,,,,,x,live,datashield.org map+map
+HBCS,SF,Finland,Helsinki,24.9384,60.1699,x,,,,,,,,,,live,csv+datashield.org map+map+project list
+Helius,,Netherlands,Amsterdam,4.9041,52.3676,,,,,x,,,,,,live,datashield.org map+map
 HGS,HUA,Greece,Athens,23.7275,37.9838,,,,,,,,,,x,live,csv+datashield.org map+inferred
-HUMIS,,,Oslo,10.7522,59.9139,,,,,,,,,,x,live,datashield.org map+map
+HUMIS,,Norway,Oslo,10.7522,59.9139,,,,,,,,,,x,live,datashield.org map+map
 INMA,ISGLOBAL,Spain,Valencia,-0.3763,39.4699,x,x,,,,,,,,,live,csv+datashield.org map+map+project list
 KANC,,Lithuania,Kaunas,23.9036,54.8985,,x,,,,,,,,,live,csv+datashield.org map+map+project list
-KOALA,,,Maastricht,5.6909,50.8514,,,,,,,,,,x,live,datashield.org map+map
-Krakow,,,Krakow,19.945,50.0647,,,,,,,,,,x,live,datashield.org map+map
-LASA,,,Amsterdam,4.9041,52.3676,,,,,x,,,,,,live,datashield.org map+map
-Leiden Longevity Study,,,Leiden,4.497,52.1601,,,,,x,,,,,,live,datashield.org map+map
-Lifelines,,,Groningen,6.5665,53.2194,,,,,x,,,,,,live,datashield.org map+map
-LRGP,,,Leidsche_Rijn,5.0333,52.0833,,,,,x,,,,,,live,datashield.org map+map
+KOALA,,Netherlands,Maastricht,5.6909,50.8514,,,,,,,,,,x,live,datashield.org map+map
+Krakow,,Slovakia,Krakow,19.945,50.0647,,,,,,,,,,x,live,datashield.org map+map
+LASA,,Netherlands,Amsterdam,4.9041,52.3676,,,,,x,,,,,,live,datashield.org map+map
+Leiden Longevity Study,,Netherlands,Leiden,4.497,52.1601,,,,,x,,,,,,live,datashield.org map+map
+Lifelines,,Netherlands,Groningen,6.5665,53.2194,,,,,x,,,,,,live,datashield.org map+map
+LRGP,,Netherlands,Leidsche_Rijn,5.0333,52.0833,,,,,x,,,,,,live,datashield.org map+map
 MoBa,NIPH,Norway,Oslo,10.7522,59.9139,x,x,,,,,,,,,live,csv+datashield.org map+map+project list
-NEO,,,Leiden,4.497,52.1601,,,,,x,,,,,,live,datashield.org map+map
-Netherlands Twin Register,,,Amsterdam,4.9041,52.3676,,,,,x,,,,,,live,datashield.org map+map
+NEO,,Netherlands,Leiden,4.497,52.1601,,,,,x,,,,,,live,datashield.org map+map
+Netherlands Twin Register,,Netherlands,Amsterdam,4.9041,52.3676,,,,,x,,,,,,live,datashield.org map+map
 NFBC66,UOULU,Finland,Oulu,25.4651,65.0121,x,,x,,,,x,,,,live,csv+datashield.org map+map+project list
 NFBC86,UOULU,Finland,Oulu,25.4651,65.0121,x,,x,,,,x,,,,live,csv+datashield.org map+map+project list
-NINFEA,UNITO,Italia,Turin,7.6869,45.0703,x,x,,,,,x,,,,live,csv+datashield.org map+map+project list
+NINFEA,UNITO,Italy,Turin,7.6869,45.0703,x,x,,,,,x,,,,live,csv+datashield.org map+map+project list
 OPUS,MHC Copenhagen,Denmark,Copenhagen,12.5683,55.6761,,,,x,,,,,,,live,csv+datashield.org map+project list
-Parnassia Groep,,,Amsterdam,4.9041,52.3676,,,,,,x,,,,,live,datashield.org map+map
+Parnassia Groep,,Netherlands,Amsterdam,4.9041,52.3676,,,,,,x,,,,,live,datashield.org map+map
 PELAGIE,RENNES,France,Rennes,-1.6778,48.1173,,x,,,,,,,,,live,csv+datashield.org map+map+project list
-PIAMA,,,Utrecht,5.1214,52.0907,,,,,,,,,,x,live,datashield.org map+map
+PIAMA,,Netherlands,Utrecht,5.1214,52.0907,,,,,,,,,,x,live,datashield.org map+map
 Piccolipiu,,Italy,Milan,9.19,45.4642,,x,,,,,,,,,live,csv+datashield.org map+map+project list
-PRIDE,,,Leiden,4.497,52.1601,,,,,,,,,,x,live,datashield.org map+map
-Pro Persona,,,Amsterdam,4.9041,52.3676,,,,,,x,,,,,live,datashield.org map+map
-PSYCONN,UMCG,NL,Groningen,6.5665,53.2194,,,,x,,,,,,,live,csv+datashield.org map+project list
+PRIDE,,Netherlands,Leiden,4.497,52.1601,,,,,,,,,,x,live,datashield.org map+map
+Pro Persona,,Netherlands,Amsterdam,4.9041,52.3676,,,,,,x,,,,,live,datashield.org map+map
+PSYCONN,UMCG,Netherlands,Groningen,6.5665,53.2194,,,,x,,,,,,,live,csv+datashield.org map+project list
 RAINE,UWA,Australia,Perth,115.8605,-31.9505,x,,,,,,,,,,live,csv+datashield.org map+inferred+project list
-REPRO_PL,,,Warsaw,21.0122,52.2297,,,,,,,,,,x,live,datashield.org map+map
+REPRO_PL,,Poland,Warsaw,21.0122,52.2297,,,,,,,,,,x,live,datashield.org map+map
 RHEA,OUC,France,Heraklion,25.1442,35.3387,x,x,,,,,,,,,live,csv+datashield.org map+map+project list
-ROLO,,,Dublin,-6.2603,53.3498,,,,,,,,,,x,live,datashield.org map+map
-Rotterdam Study (ERGO),,NL,Rotterdam,4.4777,51.9244,,,,,x,,,,,,live,csv+datashield.org map+map
+ROLO,,Ireland,Dublin,-6.2603,53.3498,,,,,,,,,,x,live,datashield.org map+map
+Rotterdam Study (ERGO),,Netherlands,Rotterdam,4.4777,51.9244,,,,,x,,,,,,live,csv+datashield.org map+map
 Save the Children,,UK,London,-0.1276,51.5072,,,,,,,,x,,,planned,JOIN-MIND
-SCOPE BASELINE,,,Cork,-8.4756,51.8985,,,,,,,,,,x,live,datashield.org map+map
-SEATON,,,Aberdeen,-2.0943,57.1497,,,,,,,,,,x,live,datashield.org map+map
+SCOPE BASELINE,,Ireland,Cork,-8.4756,51.8985,,,,,,,,,,x,live,datashield.org map+map
+SEATON,,United Kingdom,Aberdeen,-2.0943,57.1497,,,,,,,,,,x,live,datashield.org map+map
 SEPAGES,,France,Grenoble,5.7245,45.1885,,x,,,,,,,,,live,csv+datashield.org map+map+project list
-Slovak PCB Study,,,Kosice,21.2611,48.7164,,,,,,,,,,x,live,datashield.org map+map
-STEPS,,,Turku,22.2666,60.4518,,,,,,,,,,x,live,datashield.org map+map
+Slovak PCB Study,,Slovakia,Kosice,21.2611,48.7164,,,,,,,,,,x,live,datashield.org map+map
+STEPS,,Finland,Turku,22.2666,60.4518,,,,,,,,,,x,live,datashield.org map+map
 Stichting Vluchteling,,NL,The Hague,4.3007,52.0705,,,,,,,,x,,,planned,JOIN-MIND
-SWS,UOS,UK,Southampton,-1.4044,50.9097,x,,,,,,,,,,live,csv+datashield.org map+map+project list
+SWS,UOS,United Kingdom,Southampton,-1.4044,50.9097,x,,,,,,,,,,live,csv+datashield.org map+map+project list
 VU Amsterdam,,NL,Amsterdam,4.9041,52.3676,,,,,,,,x,,,planned,JOIN-MIND
 (unnamed node),,Norway,,10.378,63.417,,,,,,,,,,x,live,datashield.org map
 (unnamed node),,Russia,,82.5,54.984,,,,,,,,,,x,live,datashield.org map

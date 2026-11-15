@@ -135,6 +135,16 @@ section: 'DataSHIELD'
 
 ---
 layout: content
+heading: Current DataSHIELD network
+subheading: 
+section: 'DataSHIELD'
+clicks: 3
+---
+
+<NodeMap />
+
+---
+layout: content
 heading: Exposome research using DataSHIELD
 subheading: A few examples
 section: 'DataSHIELD'
@@ -154,22 +164,6 @@ layout: section
 ---
 
 # Sharing your data
-
----
-layout: chart-full
-heading: European DataSHIELD nodes
-section: Sharing your data
----
-
-<div style="position: relative; width: 100%; height: 100%;">
-  <img src="./public/ihen_nodes_map.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: left;" />
-  <div style="position: absolute; left: 48%; right: 2rem; top: 1rem;">
-    <ul style="padding-left: 1.5rem; margin: 0;">
-      <li style="font-size: 18px; margin-bottom: 0.5rem; line-height: 1.5;">31 DataSHIELD nodes from LifeCycle, ATHLETE and LongITools cohorts.</li>
-      <li style="font-size: 18px; margin-bottom: 0.5rem; line-height: 1.5;">This gives possibilities to connect analyses to additional data sources.</li>
-    </ul>
-  </div>
-</div>
 
 ---
 layout: content
