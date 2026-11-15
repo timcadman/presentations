@@ -130,7 +130,9 @@ r['NDTD'] = 'x'; r['sources'].add('Tim')
 
 named = list(rec.values())
 
-# --- planned nodes, not yet on any map
+# --- projects whose nodes are not on the datashield.org map yet. Deployed where the
+# grant is running; `planned` is reserved for pre grant-award sites.
+DEPLOYED = {'MDR-RA', 'DSWB'}
 PLANNED = [('VU Amsterdam','Amsterdam','NL',4.9041,52.3676,'JOIN-MIND'),
            ('Stichting Vluchteling','The Hague','NL',4.3007,52.0705,'JOIN-MIND'),
            ('Save the Children','London','UK',-0.1276,51.5072,'JOIN-MIND'),
@@ -174,7 +176,7 @@ planned = []
 for name, city, country, lon, lat, proj in PLANNED:
     r = {c: '' for c in COLS}
     r.update({'cohort':name,'city':city,'country':country,'lon':lon,'lat':lat,
-              proj:'x','status':'planned',
+              proj:'x','status':'live' if proj in DEPLOYED else 'planned',
               'sources':{{'FEDHAFRICA':'FEDHAFRICA site illustrative',
                           'MDR-RA':'mdr-ra.eu','DSWB':'Kiragga 2025'}.get(proj, 'JOIN-MIND')}})
     planned.append(r)
@@ -272,7 +274,10 @@ LT_ONLY = {'arcticbiobank','borealisbiobank','constances','dutchfaminebc','elipa
            'finnishmaternityregistercohorts','finnishmaternity','elipa'}
 OTHERP = [p for p in PROJ if p not in ('Longitools','Other')]
 before = len(rows)
-dropped = [r for r in rows if r['cohort'] != '(unnamed node)' and r['status'] == 'live'
+# nodes a project told us about are evidence in themselves; only the cohorts we
+# inferred from the two local files have to be backed by a pin
+project_rows = {id(r) for r in planned}
+dropped = [r for r in rows if r['cohort'] != '(unnamed node)' and id(r) not in project_rows
            and (K(r['cohort']) in LT_ONLY and not any(r[p] for p in OTHERP)
                 or 'datashield.org map' not in r['sources'])]
 rows = [r for r in rows if r not in dropped]

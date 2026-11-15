@@ -26,7 +26,7 @@ const props = defineProps({
   // closing point, on the click after both groups
   note: {
     type: String,
-    default: 'Data can be analysed using DataSHIELD, subject to access arrangements',
+    default: 'All analysable with DataSHIELD, subject to access arrangements',
   },
 })
 
@@ -38,9 +38,7 @@ const inWindow = n =>
   n.lon >= win.value.lon[0] && n.lon <= win.value.lon[1] &&
   n.lat >= win.value.lat[0] && n.lat <= win.value.lat[1]
 
-const shown = computed(() =>
-  NODES.filter(n => inWindow(n) && (props.planned || n.status === 'live'))
-)
+const shown = computed(() => NODES.filter(inWindow))
 
 const isExposome = n => n.projects.some(p => EXPOSOME.includes(p))
 
@@ -49,15 +47,24 @@ function place(n) {
 }
 
 const groups = computed(() => {
-  const exp = shown.value.filter(isExposome)
-  const rest = shown.value.filter(n => !isExposome(n))
+  const live = shown.value.filter(n => n.status === 'live')
+  const exp = live.filter(isExposome)
+  const rest = live.filter(n => !isExposome(n))
+  const soon = props.planned ? shown.value.filter(n => n.status !== 'live') : []
   return [
     { key: 'exposome', colour: 'var(--c-blue)', at: 1, nodes: exp.map(place),
       text: `${exp.length} birth cohorts with exposome and health data` },
     { key: 'rest', colour: 'var(--c-gold-dark)', at: 2, nodes: rest.map(place),
       text: `Estimated ${rest.length} other data sources with health data` },
+    ...(soon.length
+      ? [{ key: 'soon', colour: 'var(--c-purple)', at: 3, nodes: soon.map(place),
+           text: `${soon.length} more planned` }]
+      : []),
   ]
 })
+
+// the closing line sits one click after the last group
+const noteAt = computed(() => groups.value.length + 1)
 
 const { $clicks } = useSlideContext()
 const ratio = computed(() => `${win.value.size[0]} / ${win.value.size[1]}`)
@@ -69,7 +76,7 @@ const ratio = computed(() => `${win.value.size[0]} / ${win.value.size[1]}`)
       <img :src="win.file" class="nm-base" />
       <template v-for="g in groups" :key="g.key">
         <span v-for="(n, i) in g.nodes" v-show="$clicks >= g.at" :key="`${g.key}${i}`"
-              class="nm-dot" :class="{ planned: n.status !== 'live' }"
+              class="nm-dot" :class="{ hollow: n.status !== 'live' }"
               :style="{ left: n.x + '%', top: n.y + '%', '--c': g.colour }" />
       </template>
     </div>
@@ -77,7 +84,7 @@ const ratio = computed(() => `${win.value.size[0]} / ${win.value.size[1]}`)
     <ul class="nm-side">
       <li v-for="g in groups" v-show="$clicks >= g.at" :key="g.key"
           :style="{ '--c': g.colour }">{{ g.text }}</li>
-      <li v-if="note" v-show="$clicks >= 3" class="nm-note"
+      <li v-if="note" v-show="$clicks >= noteAt" class="nm-note"
           :style="{ '--c': 'var(--c-text)' }">{{ note }}</li>
     </ul>
   </div>

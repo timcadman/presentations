@@ -327,9 +327,9 @@ strong {
 .slidev-layout .nm-map { position: relative; flex: 1 1 auto; min-width: 0; max-height: 100%; }
 .slidev-layout .nm-base { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .slidev-layout .nm-dot { position: absolute; width: 7.5px; height: 7.5px; margin: -3.75px 0 0 -3.75px; border-radius: 50%; background: var(--c); border: 1.5px solid #fff; }
-.slidev-layout .nm-dot.planned { background: #fff; border-color: var(--c); }
+.slidev-layout .nm-dot.hollow { background: #fff; border-color: var(--c); }
 .slidev-layout .nm-side { flex: 0 0 15rem; min-width: 0; margin: 0; padding: 0; list-style: none; }
-.slidev-layout .nm-side li { position: relative; padding-left: 1.1rem; margin-bottom: 0.9rem; font-size: 18px; line-height: 1.5; color: var(--c-text); }
+.slidev-layout .nm-side li { position: relative; padding-left: 1.1rem; margin-bottom: 0.75rem; font-size: 18px; line-height: 1.45; color: var(--c-text); }
 .slidev-layout .nm-side li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
 
 /* Example papers (ExamplePapers.vue): a coloured journal plate per paper */
