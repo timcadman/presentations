@@ -25,47 +25,46 @@ SES_NO2 = [
 ]
 
 
-# IHEN map, one marker per cohort. LifeCycle: participating cohorts on the LifeCycle map
-# (stage-webinar/public/lifecycle_map_original.png). ATHLETE and LongITools: data/cohorts_extra.csv,
-# plus ABCD, HGS, NFBC1966 and NFBC1986 in ATHLETE; LongITools-only entries there are not nodes.
-# A cohort in several projects is labelled ATHLETE first, then LongITools, then LifeCycle.
-# Nudges are wider than in build_cohort_map.py so co-located markers stay visible.
+# IHEN map, one marker per cohort. Membership and coordinates come from
+# data/datashield_nodes.csv (built by data/build_nodes.py) — the single source of
+# truth; this file holds no cohort list of its own. A cohort in several projects is
+# labelled ATHLETE first, then LongITools, then LifeCycle.
 IHEN_PROJECTS = [('ATHLETE', RED), ('LongITools', TEAL), ('LifeCycle', GOLD)]
-IHEN_NODES = [
-    ('ALSPAC', -2.5879, 51.4545, 'ATHLETE'),                   # true Bristol
-    ('Born in Bradford', -1.7594, 53.7960, 'ATHLETE'),         # true Bradford
-    ('DNBC', 12.5683, 55.6761, 'ATHLETE'),                     # true Copenhagen
-    ('EDEN', 2.3522, 48.8566, 'ATHLETE'),                      # true Paris
-    ('Generation R', 4.4777, 51.9244, 'ATHLETE'),              # true Rotterdam
-    ('Generation R Next', 4.4777, 51.4744, 'ATHLETE'),         # fake — nudged off Rotterdam
-    ('INMA', -0.3763, 39.4699, 'ATHLETE'),                     # true Valencia
-    ('MoBa', 10.7522, 59.9139, 'ATHLETE'),                     # true Oslo
-    ('NINFEA', 7.6869, 45.0703, 'ATHLETE'),                    # true Turin
-    ('RHEA', 25.1442, 35.3387, 'ATHLETE'),                     # true Heraklion
-    ('PELAGIE', -1.6778, 48.1173, 'ATHLETE'),                  # true Rennes
-    ('Piccolipiu', 9.1900, 45.4642, 'ATHLETE'),                # true Milan
-    ('BISC', 2.1686, 41.3874, 'ATHLETE'),                      # true Barcelona
-    ('HELIX', 2.8686, 41.3874, 'ATHLETE'),                     # fake — nudged off Barcelona
-    ('EnvironAGE', 5.3378, 50.9307, 'ATHLETE'),                # true Hasselt
-    ('KANC', 23.9036, 54.8985, 'ATHLETE'),                     # true Kaunas
-    ('CELSPAC-TNG (Recetox)', 16.6068, 49.1951, 'ATHLETE'),    # true Brno
-    ('SEPAGES', 5.7245, 45.1885, 'ATHLETE'),                   # true Grenoble
-    ('ABCD', 4.9041, 52.3676, 'ATHLETE'),                      # true Amsterdam
-    ('HGS', 23.7275, 37.9838, 'ATHLETE'),                      # true Athens
+PROJECT_COLUMN = {'ATHLETE': 'Athlete', 'LongITools': 'Longitools', 'LifeCycle': 'LifeCycle'}
 
-    ('ELFE', 1.6522, 48.8566, 'LongITools'),                   # fake — nudged off Paris
-    ('NFBC1966', 24.7651, 65.0121, 'ATHLETE'),                 # fake — nudged off Oulu
-    ('NFBC1986', 26.1651, 65.0121, 'ATHLETE'),                 # fake — nudged off Oulu
 
-    ('SWS', -1.4044, 50.9097, 'LifeCycle'),                    # true Southampton
-    ('GECKO', 6.5665, 53.2194, 'LifeCycle'),                   # true Groningen
-    ('HBCS', 24.9384, 60.1699, 'LifeCycle'),                   # true Helsinki
-    ('CHOP-Germany', 11.5820, 48.1351, 'LifeCycle'),           # true Munich
-    ('CHOP-Belgium', 4.3517, 50.8503, 'LifeCycle'),            # true Brussels
-    ('CHOP-Italy', 9.8900, 45.4642, 'LifeCycle'),              # fake — nudged off Milan
-    ('CHOP-Poland', 21.0122, 52.2297, 'LifeCycle'),            # true Warsaw
-    ('CHOP-Spain', 1.1069, 41.1561, 'LifeCycle'),              # true Reus
-]
+def ihen_nodes():
+    """Exposome cohorts from the register, fanned out where several share a city.
+
+    The fan is a small deterministic offset so co-located markers stay visible; it
+    is not a real position. Markers are larger here than in build_cohort_map.py, so
+    the fan is wider too.
+    """
+    import csv
+    from collections import defaultdict
+
+    rows = list(csv.DictReader(open(os.path.join(HERE, '..', 'data', 'datashield_nodes.csv'))))
+    picked = []
+    for r in rows:
+        if r['status'] != 'live' or not r['lon']:
+            continue
+        project = next((p for p, _ in IHEN_PROJECTS if r[PROJECT_COLUMN[p]]), None)
+        if project:
+            picked.append([r['cohort'], float(r['lon']), float(r['lat']), project])
+
+    at = defaultdict(list)
+    for n in picked:
+        at[(round(n[1], 3), round(n[2], 3))].append(n)
+    for group in at.values():
+        if len(group) == 1:
+            continue
+        step = 1.4
+        for i, n in enumerate(group):
+            n[1] += (i - (len(group) - 1) / 2) * step
+    return [tuple(n) for n in picked]
+
+
+IHEN_NODES = ihen_nodes()
 
 
 def build_ses_no2_map():
@@ -133,7 +132,7 @@ def build_federated_basemap():
     for name, lon, lat, figsize in (
         # figsize must match the window's own ratio, or matplotlib letterboxes the
         # axes and every percentage position in the component is wrong
-        ('world-base.png', (-112, 95), (-35, 60), (10.35, 4.75)),
+        ('world-base.png', (-112, 95), (-38, 72), (10.35, 5.5)),
         ('europe-base.png', (-11, 32), (36, 58), (6, 4.75)),
     ):
         fig, ax = plt.subplots(figsize=figsize, dpi=200)
