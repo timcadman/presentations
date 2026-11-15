@@ -47,7 +47,7 @@ LAYOUT_MAP = {
 }
 
 # Card grids written as <div class="..."><h3>title</h3><p>text</p></div>.
-CARD_CLASSES = ("adv-card", "fq-card")
+CARD_CLASSES = ("adv-card", "fq-card", "tint-card", "tint-detail")
 
 # Tags a slide body may contain and still convert to editable text. Anything
 # else (a Vue component, a hand-built <div> diagram, an <img>, a terminal) has
@@ -208,8 +208,9 @@ def _cards(body):
     Robust to both class="card" and Vue :class="[...]" bindings (we only call this
     on slides whose h3/p are all cards)."""
     out = []
-    for h in re.finditer(r'<h3[^>]*>(.*?)</h3>', body, re.S):
-        p = re.search(r'<p[^>]*>(.*?)</p>', body[h.end():], re.S)
+    heads = list(re.finditer(r'<h3[^>]*>(.*?)</h3>', body, re.S))
+    for h, nxt in zip(heads, heads[1:] + [None]):
+        p = re.search(r'<p[^>]*>(.*?)</p>', body[h.end():nxt.start() if nxt else len(body)], re.S)
         out.append((clean_inline(h.group(1)), clean_inline(p.group(1)) if p else ""))
     return out
 
@@ -335,6 +336,8 @@ def to_spec(fm, body, idx, base, png_dir):
 
     # ---- card grids (potential advantages, spotlight cards) ----
     if any(c in body for c in CARD_CLASSES):
+        if "<svg" in body:  # cards beside a drawing: editable cards would drop the drawing
+            return slide_picture()
         cards = _cards(body)
         return {"type": "cards", "heading": heading, "subheading": subheading,
                 "cards": cards, "columns": grid_columns(len(cards))}

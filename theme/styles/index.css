@@ -130,6 +130,23 @@ strong {
 .tint-card.dimmed { opacity: 0.35; }
 .tint-card h3 svg { font-size: 1.3em; vertical-align: -0.25em; margin-right: 0.35rem; }
 
+/* Expand the active card: a row of tint cards; the active one widens and shows its <p> */
+.tint-row { display: flex; gap: 0.7rem; height: 80%; }
+.tint-row .tint-card { flex: 1; transition: flex 0.45s ease, background 0.45s ease, color 0.45s ease, opacity 0.45s ease; }
+.tint-row .tint-card.active { flex: 3; }
+.tint-row .tint-card p { display: none; }
+.tint-row .tint-card.active p { display: block; }
+
+/* List and detail panel: tint pills on the left; the active pill's .tint-detail on the right */
+.tint-panel { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 1.2rem; height: 80%; }
+.tint-panel .tint-list { display: flex; flex-direction: column; justify-content: center; gap: 0.6rem; }
+.tint-panel .tint-card { display: flex; align-items: center; gap: 0.6rem; font-size: 15px; font-weight: 600; color: var(--h, var(--c)); }
+.tint-panel .tint-card.active { color: var(--t); }
+.tint-panel .tint-detail { display: none; flex-direction: column; justify-content: center; border-radius: 14px; padding: 1.2rem 1.4rem; background: color-mix(in srgb, var(--c) 12%, white); }
+.tint-panel .tint-detail.active { display: flex; }
+.tint-panel .tint-detail h3 { margin: 0 0 0.5rem 0; font-family: var(--font-subtitle); color: var(--h, var(--c)); }
+.tint-panel .tint-detail p { margin: 0 0 0.3rem 0; font-size: 16px; }
+
 /* Sticky note — one discussion prompt or aside per slide, at most */
 .sticky-note {
   position: absolute;
