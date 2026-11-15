@@ -45,7 +45,7 @@ section: Background
 
 <template #right>
 
-<img src="./public/snail.jpg" style="position: fixed; top: 0; right: 0; bottom: 0; width: 33%; height: 100%; object-fit: cover;" />
+<img src="./public/snail.jpg" class="bleed-right" />
 
 </template>
 

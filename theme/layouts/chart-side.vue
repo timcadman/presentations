@@ -67,7 +67,7 @@ const logo = configs.themeConfig?.logo ?? 'molgenis-logo.png'
 
 .ch-header h1 {
   font-family: var(--font-title);
-  font-size: 40px;
+  font-size: 44px;
   font-weight: 400;
   color: var(--slidev-theme-heading);
   margin: 0;

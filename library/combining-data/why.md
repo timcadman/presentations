@@ -13,10 +13,9 @@ subheading: 'Why'
 - Combining data sources allows:
   - **Exposure contrast**
   - **Statistical power**
-  - **Replication** across settings
+  - **Replication** across different contexts
   - **Extended coverage** of the lifecourse
-  - **Generalisability** to other populations and settings
-  - **Different confounding structures**, to test whether associations hold where confounders differ
+  - **Different confounding structures**
 
 </div>
 
@@ -24,6 +23,6 @@ subheading: 'Why'
 
 <template #right>
 
-<img src="../assets/why-combine-data-network-map.jpg" style="position: fixed; top: 0; right: 0; bottom: 0; width: 40%; height: 100%; object-fit: cover;" />
+<img src="../assets/why-combine-data-network-map.jpg" class="bleed-right" />
 
 </template>

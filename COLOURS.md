@@ -97,6 +97,78 @@ From the live website's own CSS custom properties (`--uncan-*`):
 | Flower yellow | `#FDAE00` | Flower outlines; sampled from Flower's own diagrams. Pair with `#B9852A` for text |
 | Flower yellow tint | `#FFEFCC` | Flower fills; sampled from Flower's own diagrams |
 
+## Chart series — validated options (not yet applied)
+
+The Extended list above predates any accessibility check and fails four of
+five when run as a categorical series palette through the `dataviz` skill's
+`scripts/validate_palette.js`: gold `#E6B96A` sits outside the lightness band
+and under 3:1 contrast, navy `#1E3A5F` and grey `#9AA0A6` fall below the
+chroma floor (they read as grey rather than as hues), and grey ↔ dark gold
+`#B9852A` are ΔE 14.1 apart in normal vision — below the floor of 15. Blue ↔
+teal, the deck's most-used pairing, is ΔE 14.2 and fails the same check.
+
+Three replacements below, each anchored on MOLGENIS blue and each passing
+lightness, chroma, colour-blind separation and normal-vision separation.
+Re-check any change with:
+
+```
+node scripts/validate_palette.js "<hex,hex,...>" --mode light
+```
+
+A contrast WARN on the lighter slots is expected and acceptable here: it
+obliges a visible label or legend, which every figure in these decks has.
+
+### Option A — Okabe–Ito with MOLGENIS blue (recommended)
+
+The Color Universal Design set, used by Nature Methods and Claus Wilke's
+*Fundamentals of Data Visualization*, with blue substituted into slot 1.
+Worst colour-blind pair ΔE 7.6 (needs its label, which figures have); normal
+vision ΔE 21.1 — the widest margin of the three.
+
+| Slot | Hex | Name |
+|---|---|---|
+| 1 | `#4285F4` | MOLGENIS blue |
+| 2 | `#D55E00` | Vermillion |
+| 3 | `#009E73` | Bluish green |
+| 4 | `#CC79A7` | Reddish purple |
+| 5 | `#E69F00` | Orange |
+| 6 | `#56B4E9` | Sky blue |
+| 7 (only if needed) | `#0072B2` | Deep blue |
+
+### Option B — generated, evenly spaced, vivid
+
+Hues stepped 65° around the wheel from blue in OKLCH, lightness varied to
+keep each slot inside the band. Full PASS on every check including colour-blind
+separation (worst ΔE 8.6).
+
+| Slot | Hex | Name |
+|---|---|---|
+| 1 | `#4285F4` | MOLGENIS blue |
+| 2 | `#AC5DB1` | Orchid |
+| 3 | `#C35141` | Brick |
+| 4 | `#AB9017` | Ochre |
+| 5 | `#24BA7D` | Emerald |
+| 6 | `#089AC3` | Cyan |
+
+### Option C — generated, muted/editorial
+
+The same construction at lower chroma (0.13) and 68° steps — quieter on a
+white slide, closer in feel to the current deck. Full PASS, worst
+colour-blind pair ΔE 8.2.
+
+| Slot | Hex | Name |
+|---|---|---|
+| 1 | `#4285F4` | MOLGENIS blue |
+| 2 | `#C07BC4` | Soft orchid |
+| 3 | `#B45245` | Terracotta |
+| 4 | `#B89D2B` | Olive gold |
+| 5 | `#06915F` | Pine |
+| 6 | `#1AA1C9` | Teal blue |
+
+Theme variables are unaffected: `--slidev-theme-primary`,
+`--slidev-theme-secondary` and `--slidev-theme-section-bg` keep their current
+values. Gold is a background there, not a data series, and passes as such.
+
 ## Decomposition semantics (armadillo-opal-comparison)
 
 Used consistently in the "Where does the time go?" bar, the Sampling-strategy

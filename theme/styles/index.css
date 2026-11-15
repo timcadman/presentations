@@ -2,9 +2,9 @@
 
 :root {
   --slidev-theme-primary: #4285F4;
-  --slidev-theme-secondary: #E6B96A;
-  --slidev-theme-accent: #0097A7;
-  --slidev-theme-section-bg: #F7D38C;
+  --slidev-theme-secondary: #E2A517;
+  --slidev-theme-accent: #119DA1;
+  --slidev-theme-section-bg: #F9D28C;
   --slidev-theme-section-fg: var(--slidev-theme-primary);
   --slidev-theme-heading: var(--slidev-theme-primary);
   --slidev-theme-text: #333333;
@@ -185,6 +185,15 @@ strong {
 }
 .slidev-layout .res-figs.center { justify-content: center; }    /* opt-in centring */
 .slidev-layout .res-figs img { max-height: 100%; max-width: 49%; }   /* fits its half + row */
+
+/* Full-bleed side image — fills the slide's right edge, ignoring the layout
+   padding. 40% is the standard width across every deck; keep the <img> in the
+   slide so Vite still resolves the asset path.
+   Usage: <img class="bleed-right" src=… /> inside a `#right` slot. */
+.slidev-layout .bleed-right {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: 40%; height: 100%; object-fit: cover;
+}
 /* Legend + ratio note tucked into the top-right, level with the heading, so the
    figures get the full body. */
 .slidev-layout .corner-note {

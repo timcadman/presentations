@@ -39,7 +39,7 @@ heading: Contents
 
 <template #right>
 
-<img src="./public/contents-notebook-coffee.jpg" style="position: fixed; top: 0; right: 0; bottom: 0; width: 33%; height: 100%; object-fit: cover;" />
+<img src="./public/contents-notebook-coffee.jpg" class="bleed-right" />
 
 </template>
 

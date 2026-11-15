@@ -53,7 +53,7 @@ subheading: 'Why'
 
 <template #right>
 
-<img src="./public/why-combine-data-network-map.jpg" style="position: fixed; top: 0; right: 0; bottom: 0; width: 40%; height: 100%; object-fit: cover;" />
+<img src="./public/why-combine-data-network-map.jpg" class="bleed-right" />
 
 </template>
 
@@ -64,9 +64,7 @@ subheading: Lifecourse epidemiology
 section: Background
 ---
 
-<div style="display: flex; align-items: center; justify-content: center; height: 100%;">
-  <p style="font-size: 28px; color: var(--slidev-theme-primary); text-align: center; max-width: 640px; line-height: 1.5; font-weight: 500;">Example research question:<br /><span style="color: #9AA0A6;">"How does early life chemical exposure affect later life cognitive decline?"</span></p>
-</div>
+<ResearchQuestion label="Example research question:" question="How does early life chemical exposure affect later life cognitive decline?" />
 
 ---
 layout: content

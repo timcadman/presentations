@@ -65,4 +65,15 @@
 .cover :deep(.logo-molgenis) {
   height: 40px;
 }
+
+/* Heights are set per logo for optical balance, not geometric equality: the
+   Utrecht roundel and the ISGlobal wordmark carry very different ink at the
+   same height. */
+.cover :deep(.logo-uu) {
+  height: 34px;
+}
+
+.cover :deep(.logo-isglobal) {
+  height: 22px;
+}
 </style>

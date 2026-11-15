@@ -69,34 +69,58 @@ IHEN_NODES = [
 
 
 def build_ses_no2_map():
-    """Cities where high-SEP areas have higher (red, up) or lower (teal, down) NO2."""
-    fig, ax = plt.subplots(figsize=(12, 10.5), dpi=100)
-    fig.patch.set_facecolor('white')
-    draw_countries(ax)
+    """Cities where high-SEP areas have higher (red, up) or lower (teal, down) NO2.
 
-    for city, diff in SES_NO2:
-        lon, lat = CITY[city]
-        colour, marker = (RED, '^') if diff > 0 else (TEAL, 'v')
-        ax.scatter([lon], [lat], s=320, marker=marker, facecolor=colour, edgecolor='white',
-                   linewidth=1.2, zorder=4)
-        ax.annotate(f'{city}\n{diff:+.1f} µg/m³', (lon, lat), xytext=(12, 0),
-                    textcoords='offset points', ha='left', va='center', fontsize=14,
-                    color='#333333', zorder=5)
+    Saved as three registered layers — basemap, then one per marker group — so the
+    slide can reveal the groups on click by stacking them. The key lives on the
+    slide, not in the figure, so it keeps the deck's type. Every layer uses the same
+    figure size and axis limits and is saved without a tight bbox, which is what
+    keeps them aligned; a tight bbox would crop each layer to its own content.
+    """
+    # Window cropped to the four cities (Iberia to the Baltic) so the map is
+    # landscape and fills the width of the slide's figure column.
+    LON, LAT = (-11, 32), (36, 58)
+    LABEL = {'Kaunas': (-9, 0), 'Sabadell': (9, 26), 'Valencia': (9, -26)}
+    FIGSIZE = (6, 4.75)
 
-    handles = [plt.Line2D([0], [0], marker=m, color='w', markerfacecolor=c,
-                           markeredgecolor='white', markersize=12, label=n)
-               for n, c, m in [('Higher NO₂', RED, '^'), ('Lower NO₂', TEAL, 'v')]]
-    leg = ax.legend(handles=handles, loc='upper left', frameon=True, fontsize=12,
-                     title='High-SEP areas have', title_fontsize=13,
-                     bbox_to_anchor=(0.01, 0.99), borderaxespad=0.5)
-    leg.get_frame().set_edgecolor('#b4b4b4')
-    leg.get_frame().set_facecolor('white')
-    leg._legend_box.align = 'left'
+    def frame(ax):
+        ax.set_xlim(*LON)
+        ax.set_ylim(*LAT)
+        ax.set_aspect(1.55)
+        ax.axis('off')
 
-    out = os.path.join(INTRO_PUBLIC, 'ihen_ses_no2_map.png')
-    fig.savefig(out, bbox_inches='tight', pad_inches=0.05, dpi=150)
-    plt.close(fig)
-    print('saved', out)
+    def layer(name, cities, basemap):
+        fig, ax = plt.subplots(figsize=FIGSIZE, dpi=200)
+        fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
+        if basemap:
+            fig.patch.set_facecolor('white')
+            draw_countries(ax)
+        else:
+            fig.patch.set_alpha(0)
+        frame(ax)
+
+        for city, diff in cities:
+            lon, lat = CITY[city]
+            colour, marker = (RED, '^') if diff > 0 else (TEAL, 'v')
+            ax.scatter([lon], [lat], s=700, marker=marker, facecolor=colour,
+                       edgecolor='white', linewidth=1.8, zorder=4)
+            # Hand-placed: at this size the labels collide or run off the edge
+            # otherwise — Kaunas reads inwards, Sabadell and Valencia split apart.
+            dx, dy = LABEL.get(city, (9, 0))
+            ax.annotate(f'{city}\n{diff:+.1f} µg/m³', (lon, lat), xytext=(dx, dy),
+                        textcoords='offset points', ha='right' if dx < 0 else 'left',
+                        va='center', fontsize=16, color='#333333', zorder=5)
+
+        out = os.path.join(INTRO_PUBLIC, name)
+        fig.savefig(out, dpi=200, transparent=not basemap)
+        plt.close(fig)
+        print('saved', out)
+
+    higher = [(c, d) for c, d in SES_NO2 if d > 0]
+    lower = [(c, d) for c, d in SES_NO2 if d < 0]
+    layer('ihen_ses_no2_map_base.png', [], basemap=True)
+    layer('ihen_ses_no2_map_higher.png', higher, basemap=False)
+    layer('ihen_ses_no2_map_lower.png', lower, basemap=False)
 
 
 def build_ihen_nodes_map():
