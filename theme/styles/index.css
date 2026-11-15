@@ -326,17 +326,16 @@ strong {
 .slidev-layout .nm { display: flex; gap: 2rem; height: 100%; min-height: 0; align-items: flex-start; }
 .slidev-layout .nm-map { position: relative; flex: 1 1 auto; min-width: 0; max-height: 100%; }
 .slidev-layout .nm-base { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-.slidev-layout .nm-dot { position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: var(--c); border: 1.5px solid #fff; }
+.slidev-layout .nm-dot { position: absolute; width: 7.5px; height: 7.5px; margin: -3.75px 0 0 -3.75px; border-radius: 50%; background: var(--c); border: 1.5px solid #fff; }
 .slidev-layout .nm-dot.planned { background: #fff; border-color: var(--c); }
 .slidev-layout .nm-side { flex: 0 0 15rem; min-width: 0; margin: 0; padding: 0; list-style: none; }
 .slidev-layout .nm-side li { position: relative; padding-left: 1.1rem; margin-bottom: 0.9rem; font-size: 18px; line-height: 1.5; color: var(--c-text); }
-.slidev-layout .nm-side .nm-note { color: var(--c-grey); font-size: 16px; }
-.slidev-layout .nm-side li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+.slidev-layout .nm-side li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
 
 /* Example papers (ExamplePapers.vue): a coloured journal plate per paper */
 .slidev-layout .papers { display: flex; flex-direction: column; gap: 0.3rem; }
 .slidev-layout .paper { display: grid; grid-template-columns: 2.1rem 1fr; gap: 0.9rem; align-items: center; }
 .slidev-layout .paper .cover { width: 2.1rem; height: auto; border-radius: 2px; box-shadow: 0 1px 4px rgba(0,0,0,0.18); }
-.slidev-layout .paper .cover-plate { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 4; padding: 0.15rem; background: color-mix(in srgb, var(--c-blue) 14%, white); color: var(--c-blue-dark); font-family: var(--font-subtitle); font-size: 8px; line-height: 1.1; text-align: center; box-shadow: none; }
+.slidev-layout .paper .cover-plate { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 4; padding: 0.15rem; background: color-mix(in srgb, var(--c-blue) 14%, white); color: var(--c-blue-dark); font-family: var(--font-subtitle); font-size: 8px; letter-spacing: 0.02em; text-align: center; box-shadow: none; overflow: hidden; writing-mode: vertical-rl; transform: rotate(180deg); }
 .slidev-layout .paper .t { display: block; font-size: 16px; line-height: 1.2; }
 .slidev-layout .paper .m { display: block; font-size: 13px; color: var(--c-grey); }

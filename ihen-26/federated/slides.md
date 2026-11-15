@@ -5,7 +5,7 @@ author: Juan Carlos Rivillas, Tim Cadman & Hüseyin Küçükali
 aspectRatio: '16/9'
 publish: true
 themeConfig:
-  sections: [Reusing data, DataSHIELD, Demonstration, Sharing your data, Discussion]
+  sections: [Reusing data, DataSHIELD, Demonstration, Setting up DataSHIELD, Discussion]
 transition: slide-left
 mdc: true
 ---
@@ -30,7 +30,7 @@ image: ./public/contents-notebook-coffee.jpg
 1. **Reusing data**
 2. **What is DataSHIELD?**
 3. **DataSHIELD demo**
-4. **Sharing your data**
+4. **Setting up DataSHIELD**
 5. **Discussion**
 
 ---
@@ -141,7 +141,7 @@ section: 'DataSHIELD'
 clicks: 3
 ---
 
-<NodeMap />
+<NodeMap :planned="false" />
 
 ---
 layout: content
@@ -163,23 +163,42 @@ layout: section
 layout: section
 ---
 
-# Sharing your data
+# Setting up DataSHIELD
 
 ---
 layout: content
 heading: Setting up DataSHIELD
-subheading: Why share your data with DataSHIELD?
-section: Sharing your data
+subheading: As a user
+section: Setting up DataSHIELD
 ---
+
+<v-clicks>
+
+- Arrange data access agreements with providers
+- Install R packages
+- Connect and analyse with RStudio
+
+</v-clicks>
+
+---
+layout: content
+heading: Setting up DataSHIELD
+subheading: As a data owner
+section: Setting up DataSHIELD
+---
+
+<v-clicks>
 
 - A secure way to share your data with other researchers
 - Opens opportunities for your own analyses by joining the network built through LifeCycle and ATHLETE
 
+</v-clicks>
+
 ---
 layout: content-two-cols
 heading: Setting up DataSHIELD
-subheading: Two options
-section: Sharing your data
+subheading: As a data owner — two options
+section: Setting up DataSHIELD
 ---
 
 <template #left>

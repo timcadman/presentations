@@ -55,7 +55,7 @@ def K(n):
     x = k(n); return ALIAS.get(x, x)
 
 PROJ = ['LifeCycle', 'Athlete', 'Longitools', 'IPEC', 'NCC', 'NDTD', 'STAGE',
-        'JOIN-MIND', 'FEDHAFRICA', 'Other']
+        'JOIN-MIND', 'FEDHAFRICA', 'MDR-RA', 'DSWB', 'Other']
 COLS = ['cohort', 'institution', 'country', 'city', 'lon', 'lat'] + PROJ + ['status', 'sources']
 
 rec = {}
@@ -142,12 +142,41 @@ for country, sites in [
     ('Tanzania',[('Dar es Salaam',39.2083,-6.7924),('Dodoma',35.7516,-6.1630),('Mwanza',32.8990,-2.5164)])]:
     for city, lon, lat in sites:
         PLANNED.append((f'FEDHAFRICA {city}', city, country, lon, lat, 'FEDHAFRICA'))
+# MDR-RA (Horizon Europe, mdr-ra.eu): the clinical and university partners that
+# plausibly hold patient data. The project does not publish which sites host servers.
+for name, city, country, lon, lat in [
+    ('Humanitas University', 'Milan', 'Italy', 9.1900, 45.4642),
+    ('University of Verona', 'Verona', 'Italy', 10.9916, 45.4384),
+    ('UMC Utrecht', 'Utrecht', 'Netherlands', 5.1214, 52.0907),
+    ('Karolinska Institute', 'Stockholm', 'Sweden', 18.0686, 59.3293),
+    ('Queen Mary University of London', 'London', 'United Kingdom', -0.1276, 51.5072),
+    ('University of Manchester', 'Manchester', 'United Kingdom', -2.2426, 53.4808),
+    ('University Hospital Zurich', 'Zurich', 'Switzerland', 8.5417, 47.3769),
+    ('Medical University of Vienna', 'Vienna', 'Austria', 16.3738, 48.2082),
+    ('Odense University Hospital', 'Odense', 'Denmark', 10.3883, 55.4038),
+    ('Cliniques Universitaires Saint-Luc', 'Brussels', 'Belgium', 4.3517, 50.8503),
+    ('FAU Erlangen', 'Erlangen', 'Germany', 11.0170, 49.5897),
+    ('Diakonhjemmet Hospital', 'Oslo', 'Norway', 10.7522, 59.9139),
+]:
+    PLANNED.append((name, city, country, lon, lat, 'MDR-RA'))
+
+# Data Science Without Borders (Kiragga et al. 2025, Front Public Health): APHRC and
+# its three Pathfinder institutions. Planned — federated deployment is their Phase 4.
+for name, city, country, lon, lat in [
+    ('APHRC', 'Nairobi', 'Kenya', 36.8219, -1.2921),
+    ('IRESSEF', 'Dakar', 'Senegal', -17.4677, 14.7167),
+    ('AHRI', 'Addis Ababa', 'Ethiopia', 38.7578, 9.0320),
+    ('Douala General Hospital', 'Douala', 'Cameroon', 9.7679, 4.0511),
+]:
+    PLANNED.append((name, city, country, lon, lat, 'DSWB'))
+
 planned = []
 for name, city, country, lon, lat, proj in PLANNED:
     r = {c: '' for c in COLS}
     r.update({'cohort':name,'city':city,'country':country,'lon':lon,'lat':lat,
               proj:'x','status':'planned',
-              'sources':{'FEDHAFRICA site illustrative' if proj=='FEDHAFRICA' else 'JOIN-MIND'}})
+              'sources':{{'FEDHAFRICA':'FEDHAFRICA site illustrative',
+                          'MDR-RA':'mdr-ra.eu','DSWB':'Kiragga 2025'}.get(proj, 'JOIN-MIND')}})
     planned.append(r)
 
 # --- the datashield.org map: projection fitted to the European cohorts we hold

@@ -54,7 +54,7 @@ const groups = computed(() => {
   return [
     { key: 'exposome', colour: 'var(--c-blue)', at: 1, nodes: exp.map(place),
       text: `${exp.length} birth cohorts with exposome and health data` },
-    { key: 'rest', colour: 'var(--c-teal)', at: 2, nodes: rest.map(place),
+    { key: 'rest', colour: 'var(--c-gold-dark)', at: 2, nodes: rest.map(place),
       text: `Estimated ${rest.length} other data sources with health data` },
   ]
 })
@@ -78,7 +78,7 @@ const ratio = computed(() => `${win.value.size[0]} / ${win.value.size[1]}`)
       <li v-for="g in groups" v-show="$clicks >= g.at" :key="g.key"
           :style="{ '--c': g.colour }">{{ g.text }}</li>
       <li v-if="note" v-show="$clicks >= 3" class="nm-note"
-          :style="{ '--c': 'var(--c-grey)' }">{{ note }}</li>
+          :style="{ '--c': 'var(--c-text)' }">{{ note }}</li>
     </ul>
   </div>
 </template>
