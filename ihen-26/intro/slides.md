@@ -36,7 +36,7 @@ image: ./public/contents-notebook-coffee.jpg
    - Examples
 2. **FAIR data cycle**
 3. **Exposome tools**
-   - Molgenis metadata catalogue
+   - Global Exposome Cohorts Catalogue
    - Exposome Maps
    - Federated analysis with DataSHIELD
 
@@ -263,7 +263,7 @@ section: 'Exposome tools'
 ---
 
 <ul class="fair-links">
-  <li v-click><span class="chips"><span class="chip f">F</span><span class="chip a">A</span><span class="chip r">R</span></span>IHEN Global Exposome Cohorts Catalogue</li>
+  <li v-click><span class="chips"><span class="chip f">F</span><span class="chip a">A</span><span class="chip r">R</span></span>Global Exposome Cohorts Catalogue</li>
   <li v-click><span class="chips"><span class="chip i">I</span><span class="chip r">R</span></span>Exposome maps & tools</li>
   <li v-click><span class="chips"><span class="chip a">A</span><span class="chip r">R</span></span>Federated exposome analysis with DataSHIELD</li>
 </ul>

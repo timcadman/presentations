@@ -15,6 +15,7 @@ Federated analysis with DataSHIELD
 
 <div class="author-info">
   <p><strong>Tim Cadman</strong></p>
+  <p>Senior Data Scientist</p>
 </div>
 
 <div class="title-logos">
@@ -27,11 +28,11 @@ layout: contents
 image: ./public/contents-notebook-coffee.jpg
 ---
 
-1. Reusing data
-2. What is DataSHIELD?
-3. Demonstration
-4. Setting up DataSHIELD
-5. Discussion
+1. **Reusing data**
+2. **What is DataSHIELD?**
+3. **Demonstration**
+4. **Setting up DataSHIELD**
+5. **Discussion**
 
 ---
 layout: content
@@ -305,14 +306,20 @@ subheading: ""
 section: Discussion
 ---
 
-<p style="margin-top: 2rem; font-size: 20px;">For questions and support contact: <a class="support-link" href="mailto:support@molgenis.org"><strong>support@molgenis.org</strong></a></p>
+<p style="margin-top: 0; font-size: 20px;">For questions and support contact: <a class="support-link" href="mailto:support@molgenis.org"><strong>support@molgenis.org</strong></a></p>
 
 <div style="margin-top: 1.5rem; font-size: 18px; line-height: 1.8;">
 
 **Useful links:**
 - DataSHIELD wiki: https://wiki.datashield.org/
-- DataSHIELD website: https://datashield.org/
 - Molgenis suite: https://molgenis.org/
+
+</div>
+
+<div style="margin-top: 1.5rem; font-size: 18px; line-height: 1.8;">
+
+**Armadillo reference:**
+Cadman T, Slofstra MK, van der Geest MA, et al. MOLGENIS Armadillo: a lightweight server for federated analysis using DataSHIELD. *Bioinformatics* 2025;41(1):btae726. https://doi.org/10.1093/bioinformatics/btae726
 
 </div>
 

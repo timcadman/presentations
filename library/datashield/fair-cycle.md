@@ -2,25 +2,11 @@
 layout: content
 heading: FAIR data
 subheading: The research cycle
-transition: none
----
-
-
-<div class="fair-wrap">
-<FairCycle />
-</div>
-</div>
-
----
-layout: content
-heading: FAIR data
-subheading: The research cycle
 transition: slide-up
 ---
 
 <div class="fair-wrap">
 <FairCycle :focus="$clicks" />
-</div>
 
 <ul class="fair-notes">
 <li v-click><b>Findable</b> — described with rich metadata and registered in a catalogue others can search</li>
