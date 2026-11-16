@@ -195,6 +195,11 @@ section: Setting up DataSHIELD
 </v-clicks>
 
 ---
+src: ../../library/infrastructure/what-is-armadillo.md
+section: Setting up DataSHIELD
+---
+
+---
 src: ../../library/infrastructure/setup-options.md
 section: Setting up DataSHIELD
 ---
