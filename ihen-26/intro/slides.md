@@ -3,7 +3,7 @@ theme: ../../theme
 title: IHEN exposome tools introduction
 info: UMCG's role, existing infrastructure and what's next
 author: Juan Carlos Rivillas, Tim Cadman & Hüseyin Küçükali
-date: 2026-09-01
+date: 2026-11-16
 aspectRatio: '16/9'
 publish: true
 themeConfig:

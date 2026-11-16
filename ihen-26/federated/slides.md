@@ -2,6 +2,7 @@
 theme: ../../theme
 title: "IHEN tools: Federated analysis with DataSHIELD"
 author: Juan Carlos Rivillas, Tim Cadman & Hüseyin Küçükali
+date: 2026-11-16
 aspectRatio: '16/9'
 publish: true
 themeConfig:
