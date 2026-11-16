@@ -8,7 +8,7 @@ subheading: Group exercise
 
 - Split into groups of 2-4
 - Each group represents patients in a hospital
-- Within your group, calculate mean height of members in CM
+- Within your group, calculate mean height of members in centimetres
 - Tell me the mean and N of your group
 
 </v-clicks>

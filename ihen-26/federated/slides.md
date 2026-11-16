@@ -14,7 +14,7 @@ mdc: true
 Federated analysis with DataSHIELD
 
 <div class="author-info">
-  <p><strong>Juan Carlos Rivillas, Tim Cadman & Hüseyin Küçükali</strong></p>
+  <p><strong>Tim Cadman</strong></p>
 </div>
 
 <div class="title-logos">
@@ -27,11 +27,11 @@ layout: contents
 image: ./public/contents-notebook-coffee.jpg
 ---
 
-1. **Reusing data**
-2. **What is DataSHIELD?**
-3. **DataSHIELD demo**
-4. **Setting up DataSHIELD**
-5. **Discussion**
+1. Reusing data
+2. What is DataSHIELD?
+3. Demonstration
+4. Setting up DataSHIELD
+5. Discussion
 
 ---
 layout: content
@@ -64,17 +64,20 @@ layout: section
 ---
 src: ../../library/datashield/introducing-datashield.md
 section: 'DataSHIELD'
+transition: slide-up
 ---
 
 ---
 src: ../../library/datashield/what-is-datashield.md
 section: 'DataSHIELD'
+transition: slide-up
 ---
 
 ---
 layout: figure-cite
 heading: How it works
 section: 'DataSHIELD'
+transition: slide-up
 sideWidth: '36'
 ---
 
@@ -101,11 +104,13 @@ sideWidth: '36'
 ---
 src: ../../library/datashield/group-exercise.md
 section: 'DataSHIELD'
+transition: slide-up
 ---
 
 ---
 src: ../../library/datashield/pooling-means.md
 section: 'DataSHIELD'
+transition: slide-up
 ---
 
 ---
@@ -166,11 +171,13 @@ layout: section
 # Setting up DataSHIELD
 
 ---
-layout: content
-heading: Setting up DataSHIELD
-subheading: As a user
+layout: content-two-cols
+heading: As a user
 section: Setting up DataSHIELD
+clicks: 4
 ---
+
+<template #left>
 
 <v-clicks>
 
@@ -180,37 +187,85 @@ section: Setting up DataSHIELD
 
 </v-clicks>
 
+</template>
+
+<template #right>
+
+<img v-if="$clicks === 1" src="./public/data-use-agreement.png" class="user-setup-img" />
+<div v-show="$clicks === 2" class="user-setup-term">
+  <Terminal light title="R" :text="`install.packages(c(&quot;DSI&quot;, &quot;DSMolgenisArmadillo&quot;, &quot;dsBaseClient&quot;))`" :start-at-click="2" :char-ms="16" />
+</div>
+<div v-show="$clicks === 3" class="user-setup-term">
+  <Terminal light title="R" :text="`fit <- ds.glmSLMA(\n  formula = &quot;asthma ~ no2 + ses&quot;,\n  family = &quot;binomial&quot;,\n  dataName = &quot;D&quot;\n)\n\nds.forestplot(fit, variable = &quot;no2&quot;)`" :start-at-click="3" :char-ms="16" />
+</div>
+<div v-if="$clicks >= 4" class="user-setup-term">
+  <Terminal light title="Plots"><ForestPlot style="margin: 0 auto; align-self: flex-start" /></Terminal>
+</div>
+
+</template>
+
+<style>
+.user-setup-img { width: 100%; height: 17rem; object-fit: cover; object-position: top; border-radius: 6px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); }
+.user-setup-term { height: 17rem; }
+</style>
+
 ---
 layout: content
-heading: Setting up DataSHIELD
-subheading: As a data owner
+heading: As a data owner
+subheading: "Why share data with DataSHIELD?"
 section: Setting up DataSHIELD
 ---
 
 <v-clicks>
 
 - A secure way to share your data with other researchers
-- Opens opportunities for your own analyses by joining the network built through LifeCycle and ATHLETE
+- Opens opportunities for your own research by joining existing exposomes networks
 
 </v-clicks>
 
 ---
+layout: content-two-cols
+heading: As a data owner
+subheading: Setup steps
+section: Setting up DataSHIELD
+transition: slide-up
+---
+
+<template #left>
+
+<v-clicks>
+
+- Harmonise your data to a common data model (e.g. OMOP)
+- Install and configure Armadillo
+- Arrange data access agreements
+- Grant researchers access in Armadillo
+
+</v-clicks>
+
+</template>
+
+<template #right>
+
+<img v-if="$clicks === 1" src="./public/omop-cdm54.png" class="user-setup-img" style="height: auto" />
+<img v-if="$clicks === 2" src="./public/armadillo-logo-border.png" class="owner-arma-logo" />
+<img v-if="$clicks === 3" src="./public/data-use-agreement.png" class="user-setup-img" />
+<img v-if="$clicks >= 4" src="./public/armadillo-ui-users.png" class="user-setup-img" style="height: auto" />
+
+</template>
+
+<style>
+.user-setup-img { width: 100%; height: 17rem; object-fit: cover; object-position: top; border-radius: 6px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); }
+.owner-arma-logo { height: 12rem; display: block; margin: 0 auto; }
+</style>
+
+---
 src: ../../library/infrastructure/what-is-armadillo.md
 section: Setting up DataSHIELD
+transition: slide-up
 ---
 
 ---
 src: ../../library/infrastructure/setup-options.md
-section: Setting up DataSHIELD
----
-
----
-src: ../../library/infrastructure/armadillo-setup-short.md
-section: Setting up DataSHIELD
----
-
----
-src: ../../library/infrastructure/hosted-by-us.md
 section: Setting up DataSHIELD
 ---
 
@@ -229,10 +284,10 @@ section: Discussion
 
 <v-clicks>
 
-- Federated analysis gives an alternative to data transfer and sharing scripts
-- Many exposome cohorts are already part of a large EU federated network
-- UMCG can provide training and technical support
-- We can also help develop new functionality for specific projects if required
+- Combining data gives exposure contrast, power, replication and stronger causal inference
+- Federated analysis with DataSHIELD does this securely: the data never leave the cohort
+- Exposome tooling is already available in DataSHIELD
+- Support is available from MOLGENIS: training, hosting and new functionality
 
 </v-clicks>
 
@@ -250,7 +305,7 @@ subheading: ""
 section: Discussion
 ---
 
-<p style="margin-top: 2rem; font-size: 20px;">For questions and support contact: <strong>support@molgenis.org</strong></p>
+<p style="margin-top: 2rem; font-size: 20px;">For questions and support contact: <a class="support-link" href="mailto:support@molgenis.org"><strong>support@molgenis.org</strong></a></p>
 
 <div style="margin-top: 1.5rem; font-size: 18px; line-height: 1.8;">
 
@@ -260,3 +315,8 @@ section: Discussion
 - Molgenis suite: https://molgenis.org/
 
 </div>
+
+<style>
+.support-link { color: inherit; text-decoration: none; padding: 0.1rem 0.35rem; border-radius: 4px; transition: background 0.2s ease; }
+.support-link:hover { background: color-mix(in srgb, var(--c-gold) 45%, white); }
+</style>

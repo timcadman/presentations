@@ -6,6 +6,7 @@ import { ref, computed } from 'vue'
 const rows = ref([
   { mean: null, n: null },
   { mean: null, n: null },
+  { mean: null, n: null },
 ])
 
 const filled = computed(() => rows.value.filter(r => Number(r.n) > 0 && r.mean !== null && r.mean !== ''))

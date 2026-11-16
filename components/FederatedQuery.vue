@@ -4,7 +4,7 @@ import { useSlideContext } from '@slidev/client'
 import { WINDOWS, CITIES } from './map-windows.js'
 
 // A researcher querying several cohort sites: the analysis code goes out, the
-// aggregate results come back. Builds on clicks — 1 code out, 2 results back.
+// aggregate results come back. Builds on clicks — 1 connect, 2 code out, 3 results back.
 //
 //   <FederatedQuery />
 //   <FederatedQuery map="europe" :cities="['Utrecht', 'Kaunas:left']" researcher="Bristol" />
@@ -49,7 +49,8 @@ function arc(n, lift) {
   return `M ${m.x} ${m.y} Q ${(m.x + n.x) / 2} ${(m.y + n.y) / 2 - lift} ${n.x} ${n.y}`
 }
 
-const showOut = computed(() => $clicks.value >= 2)
+const showOut = computed(() => $clicks.value >= 1)
+const sending = computed(() => $clicks.value >= 2)
 const showBack = computed(() => $clicks.value >= 3)
 </script>
 
@@ -60,12 +61,12 @@ const showBack = computed(() => $clicks.value >= 3)
     <svg class="fq-overlay" viewBox="0 0 100 100" preserveAspectRatio="none">
       <g v-if="showOut">
         <path v-for="n in nodes" :key="`o${n.name}`" :d="arc(n, 5)"
-              fill="none" stroke="var(--c-teal)" stroke-width="0.6"
-              vector-effect="non-scaling-stroke" stroke-dasharray="2 1.5" />
+              fill="none" stroke-width="0.8" vector-effect="non-scaling-stroke"
+              class="fq-out" :style="{ stroke: sending ? 'var(--c-teal)' : 'var(--c-blue)', strokeDasharray: sending ? '3 2.5' : '0.1 4', strokeLinecap: 'round' }" />
       </g>
       <g v-if="showBack">
         <path v-for="n in nodes" :key="`b${n.name}`" :d="arc(n, -5)"
-              fill="none" stroke="var(--c-gold)" stroke-width="0.6"
+              fill="none" stroke="var(--c-gold)" stroke-width="0.8"
               vector-effect="non-scaling-stroke" />
       </g>
     </svg>
@@ -77,7 +78,10 @@ const showBack = computed(() => $clicks.value >= 3)
     </div>
 
     <div class="fq-key">
-      <div v-if="showOut"><span class="k out"></span>Analysis code</div>
+      <div v-if="showOut">
+        <span class="k out" :style="{ borderColor: sending ? 'var(--c-teal)' : 'var(--c-blue)', borderTopStyle: sending ? 'dashed' : 'dotted' }"></span>
+        {{ sending ? 'Analysis code' : 'Connection' }}
+      </div>
       <div v-if="showBack"><span class="k back"></span>Aggregate results</div>
     </div>
 
@@ -87,3 +91,9 @@ const showBack = computed(() => $clicks.value >= 3)
     </div>
   </div>
 </template>
+
+<style scoped>
+.fq-out {
+  transition: stroke 0.6s ease, stroke-dasharray 0.6s ease;
+}
+</style>

@@ -1,15 +1,16 @@
 ---
 layout: content-two-cols
 heading: DataSHIELD
-subheading: Federated Exposome Analysis
+subheading: What is it?
 leftWidth: '34'
 ---
 
 ::left::
 
+- R Studio based federated analysis platform
+
 <v-clicks>
 
-- R Studio based federated analysis platform
 - Developed over 15 years in EU exposome projects
 - Specific package for exposome analysis
 

@@ -1,7 +1,7 @@
 ---
 layout: content
 heading: Analysing multiple datasets
-subheading: How
+subheading: Options
 clicks: 3
 ---
 
@@ -25,7 +25,7 @@ clicks: 3
   </div>
   <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
   <div style="width: 300px; height: 208px; margin: 0 auto; position: relative;">
-  <div v-show="$clicks === 0" style="position: absolute; inset: 0;">
+  <div style="position: absolute; inset: 0;" :style="{ opacity: $clicks === 0 ? 1 : 0 }">
   <svg viewBox="0 0 300 208" style="position: absolute; inset: 0; width: 100%; height: 100%;">
   <defs>
   <marker id="cd-arrow-1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
@@ -57,7 +57,7 @@ clicks: 3
   <div style="width: 48px; height: 7px; background: #333; border-radius: 0 0 3px 3px; margin-top: 3px;"></div>
   </div>
   </div>
-  <div v-show="$clicks === 1" style="position: absolute; inset: 0;">
+  <div style="position: absolute; inset: 0;" :style="{ opacity: $clicks === 1 ? 1 : 0 }">
   <svg viewBox="0 0 300 208" style="position: absolute; inset: 0; width: 100%; height: 100%;">
   <defs>
   <marker id="cd-arrow-2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
@@ -112,7 +112,7 @@ clicks: 3
   </div>
   </div>
   </div>
-  <div v-show="$clicks >= 2" style="position: absolute; inset: 0;">
+  <div style="position: absolute; inset: 0;" :style="{ opacity: $clicks >= 2 ? 1 : 0 }">
   <svg viewBox="0 0 300 208" style="position: absolute; inset: 0; width: 100%; height: 100%;">
   <defs>
   <marker id="cd-arrow-3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
@@ -387,6 +387,7 @@ subheading: Comparing the options
 |---|:-:|:-:|:-:|
 | Data stays at source | <carbon-close style="color: #D9534F" /> | <carbon-checkmark style="color: #0097A7" /> | <carbon-checkmark style="color: #0097A7" /> |
 | Data owners keep control | <carbon-close style="color: #D9534F" /> | <carbon-checkmark style="color: #0097A7" /> | <carbon-checkmark style="color: #0097A7" /> |
-| One pooled analysis | <carbon-checkmark style="color: #0097A7" /> | <carbon-close style="color: #D9534F" /> two-stage only | <carbon-checkmark style="color: #0097A7" /> |
-| No shared infrastructure needed | <carbon-checkmark style="color: #0097A7" /> | <carbon-checkmark style="color: #0097A7" /> | <carbon-close style="color: #D9534F" /> |
-| Full range of analysis methods | <carbon-checkmark style="color: #0097A7" /> | <carbon-close style="color: #D9534F" /> | <carbon-subtract style="color: #B9852A" /> fewer than pooling |
+| One pooled analysis | <carbon-checkmark style="color: #0097A7" /> | <carbon-close style="color: #D9534F" /> | <carbon-checkmark style="color: #0097A7" /> |
+| No additional infrastructure needed | <carbon-checkmark style="color: #0097A7" /> | <carbon-checkmark style="color: #0097A7" /> | <carbon-close style="color: #D9534F" /> |
+| Full range of analysis methods | <carbon-checkmark style="color: #0097A7" /> | <carbon-close style="color: #D9534F" /> | <carbon-close style="color: #D9534F" /> |
+| Flexibly redo analyses | <carbon-checkmark style="color: #0097A7" /> | <carbon-close style="color: #D9534F" /> | <carbon-checkmark style="color: #0097A7" /> |

@@ -258,16 +258,16 @@ Platform: aarch64-apple-darwin20</pre>
             <div v-else-if="entry.table" v-show="alwaysShow || ($clicks >= entry.outStep && $clicks < entry.clearedAt)">
               <pre v-if="entry.output && !entry.done" class="rs-out" v-html="entry.output"></pre>
               <ChemoTable v-if="entry.done" />
-              <div v-if="entry.done" v-show="$clicks >= entry.promptStep" class="rs-cmdline"><span class="rs-prompt">&gt;</span></div>
+              <div v-if="entry.done" v-show="alwaysShow || $clicks >= entry.promptStep" class="rs-cmdline"><span class="rs-prompt">&gt;</span></div>
             </div>
             <div v-else-if="entry.plot" v-show="alwaysShow || ($clicks >= entry.outStep && $clicks < entry.clearedAt)">
               <pre v-if="entry.output && !entry.done" class="rs-out" v-html="entry.output"></pre>
               <component :is="plotComponent" v-if="entry.done" />
-              <div v-if="entry.done" v-show="$clicks >= entry.promptStep" class="rs-cmdline"><span class="rs-prompt">&gt;</span></div>
+              <div v-if="entry.done" v-show="alwaysShow || $clicks >= entry.promptStep" class="rs-cmdline"><span class="rs-prompt">&gt;</span></div>
             </div>
             <div v-else-if="entry.output" v-show="alwaysShow || ($clicks >= entry.outStep && $clicks < entry.clearedAt)">
               <pre class="rs-out" v-html="entry.output"></pre>
-              <div v-if="entry.done" v-show="$clicks >= entry.promptStep" class="rs-cmdline"><span class="rs-prompt">&gt;</span></div>
+              <div v-if="entry.done" v-show="alwaysShow || $clicks >= entry.promptStep" class="rs-cmdline"><span class="rs-prompt">&gt;</span></div>
             </div>
           </div>
         </div>

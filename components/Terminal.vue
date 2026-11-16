@@ -23,6 +23,10 @@ const props = defineProps({
     type: Number,
     default: 1,
   },
+  light: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const { $clicks } = useSlideContext()
@@ -45,7 +49,12 @@ function startTyping() {
 watch(
   () => $clicks.value,
   (clicks, prevClicks) => {
-    if (clicks < props.startAtClick) return
+    if (clicks < props.startAtClick) {
+      if (timer) clearTimeout(timer)
+      started = false
+      shown.value = ''
+      return
+    }
     // already past the trigger click on mount (e.g. navigating back in) — show it straight away
     if (prevClicks === undefined) {
       started = true
@@ -63,7 +72,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="tm-window">
+  <div class="tm-window" :class="{ 'tm-light': light }">
     <div class="tm-titlebar">
       <span class="tm-dot tm-dot-r"></span>
       <span class="tm-dot tm-dot-y"></span>
@@ -71,8 +80,10 @@ onUnmounted(() => {
       <span class="tm-title">{{ title }}</span>
     </div>
     <div class="tm-body">
-      <span class="tm-prompt">$</span>
-      <pre class="tm-text">{{ shown }}<span class="tm-cursor"></span></pre>
+      <slot>
+        <span class="tm-prompt">$</span>
+        <pre class="tm-text">{{ shown }}<span class="tm-cursor"></span></pre>
+      </slot>
     </div>
   </div>
 </template>
@@ -148,6 +159,10 @@ onUnmounted(() => {
   vertical-align: text-bottom;
   animation: tm-blink 1s step-end infinite;
 }
+
+.tm-light { background: #FFFFFF; border: 1px solid #9AA0A6; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12); }
+.tm-light .tm-titlebar { background: #F4F4F4; }
+.tm-light .tm-text { color: #333333; }
 
 @keyframes tm-blink {
   0%, 50% { opacity: 1; }
