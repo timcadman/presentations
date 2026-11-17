@@ -3,6 +3,7 @@ import { computed } from 'vue'
 
 const props = defineProps({
   server: { type: String, default: 'generic', validator: (v) => ['generic', 'armadillo'].includes(v) },
+  unit: { type: String, default: 'Cohort' },
 })
 
 const SERVERS = {
@@ -21,7 +22,7 @@ const text = computed(() => SERVERS[props.server])
          combining both directives on one element breaks the "hidden until
          clicked" half, so they must stay on separate nested elements. -->
     <div class="caption-box">
-      <div v-click="1"><p v-click-hide="2" class="caption-text">Cohorts hold their own data</p></div>
+      <div v-click="1"><p v-click-hide="2" class="caption-text">{{ unit }}s hold their own data</p></div>
       <div v-click="2"><p v-click-hide="3" class="caption-text">{{ text.installed }}</p></div>
       <div v-click="3"><p v-click-hide="4" class="caption-text">{{ text.uploaded }}</p></div>
       <div v-click="4"><p v-click-hide="5" class="caption-text">Researcher is granted access</p></div>
@@ -43,9 +44,9 @@ const text = computed(() => SERVERS[props.server])
       <div v-click="1" style="grid-column: 1;">
         <p class="col-heading">Data</p>
         <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-          <div style="display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;"><img src="/icon-database.png" style="height: 36px;" /> <span style="font-size: 13px; white-space: nowrap;">Cohort A</span></div>
-          <div style="display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;"><img src="/icon-database.png" style="height: 36px;" /> <span style="font-size: 13px; white-space: nowrap;">Cohort B</span></div>
-          <div style="display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;"><img src="/icon-database.png" style="height: 36px;" /> <span style="font-size: 13px; white-space: nowrap;">Cohort C</span></div>
+          <div style="display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;"><img src="/icon-database.png" style="height: 36px;" /> <span style="font-size: 13px; white-space: nowrap;">{{ unit }} A</span></div>
+          <div style="display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;"><img src="/icon-database.png" style="height: 36px;" /> <span style="font-size: 13px; white-space: nowrap;">{{ unit }} B</span></div>
+          <div style="display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;"><img src="/icon-database.png" style="height: 36px;" /> <span style="font-size: 13px; white-space: nowrap;">{{ unit }} C</span></div>
         </div>
       </div>
 

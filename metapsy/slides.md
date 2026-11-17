@@ -1,6 +1,6 @@
 ---
 theme: ../theme
-title: Federated Analysis using MOLGENIS Armadillo
+title: MOLGENIS Armadillo
 info: Draft — why share data, how DataSHIELD works, example projects, demos, infrastructure and legal
 author: Tim Cadman & Mariska Slofstra
 aspectRatio: '16/9'
@@ -11,8 +11,8 @@ transition: slide-left
 mdc: true
 ---
 
-# Federated Analysis using<br>MOLGENIS Armadillo
-Securely sharing data
+# MOLGENIS Armadillo
+Secure Federated Analysis
 
 <div class="author-info">
   <p><strong>Tim Cadman & Mariska Slofstra</strong></p>
@@ -32,8 +32,8 @@ image: ./public/contents-notebook-coffee.jpg
 2. **Finding data**
 3. **Reusing data**
 4. **Federated analysis**
-5. **Projects**
-6. **Setup**
+5. **Example projects**
+6. **Getting started**
 7. **Summary**
 
 ---
@@ -54,10 +54,10 @@ imagePosition: center 35%
 transition: slide-up
 ---
 
-- Team based in the **Department of Genetics, UMCG**
+- Team based in the<br>**Department of Genetics, UMCG**
 - We develop the **MOLGENIS** software suite
-- Tools that accelerate **multi-centre research collaborations**
-- **35 FTE**: developers, data managers, project managers, PhDs and postdocs
+- Tools that accelerate<br>**multi-centre research collaborations**
+- **35 FTE**: developers, data managers,<br>project managers, PhDs, postdocs<br>and a support team
 
 ---
 layout: content-two-cols
@@ -108,7 +108,7 @@ transition: slide-up
 <div class="tint-row">
   <div class="tint-card" style="--c: #6A4C93;" :class="{ active: $clicks === 1, dimmed: $clicks > 0 && $clicks !== 1 }">
     <h3><carbon-data-base />EMX2</h3>
-    <p>Flexible database for research and clinical data</p>
+    <p>Flexible database for<br>research and clinical data</p>
   </div>
   <div class="tint-card" style="--c: #0097A7;" :class="{ active: $clicks === 2, dimmed: $clicks > 0 && $clicks !== 2 }">
     <h3><carbon-search />Health Research Metadata catalogue</h3>
@@ -116,7 +116,7 @@ transition: slide-up
   </div>
   <div class="tint-card" style="--c: #4285F4;" :class="{ active: $clicks === 3, dimmed: $clicks > 0 && $clicks !== 3 }">
     <h3><img src="./public/armadillo-logo-border.png" style="height: 1.8em; vertical-align: -0.5em; margin-right: 0.35rem;" />Armadillo</h3>
-    <p>Data portal for sharing datasets and federated analysis with DataSHIELD</p>
+    <p>Data portal for sharing<br>datasets and federated<br>analysis with DataSHIELD</p>
   </div>
   <div class="tint-card" style="--c: var(--c-gold-dark);" :class="{ active: $clicks === 4, dimmed: $clicks > 0 && $clicks !== 4 }">
     <h3><carbon-dna />VIP</h3>
@@ -146,6 +146,7 @@ heading: Reusing data
 benefits: [power, replication, coverage, confounding]
 examples: cohort studies, clinical trials
 section: 'Background'
+transition: slide-up
 ---
 
 ---
@@ -225,11 +226,11 @@ citation: 'Cadman et al. (2024) Environ Int 185:108453'
 layout: section
 ---
 
-# Data reuse challenge
+# Challenges with reusing data
 
 ---
 layout: content
-heading: Data reuse challenge
+heading: Challenges with reusing data
 subheading: Example research question
 section: 'Background'
 transition: slide-up
@@ -256,11 +257,11 @@ clicks: 4
   </div>
   <div class="tint-card" style="--c: #0097A7;" :class="{ active: $clicks === 3, dimmed: $clicks > 0 && $clicks !== 3 }">
     <h3>Interoperable</h3>
-    <p>Are the variables measured the same way across studies?</p>
+    <p>Are variables measured<br>the same way?</p>
   </div>
   <div class="tint-card" style="--c: #6A4C93;" :class="{ active: $clicks === 4, dimmed: $clicks > 0 && $clicks !== 4 }">
     <h3>Reusable</h3>
-    <p>How can I analyse the data?</p>
+    <p>How can I<br>analyse the data?</p>
   </div>
 </div>
 
@@ -275,6 +276,7 @@ layout: content
 heading: MOLGENIS Health Data and Samples Catalogue
 section: 'Finding data'
 subheading: Making collections discoverable
+transition: slide-up
 ---
 
 <div style="display: flex; gap: 2rem; margin-top: 1rem;">
@@ -282,17 +284,22 @@ subheading: Making collections discoverable
 <img src="./public/screenshot-catalogue.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
 </div>
 <div style="flex: 1; font-size: 18px; line-height: 1.5; display: flex; flex-direction: column; gap: 1rem;">
-<p>• Open source metadata catalogue</p>
+<p>• Open source<br>metadata catalogue</p>
 <p>• Search across consortia for harmonised variables and collections</p>
-<p>• Upload variables and Common Data Model mappings</p>
+<p>• Upload variables and<br>Common Data Model mappings</p>
 </div>
 </div>
 
 ---
 layout: section
+transition: slide-up
 ---
 
 # Catalogue demo
+
+<style>
+.slidev-layout.section { --slidev-theme-section-bg: var(--c-teal); --slidev-theme-section-fg: #fff; }
+</style>
 
 ---
 layout: section
@@ -305,6 +312,7 @@ src: ../library/combining-data/options.md
 approaches: [transfer, script, published, federated]
 clicks: 4
 section: 'Reusing data'
+transition: slide-up
 ---
 
 ---
@@ -382,14 +390,18 @@ sideWidth: '36'
 
 <template #side>
 
+<div style="position: relative; height: 100%;">
+
 <ul class="fq-steps">
 <li v-click="1">Connect to the servers</li>
 <li v-click="2">Send analysis commands</li>
 <li v-click="3">Receive aggregate results</li>
 </ul>
 
-<div v-click="3" class="fq-exwas">
+<div v-click="3" class="fq-exwas" style="position: absolute; left: 0; bottom: 5%; width: 90%;">
 <ExwasPlot />
+</div>
+
 </div>
 
 </template>
@@ -410,9 +422,10 @@ transition: slide-up
 
 <v-clicks>
 
-- Imagine I am a researcher who wants to know the average height in this group, without needing to know individual heights
-- Split into groups of 2-4
+- Imagine I am a researcher who wants to know the average height of the group
 - Each group represents patients in a hospital
+- You are willing to share data within your hospital, but not outside
+- Split into 5-6 groups of different sizes
 - Within your group, calculate mean height of members in centimetres
 - Tell me the mean and N of your group
 
@@ -429,6 +442,7 @@ layout: content
 heading: Privacy-preserving statistics
 subheading: 
 section: 'Federated analysis'
+transition: slide-up
 ---
 
 <table>
@@ -447,13 +461,19 @@ section: 'Federated analysis'
 ---
 src: ../library/datashield/analysis-options.md
 section: 'Federated analysis'
+transition: slide-up
 ---
 
 ---
 layout: section
+transition: slide-left
 ---
 
 # DataSHIELD demo
+
+<style>
+.slidev-layout.section { --slidev-theme-section-bg: var(--c-teal); --slidev-theme-section-fg: #fff; }
+</style>
 
 ---
 layout: section
@@ -514,14 +534,14 @@ clicks: 2
 <div v-click="2">
 
 - <strong style="color: var(--slidev-theme-primary)">Aim:</strong> study how chemicals and environmental exposures affect human health
-- Onboarded new cohorts to the EU Child Cohort Network and added data on environmental exposures
+- Onboarded new cohorts to the<br>EU Child Cohort Network,<br>adding environmental data
 
 </div>
 
 ---
 layout: content-two-cols
 heading: "Example 3: NDTD"
-subheading: 2023–2027
+subheading: "Netherlands Network for Difficult-to-Treat Depression (2023–2027)"
 section: 'Projects'
 leftWidth: '55'
 clicks: 2
@@ -533,10 +553,7 @@ clicks: 2
 
 ::right::
 
-<div style="display: flex; align-items: center; gap: 1rem; height: 4rem; width: 14rem; margin-bottom: 1.25rem;">
-  <img src="./public/logo-ndtd.avif" style="height: 100%; width: auto; max-width: 50%; object-fit: contain;" />
-  <img src="./public/logo-health-holland.jpg" style="height: 100%; width: auto; border-radius: 4px;" />
-</div>
+<img src="./public/logo-ndtd.png" style="height: 4rem; width: 14rem; object-fit: contain; object-position: left center; margin-bottom: 1.25rem;" />
 
 <div v-click="2">
 
@@ -547,8 +564,8 @@ clicks: 2
 
 ---
 layout: content-two-cols
-heading: "Example 4: NCC"
-subheading: 
+heading: "Example 4: Netherlands Cohorts Consortium"
+subheading: 2026–2036
 section: 'Projects'
 leftWidth: '55'
 clicks: 2
@@ -629,7 +646,7 @@ section: 'Setup'
 transition: slide-up
 ---
 
-<DatashieldArchitecture />
+<DatashieldArchitecture unit="Site" />
 
 ---
 layout: content-two-cols
@@ -708,7 +725,19 @@ transition: slide-up
 ---
 src: ../library/infrastructure/what-is-armadillo.md
 section: 'Setup'
+transition: slide-up
 ---
+
+---
+layout: section
+transition: slide-up
+---
+
+# Armadillo demo
+
+<style>
+.slidev-layout.section { --slidev-theme-section-bg: var(--c-teal); --slidev-theme-section-fg: #fff; }
+</style>
 
 ---
 layout: content
@@ -720,7 +749,7 @@ clicks: 2
 
 <FocusCards :columns="3" :items="[
   { title: 'Run it yourself', color: 'var(--c-blue)', body: ['Install Armadillo on your own server or VM', '<strong>Requirements:</strong> Ubuntu LTS, 8–32 GB memory, Java 21, Docker, a domain', '<strong>Configure:</strong> Nginx with SSL, firewall, OIDC login', '<strong>Docs:</strong> <a href=&quot;https://molgenis.github.io/molgenis-service-armadillo/&quot; target=&quot;_blank&quot; style=&quot;color: inherit&quot;>molgenis.github.io/molgenis-service-armadillo</a>'] },
-  { title: 'We run it for you', color: 'var(--c-teal)', body: ['MOLGENIS hosts Armadillo on the UMCG Azure cloud', 'Set up and maintained by the team', 'Only you can see and manage the data', 'support@molgenis.org'] },
+  { title: 'We run it for you', color: 'var(--c-teal)', body: ['MOLGENIS hosts Armadillo on the UMCG Azure cloud', 'Set up and maintained by the team', 'Only you can see and manage the data'] },
   { title: 'SURF', color: 'var(--c-purple)', body: ['Hosted on Dutch national research infrastructure', 'For Dutch consortia already using SURF'] },
 ]" />
 
@@ -744,57 +773,52 @@ section: 'Setup'
 clicks: 1
 ---
 
-<ChallengeTrail :current="1" :steps="['Harmonisation', 'Approvals', 'IT departments']" />
+<ChallengeTrail :current="1" :steps="['Harmonisation', 'Armadillo setup', 'Legal']" />
 
-- Can be a long process
+- Complex and lengthy process, especially for mental health data
 
 <v-clicks>
 
-- Complex with mental health data
+- Planned MOLGENIS development of AI harmonisation tools
 
 </v-clicks>
 
 ---
 layout: content
-heading: "Challenge 2: Approvals"
+heading: "Challenge 2: Armadillo setup"
 subheading: 
 section: 'Setup'
-clicks: 1
+clicks: 3
 ---
 
-<ChallengeTrail :current="2" :steps="['Harmonisation', 'Approvals', 'IT departments']" />
-
-<div style="display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem;">
-  <div class="tint-card" style="--c: #4285F4; flex: 1; align-self: stretch;">
-    <h3>IT approval</h3>
-    <p>Approval from IT is needed, e.g. a data protection impact assessment (DPIA)</p>
-  </div>
-  <div v-click style="display: flex; align-items: center; flex: none;">
-    <div style="width: 3rem; height: 2px; background: var(--slidev-theme-primary);"></div>
-    <div style="width: 0; height: 0; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 12px solid var(--slidev-theme-primary);"></div>
-  </div>
-  <div v-click class="tint-card" style="--c: #6A4C93; flex: 1; align-self: stretch;">
-    <h3>Legal agreements</h3>
-    <p>Still needed with users</p>
-  </div>
-</div>
-
----
-layout: content
-heading: "Challenge 3: IT departments"
-subheading: 
-section: 'Setup'
-clicks: 2
----
-
-<ChallengeTrail :current="3" :steps="['Harmonisation', 'Approvals', 'IT departments']" />
+<ChallengeTrail :current="2" :steps="['Harmonisation', 'Armadillo setup', 'Legal']" />
 
 - In theory, setup should be quick: about 30 minutes in the ideal case
 
 <v-clicks>
 
-- But it relies on a responsive IT department
+- Some IT departments require a lengthy DPIA process
+- Lack of knowledge can slow deployment
 - Hosting by us or SURF is logistically easier, but incurs costs
+
+</v-clicks>
+
+---
+layout: content
+heading: "Challenge 3: Legal"
+subheading: 
+section: 'Setup'
+clicks: 2
+---
+
+<ChallengeTrail :current="3" :steps="['Harmonisation', 'Armadillo setup', 'Legal']" />
+
+- Federated analysis does not remove the need for Data Access Agreements
+
+<v-clicks>
+
+- Depending on the institution, this can be slow
+- Working on developing a Netherlands-wide common federated access framework
 
 </v-clicks>
 
@@ -813,9 +837,37 @@ section: 'Summary'
 
 <v-clicks>
 
-- Existing data are a valuable resource for new research
-- Catalogues make them findable
-- Federated analysis lets us analyse them without moving them
-- DataSHIELD and Armadillo are ready to use; harmonisation, IT approval and legal agreements take the time
+- Reusing data is essential for advancing research
+- MOLGENIS Catalogue and Armadillo help make data findable and reusable
+- Deployment can face challenges, but we're here to help
 
 </v-clicks>
+
+---
+layout: content
+heading: Further Information
+subheading: ""
+section: 'Summary'
+---
+
+<p style="margin-top: 0; font-size: 20px;">For questions and support contact: <a class="support-link" href="mailto:support@molgenis.org"><strong>support@molgenis.org</strong></a></p>
+
+<div style="margin-top: 1.5rem; font-size: 18px; line-height: 1.8;">
+
+**Useful links:**
+- DataSHIELD wiki: https://wiki.datashield.org/
+- Molgenis suite: https://molgenis.org/
+
+</div>
+
+<div style="margin-top: 1.5rem; font-size: 18px; line-height: 1.8;">
+
+**Armadillo reference:**
+Cadman T, Slofstra MK, van der Geest MA, et al. MOLGENIS Armadillo: a lightweight server for federated analysis using DataSHIELD. *Bioinformatics* 2025;41(1):btae726. https://doi.org/10.1093/bioinformatics/btae726
+
+</div>
+
+<style>
+.support-link { color: inherit; text-decoration: none; padding: 0.1rem 0.35rem; border-radius: 4px; transition: background 0.2s ease; }
+.support-link:hover { background: color-mix(in srgb, var(--c-gold) 45%, white); }
+</style>
