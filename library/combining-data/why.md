@@ -6,18 +6,7 @@ subheading: 'Why'
 
 <template #left>
 
-- Large quantities of existing data already exist (e.g. cohort studies, biobanks)
-
-<div v-click>
-
-- Combining data sources allows:
-  - **Exposure contrast**
-  - **Statistical power**
-  - **Replication** across different contexts
-  - **Extended coverage** of the lifecourse
-  - **Different confounding structures**
-
-</div>
+<ReuseBenefits />
 
 </template>
 

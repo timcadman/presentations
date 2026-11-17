@@ -1,18 +1,18 @@
 ---
 theme: ../theme
-title: Federated analysis with DataSHIELD and Armadillo
+title: Federated Analysis using MOLGENIS Armadillo
 info: Draft — why share data, how DataSHIELD works, example projects, demos, infrastructure and legal
 author: Tim Cadman & Mariska Slofstra
 aspectRatio: '16/9'
 publish: false
 themeConfig:
-  sections: [Who we are, Why share data, Federated analysis, DataSHIELD, Projects, Demo, Infrastructure, Legal]
+  sections: [Background, Finding data, Reusing data, Federated analysis, Projects, Setup, Summary]
 transition: slide-left
 mdc: true
 ---
 
-# Federated analysis with DataSHIELD and Armadillo
-Sharing data without moving it
+# Federated Analysis using<br>MOLGENIS Armadillo
+Securely sharing data
 
 <div class="author-info">
   <p><strong>Tim Cadman & Mariska Slofstra</strong></p>
@@ -24,186 +24,200 @@ Sharing data without moving it
 </div>
 
 ---
+layout: contents
+image: ./public/contents-notebook-coffee.jpg
+---
+
+1. **Background**
+2. **Finding data**
+3. **Reusing data**
+4. **Federated analysis**
+5. **Projects**
+6. **Setup**
+7. **Summary**
+
+---
 layout: section
 ---
 
-# Who we are
+# Background
 
 ---
-layout: content-img-right
-heading: Background
-section: 'Who we are'
-subheading: MOLGENIS
-image: ./public/molgenis-ecosystem.png
-imageScale: '100'
+layout: content-img-bleed
+heading: MOLGENIS open-source software
+section: 'Background'
+subheading: Who are we
+image: ./public/team_2025.png
+imageWidth: '40'
+bleed: false
+imagePosition: center 35%
+transition: slide-up
 ---
 
-- **MOLGENIS** data infrastructure accelerates **multi-center health research collaborations** — 60 projects, 35 FTE
-- Armadillo is part of the **MOLGENIS suite**, which also includes the **EMX2 data warehouse** and the **MOLGENIS catalogue**
-
----
-layout: content
-heading: Our team
-section: 'Who we are'
----
-
-<style>
-.team-label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--slidev-theme-primary);
-  margin: 0.25rem 0 0.4rem 0;
-}
-.team-rows {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-}
-.team-row {
-  display: flex;
-  gap: 0.9rem;
-}
-.team-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  width: 96px;
-}
-.team-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgba(148, 163, 184, 0.25);
-  border: 2px dashed #aaa;
-  object-fit: cover;
-  margin-bottom: 0.25rem;
-}
-.team-name {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--slidev-theme-primary);
-  line-height: 1.15;
-}
-.team-role {
-  font-size: 0.62rem;
-  color: #555;
-}
-.slide-header { min-height: 0; }
-</style>
-
-<div style="display: flex; gap: 2rem; margin-top: 0.5rem; align-items: stretch;">
-<div style="flex: 1;">
-
-<div class="team-label">Armadillo</div>
-<div class="team-rows">
-<div class="team-row">
-  <div class="team-card">
-    <img class="team-avatar" src="./public/team-tim.jpg" style="object-position: center 20%;" />
-    <div class="team-name">Tim Cadman</div>
-    <div class="team-role">Data Scientist</div>
-  </div>
-  <div class="team-card">
-    <img class="team-avatar" src="./public/team-mariska.jpg" />
-    <div class="team-name">Mariska Slofstra</div>
-    <div class="team-role">Software Developer</div>
-  </div>
-  <div class="team-card">
-    <img class="team-avatar" src="./public/team-dick.jpg" />
-    <div class="team-name">Dick Postma</div>
-    <div class="team-role">Ops</div>
-  </div>
-</div>
-<div class="team-row">
-  <div class="team-card">
-    <div class="team-avatar" style="overflow: hidden; display: flex; align-items: center; justify-content: center; background: #e2e4e6;">
-      <img src="./public/team-ruben.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; transform: scale(0.9);" />
-    </div>
-    <div class="team-name">Ruben Veenstra</div>
-    <div class="team-role">Ops</div>
-  </div>
-  <div class="team-card">
-    <img class="team-avatar" src="./public/team-erik.jpg" />
-    <div class="team-name">Erik Zwart</div>
-    <div class="team-role">Data Manager</div>
-  </div>
-</div>
-<div class="team-row">
-  <div class="team-card">
-    <img class="team-avatar" src="./public/team-niels.png" />
-    <div class="team-name">Niels Kikkert</div>
-    <div class="team-role">Team leader</div>
-  </div>
-  <div class="team-card">
-    <img class="team-avatar" src="./public/team-morris.jpg" />
-    <div class="team-name">Morris Swertz</div>
-    <div class="team-role">PI</div>
-  </div>
-</div>
-</div>
-
-</div>
-<div style="flex: 1.3; display: flex; flex-direction: column; min-height: 0;">
-
-<div class="team-label">Wider MOLGENIS</div>
-<div style="flex: 1; min-height: 0; margin-bottom: 2.6rem; position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.18);">
-  <img src="./public/team_2025.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%;" />
-</div>
-
-</div>
-</div>
+- Team based in the **Department of Genetics, UMCG**
+- We develop the **MOLGENIS** software suite
+- Tools that accelerate **multi-centre research collaborations**
+- **35 FTE**: developers, data managers, project managers, PhDs and postdocs
 
 ---
 layout: content-two-cols
 heading: About us
-subheading: Tim Cadman & Mariska Slofstra
-section: 'Who we are'
+section: 'Background'
+transition: slide-up
 ---
+
+<style>
+.about-person { display: flex; align-items: center; gap: 1.25rem; margin: 0 0 1rem 0; }
+.about-photo { width: 110px; height: 110px; flex: none; border-radius: 50%; object-fit: cover; }
+.about-name { font-family: var(--font-subtitle); font-size: 26px; font-weight: 600; color: var(--slidev-theme-primary); }
+</style>
 
 <template #left>
 
-<img src="./public/team-tim.jpg" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center 20%;" />
+<div class="about-person">
+  <img src="./public/team-tim.jpg" class="about-photo" style="object-position: center 20%;" />
+  <div class="about-name">Tim Cadman</div>
+</div>
 
-**Tim Cadman** — Senior Data Scientist
-
-- TODO: background
-- TODO: role in DataSHIELD / Armadillo
+- Clinical Psychologist (UK)
+- Post-doc, multi-centre EU epidemiology projects
+- Data scientist implementing federated analysis
 
 </template>
 
 <template #right>
 
-<img src="./public/team-mariska.jpg" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;" />
+<div class="about-person">
+  <img src="./public/team-mariska.jpg" class="about-photo" />
+  <div class="about-name">Mariska Slofstra</div>
+</div>
 
-**Mariska Slofstra** — Software Developer
-
-- TODO: background
-- TODO: role in Armadillo
+- Background in bioinformatics
+- Lead developer of MOLGENIS Armadillo
 
 </template>
 
 ---
-layout: content-two-cols
-heading: Contents
+layout: content
+heading: Four products for collaborative research
+section: 'Background'
+clicks: 4
+transition: slide-up
 ---
 
-<template #left>
+<div class="tint-row">
+  <div class="tint-card" style="--c: #6A4C93;" :class="{ active: $clicks === 1, dimmed: $clicks > 0 && $clicks !== 1 }">
+    <h3><carbon-data-base />EMX2</h3>
+    <p>Flexible database for research and clinical data</p>
+  </div>
+  <div class="tint-card" style="--c: #0097A7;" :class="{ active: $clicks === 2, dimmed: $clicks > 0 && $clicks !== 2 }">
+    <h3><carbon-search />Health Research Metadata catalogue</h3>
+    <p>A searchable list of research datasets and what they contain</p>
+  </div>
+  <div class="tint-card" style="--c: #4285F4;" :class="{ active: $clicks === 3, dimmed: $clicks > 0 && $clicks !== 3 }">
+    <h3><img src="./public/armadillo-logo-border.png" style="height: 1.8em; vertical-align: -0.5em; margin-right: 0.35rem;" />Armadillo</h3>
+    <p>Data portal for sharing datasets and federated analysis with DataSHIELD</p>
+  </div>
+  <div class="tint-card" style="--c: var(--c-gold-dark);" :class="{ active: $clicks === 4, dimmed: $clicks > 0 && $clicks !== 4 }">
+    <h3><carbon-dna />VIP</h3>
+    <p>Flexible human Variant Interpretation Pipeline for rare disease</p>
+  </div>
+</div>
 
-1. Why share data
-2. Federated analysis
-3. DataSHIELD
-4. Projects
-5. Demo
-6. Infrastructure
-7. Legal
+---
+layout: content
+heading: Our projects
+section: 'Background'
+---
+
+<div style="height: calc(100% - 1.5rem); display: flex; align-items: center; justify-content: center;">
+  <img src="./public/molgenis-ecosystem.png" style="width: 100%; height: 100%; object-fit: contain; object-view-box: inset(15% 2% 1% 2%);" />
+</div>
+
+---
+layout: section
+---
+
+# The value of existing data
+
+---
+src: ../library/combining-data/why.md
+heading: Reusing data
+benefits: [power, replication, coverage, confounding]
+examples: cohort studies, clinical trials
+section: 'Background'
+---
+
+---
+layout: content
+heading: Combining data
+subheading: Example research question
+section: 'Background'
+transition: slide-up
+---
+
+<ResearchQuestion
+  question="Does exposure to air pollution in pregnancy predict maternal perinatal depression?"
+  reference="Cadman et al. (2024) Environ Int 185:108453" />
+
+---
+layout: figure-cite
+heading: Example 1
+subheading: Increased power
+section: 'Background'
+transition: slide-up
+citation: 'Cadman et al. (2024) Environ Int 185:108453'
+---
+
+<template #side>
+
+- Many outcomes are rare, or effects we are studying are small
+- Single studies lack the power to detect associations
 
 </template>
 
-<template #right>
+<template #default>
 
-<img src="./public/contents-notebook-coffee.jpg" class="bleed-right" />
+<PowerCurve unit="study" units="studies" />
+
+</template>
+
+---
+layout: figure-cite
+heading: Example 2
+subheading: Test if effects generalise
+section: 'Background'
+transition: slide-up
+citation: 'Cadman et al. (2024) Environ Int 185:108453'
+---
+
+<template #side>
+
+<div v-click="1">
+
+- Increased noise exposure associated with higher depression
+
+</div>
+
+<div v-click="2">
+
+- But in other locations the opposite effect was found
+
+</div>
+
+</template>
+
+<template #default>
+
+<CohortForest
+  row-header="City"
+  :studies="[
+    { label: 'Nancy', n: 344, or: 2.39, lo: 0.91, hi: 6.31, weight: 2.1, at: 1 },
+    { label: 'Rotterdam', n: 2952, or: 1.59, lo: 1.05, hi: 2.42, weight: 11.34, at: 1 },
+    { label: 'Bristol', n: 4795, or: 0.58, lo: 0.21, hi: 1.61, weight: 1.93, at: 2 },
+    { label: 'Poitiers', n: 231, or: 0.24, lo: 0.05, hi: 1.09, weight: 0.88, at: 2 },
+  ]"
+  axis-label="Odds ratio for noise exposure ≥65 dB" />
 
 </template>
 
@@ -211,76 +225,55 @@ heading: Contents
 layout: section
 ---
 
-# Why share data
-
----
-src: ../library/combining-data/why.md
-section: 'Why share data'
----
+# Data reuse challenge
 
 ---
 layout: content
-heading: FAIR data
-subheading: The research cycle
-section: 'Why share data'
+heading: Data reuse challenge
+subheading: Example research question
+section: 'Background'
+transition: slide-up
 ---
 
-<style>
-.fair-wrap { display: flex; align-items: center; gap: 3rem; height: 100%; }
-.fair-svg { width: 48%; height: auto; flex: none; }
-.fair-links { list-style: none; padding: 0 !important; margin: 0; }
-.fair-links li { display: flex; align-items: center; gap: 0.75rem; font-size: 22px !important; margin-bottom: 1.25rem !important; }
-.chips { display: flex; gap: 0.3rem; min-width: 4.6rem; }
-.chip { width: 2.1rem; height: 2.1rem; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; color: #fff; }
-.chip.f { background: #4285F4; }
-.chip.a { background: #E6B96A; color: #333333; }
-.chip.i { background: #0097A7; }
-.chip.r { background: #6A4C93; }
-</style>
+<ResearchQuestion
+  question="Is Acceptance and Commitment Therapy (ACT) effective for teenagers, and does the effect differ across age, sex and country?" />
 
-<div class="fair-wrap">
-<svg class="fair-svg" viewBox="0 0 480 420" role="img" aria-label="FAIR cycle: Findable, Accessible, Interoperable, Reusable">
-  <defs>
-    <marker id="fair-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9AA0A6" />
-    </marker>
-  </defs>
+---
+layout: content
+heading: What stands in the way?
+section: 'Background'
+clicks: 4
+---
 
-  <g fill="none" stroke="#9AA0A6" stroke-width="3" marker-end="url(#fair-arrow)">
-    <path d="M185.2,97.7 A125,125 0 0 1 294.8,97.7" />
-    <path d="M352.3,155.2 A125,125 0 0 1 352.3,264.8" />
-    <path d="M294.8,322.3 A125,125 0 0 1 185.2,322.3" />
-    <path d="M127.7,264.8 A125,125 0 0 1 127.7,155.2" />
-  </g>
-
-  <rect x="30" y="30" width="140" height="110" rx="12" fill="#4285F4" />
-  <text x="100" y="86" text-anchor="middle" font-size="48" font-weight="700" fill="#fff">F</text>
-  <text x="100" y="118" text-anchor="middle" font-size="17" fill="#fff">Findable</text>
-
-  <rect x="310" y="30" width="140" height="110" rx="12" fill="#E6B96A" />
-  <text x="380" y="86" text-anchor="middle" font-size="48" font-weight="700" fill="#333333">A</text>
-  <text x="380" y="118" text-anchor="middle" font-size="17" fill="#333333">Accessible</text>
-
-  <rect x="310" y="280" width="140" height="110" rx="12" fill="#0097A7" />
-  <text x="380" y="336" text-anchor="middle" font-size="48" font-weight="700" fill="#fff">I</text>
-  <text x="380" y="368" text-anchor="middle" font-size="17" fill="#fff">Interoperable</text>
-
-  <rect x="30" y="280" width="140" height="110" rx="12" fill="#6A4C93" />
-  <text x="100" y="336" text-anchor="middle" font-size="48" font-weight="700" fill="#fff">R</text>
-  <text x="100" y="368" text-anchor="middle" font-size="17" fill="#fff">Reusable</text>
-</svg>
-
-<ul class="fair-links">
-  <li v-click><span class="chips"><span class="chip f">F</span></span>Catalogue</li>
-  <li v-click><span class="chips"><span class="chip a">A</span><span class="chip r">R</span></span>DataSHIELD</li>
-</ul>
+<div class="tint-row">
+  <div class="tint-card" style="--c: #4285F4;" :class="{ active: $clicks === 1, dimmed: $clicks > 0 && $clicks !== 1 }">
+    <h3>Findable</h3>
+    <p>Which trials exist, and who holds the data?</p>
+  </div>
+  <div class="tint-card" style="--c: var(--c-gold-dark);" :class="{ active: $clicks === 2, dimmed: $clicks > 0 && $clicks !== 2 }">
+    <h3>Accessible</h3>
+    <p>How do I request access for the data?</p>
+  </div>
+  <div class="tint-card" style="--c: #0097A7;" :class="{ active: $clicks === 3, dimmed: $clicks > 0 && $clicks !== 3 }">
+    <h3>Interoperable</h3>
+    <p>Are the variables measured the same way across studies?</p>
+  </div>
+  <div class="tint-card" style="--c: #6A4C93;" :class="{ active: $clicks === 4, dimmed: $clicks > 0 && $clicks !== 4 }">
+    <h3>Reusable</h3>
+    <p>How can I analyse the data?</p>
+  </div>
 </div>
 
+---
+layout: section
+---
+
+# Finding data
 
 ---
 layout: content
-heading: Catalogue
-section: 'Why share data'
+heading: MOLGENIS Health Data and Samples Catalogue
+section: 'Finding data'
 subheading: Making collections discoverable
 ---
 
@@ -289,7 +282,7 @@ subheading: Making collections discoverable
 <img src="./public/screenshot-catalogue.png" style="width: 80%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
 </div>
 <div style="flex: 1; font-size: 18px; line-height: 1.5; display: flex; flex-direction: column; gap: 1rem;">
-<p>• Open source metadata catalogue — information about data, not the data itself</p>
+<p>• Open source metadata catalogue</p>
 <p>• Search across consortia for harmonised variables and collections</p>
 <p>• Upload variables and Common Data Model mappings</p>
 </div>
@@ -299,271 +292,530 @@ subheading: Making collections discoverable
 layout: section
 ---
 
-# Federated analysis
+# Catalogue demo
+
+---
+layout: section
+---
+
+# Reusing data
 
 ---
 src: ../library/combining-data/options.md
+approaches: [transfer, script, published, federated]
+clicks: 4
+section: 'Reusing data'
+---
+
+---
+src: ../library/combining-data/option-transfer.md
+section: 'Reusing data'
+---
+
+---
+src: ../library/combining-data/option-script.md
+section: 'Reusing data'
+---
+
+---
+src: ../library/combining-data/option-published.md
+subheading: "Option 3: Publish summary data"
+section: 'Reusing data'
+---
+
+---
+src: ../library/combining-data/option-federated.md
+subheading: "Option 4: Federated analysis"
+section: 'Reusing data'
+---
+
+---
+src: ../library/combining-data/options-comparison.md
+approaches: [transfer, script, published, federated]
+omit: [methods]
+section: 'Reusing data'
+---
+
+---
+layout: section
+---
+
+# Federated analysis<br>with DataSHIELD
+
+---
+layout: content-two-cols
+heading: DataSHIELD
+subheading: What is it?
+leftWidth: '34'
+section: 'Federated analysis'
+transition: slide-up
+---
+
+::left::
+
+- R Studio based federated analysis platform
+
+<v-clicks>
+
+- Developed over 15 years in EU research projects
+- Range of packages for different analysis needs
+
+</v-clicks>
+
+::right::
+
+<Terminal light title="Plots"><ForestPlot style="margin: 0 auto; align-self: flex-start" /></Terminal>
+
+---
+src: ../library/datashield/what-is-datashield.md
+section: 'Federated analysis'
+transition: slide-up
+---
+
+---
+layout: figure-cite
+heading: How it works
+section: 'Federated analysis'
+transition: slide-up
+sideWidth: '36'
+---
+
+<template #side>
+
+<ul class="fq-steps">
+<li v-click="1">Connect to the servers</li>
+<li v-click="2">Send analysis commands</li>
+<li v-click="3">Receive aggregate results</li>
+</ul>
+
+<div v-click="3" class="fq-exwas">
+<ExwasPlot />
+</div>
+
+</template>
+
+<template #default>
+
+<FederatedQuery />
+
+</template>
+
+---
+layout: content
+heading: What are 'aggregate results'
+subheading: Group exercise
+section: 'Federated analysis'
+transition: slide-up
+---
+
+<v-clicks>
+
+- Imagine I am a researcher who wants to know the average height in this group, without needing to know individual heights
+- Split into groups of 2-4
+- Each group represents patients in a hospital
+- Within your group, calculate mean height of members in centimetres
+- Tell me the mean and N of your group
+
+</v-clicks>
+
+---
+src: ../library/datashield/pooling-means.md
+section: 'Federated analysis'
+transition: slide-up
+---
+
+---
+layout: content
+heading: Privacy-preserving statistics
+subheading: 
 section: 'Federated analysis'
 ---
+
+<table>
+<thead>
+<tr><th>Result</th><th>Condition</th></tr>
+</thead>
+<tbody>
+<tr v-click><td>Mean, SD, quantiles</td><td>Group has at least N participants</td></tr>
+<tr v-click><td>Counts and tables</td><td>Minimum cell size to display</td></tr>
+<tr v-click><td>Model coefficients and SEs</td><td>Model not saturated; no cell too small</td></tr>
+<tr v-click><td>Correlations, covariances</td><td>Minimum N, and not a near-perfect fit</td></tr>
+<tr v-click><td>Plots (histograms, heatmaps)</td><td>Binned or noise-added</td></tr>
+</tbody>
+</table>
+
+---
+src: ../library/datashield/analysis-options.md
+section: 'Federated analysis'
+---
+
+---
+layout: section
+---
+
+# DataSHIELD demo
+
+---
+layout: section
+---
+
+# Example projects
+
+---
+layout: content
+heading: Existing DataSHIELD nodes
+subheading: 
+section: 'Projects'
+---
+
+<NodeMap simple legend="below" height="16rem" note="" />
+
+---
+layout: content-two-cols
+heading: "Example 1: EU Child Cohort Network"
+subheading: 2017–2022
+section: 'Projects'
+leftWidth: '55'
+clicks: 2
+---
+
+::left::
+
+<NodeMap simple project="LifeCycle" colour="#6AA2FF" map="world" zoom="auto" legend="none" note="" />
+
+::right::
+
+<img src="./public/logo-eu-child-cohort-network.png" style="height: 4rem; width: 14rem; object-fit: contain; object-position: left center; margin-bottom: 1.25rem;" />
+
+<div v-click="2">
+
+- <strong style="color: var(--slidev-theme-primary)">Aim:</strong> study early life stressors and health across the life course
+- Harmonised >2000 variables from EU birth cohorts
+
+</div>
+
+---
+layout: content-two-cols
+heading: "Example 2: ATHLETE"
+subheading: 2020–2024
+section: 'Projects'
+leftWidth: '55'
+clicks: 2
+---
+
+::left::
+
+<NodeMap simple project="Athlete" colour="#03DBE2" builds-on="LifeCycle" builds-on-colour="#6AA2FF" map="world" zoom="auto" legend="none" note="" />
+
+::right::
+
+<img src="./public/logo-athlete.jpg" style="height: 4rem; width: 14rem; object-fit: contain; object-position: left center; margin-bottom: 1.25rem;" />
+
+<div v-click="2">
+
+- <strong style="color: var(--slidev-theme-primary)">Aim:</strong> study how chemicals and environmental exposures affect human health
+- Onboarded new cohorts to the EU Child Cohort Network and added data on environmental exposures
+
+</div>
+
+---
+layout: content-two-cols
+heading: "Example 3: NDTD"
+subheading: 2023–2027
+section: 'Projects'
+leftWidth: '55'
+clicks: 2
+---
+
+::left::
+
+<NodeMap simple project="NDTD" colour="#7247B6" map="europe" zoom="auto" legend="none" note="" />
+
+::right::
+
+<div style="display: flex; align-items: center; gap: 1rem; height: 4rem; width: 14rem; margin-bottom: 1.25rem;">
+  <img src="./public/logo-ndtd.avif" style="height: 100%; width: auto; max-width: 50%; object-fit: contain;" />
+  <img src="./public/logo-health-holland.jpg" style="height: 100%; width: auto; border-radius: 4px;" />
+</div>
+
+<div v-click="2">
+
+- <strong style="color: var(--slidev-theme-primary)">Aim:</strong> improve treatment for people who do not respond to first antidepressants
+- Federated analysis across four Dutch sites
+
+</div>
+
+---
+layout: content-two-cols
+heading: "Example 4: NCC"
+subheading: 
+section: 'Projects'
+leftWidth: '55'
+clicks: 2
+---
+
+::left::
+
+<NodeMap simple project="NCC" colour="#FF6917" map="europe" zoom="auto" legend="none" note="" />
+
+::right::
+
+<img src="./public/logo-ncc.jpg" style="height: 4rem; width: 14rem; object-fit: contain; object-position: left center; margin-bottom: 1.25rem; object-view-box: inset(14% 7% 14% 7%);" />
+
+<div v-click="2">
+
+- <strong style="color: var(--slidev-theme-primary)">Aim:</strong> align, harmonise and pool data to understand the causes of chronic diseases
+- 11 population cohorts, over 440,000 participants
+
+</div>
+
+---
+layout: content-two-cols
+heading: "Example 5: FEDHAFRICA"
+subheading: 2026–
+section: 'Projects'
+leftWidth: '55'
+clicks: 2
+---
+
+::left::
+
+<NodeMap simple project="FEDHAFRICA" colour="#FDBF2F" map="world" zoom="auto" legend="none" note="" />
+
+::right::
+
+<img src="./public/logo-cadh.png" style="height: 4rem; width: 14rem; object-fit: contain; object-position: left center; margin-bottom: 1.25rem;" />
+
+<div v-click="2">
+
+- <strong style="color: var(--slidev-theme-primary)">Aim:</strong> deploy federated analysis across private-sector providers and health surveillance (HDSS) sites in sub-Saharan Africa
+
+</div>
+
+---
+layout: content-two-cols
+heading: "Example 6: JOIN-MIND"
+subheading: 2026–
+section: 'Projects'
+leftWidth: '55'
+clicks: 2
+---
+
+::left::
+
+<NodeMap simple project="JOIN-MIND" colour="#EE7769" map="europe" zoom="auto" legend="none" note="" />
+
+::right::
+
+<img src="./public/logo-vu.png" style="height: 4rem; width: 14rem; object-fit: contain; object-position: left center; object-view-box: inset(33% 1% 33% 1%); margin-bottom: 1.25rem;" />
+
+<div v-click="2">
+
+- <strong style="color: var(--slidev-theme-primary)">Aim:</strong> build a secure data infrastructure for mental health interventions in conflict-affected populations
+
+</div>
+
+---
+layout: section
+---
+
+# Setting up DataSHIELD
 
 ---
 layout: content
 heading: How it works
 subheading: 
-section: 'Federated analysis'
+section: 'Setup'
+transition: slide-up
 ---
 
 <DatashieldArchitecture />
 
 ---
-layout: content
-heading: How it works
-subheading: Across a network
-section: 'Federated analysis'
+layout: content-two-cols
+heading: As a user
+section: 'Setup'
+clicks: 4
 ---
 
-<div style="border: 2px dashed #9AA0A6; border-radius: 10px; height: 85%; display: flex; align-items: center; justify-content: center; color: #9AA0A6; font-size: 20px; text-align: center;">
-TODO: map-based animation — same steps as the previous slide,<br />with Armadillo nodes shown at their locations on the map
+<template #left>
+
+<v-clicks>
+
+- Arrange data access agreements with providers
+- Install R packages
+- Connect and analyse with RStudio
+
+</v-clicks>
+
+</template>
+
+<template #right>
+
+<img v-if="$clicks === 1" src="./public/data-use-agreement.png" class="user-setup-img" />
+<div v-show="$clicks === 2" class="user-setup-term">
+  <Terminal light title="R" :text="`install.packages(c(&quot;DSI&quot;, &quot;DSMolgenisArmadillo&quot;, &quot;dsBaseClient&quot;))`" :start-at-click="2" :char-ms="16" />
 </div>
+<div v-show="$clicks === 3" class="user-setup-term">
+  <Terminal light title="R" :text="`fit <- ds.glmSLMA(\n  formula = &quot;asthma ~ no2 + ses&quot;,\n  family = &quot;binomial&quot;,\n  dataName = &quot;D&quot;\n)\n\nds.forestplot(fit, variable = &quot;no2&quot;)`" :start-at-click="3" :char-ms="16" />
+</div>
+<div v-if="$clicks >= 4" class="user-setup-term">
+  <Terminal light title="Plots"><ForestPlot style="margin: 0 auto; align-self: flex-start" /></Terminal>
+</div>
+
+</template>
+
+<style>
+.user-setup-img { width: 100%; height: 17rem; object-fit: cover; object-position: top; border-radius: 6px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); }
+.user-setup-term { height: 17rem; }
+</style>
+
+---
+layout: content-two-cols
+heading: As a data owner
+subheading: Setup steps
+section: 'Setup'
+transition: slide-up
+---
+
+<template #left>
+
+<v-clicks>
+
+- Harmonise your data to a common data model (e.g. OMOP)
+- Install and configure Armadillo
+- Arrange data access agreements
+- Grant researchers access in Armadillo
+
+</v-clicks>
+
+</template>
+
+<template #right>
+
+<img v-if="$clicks === 1" src="./public/omop-cdm54.png" class="user-setup-img" style="height: auto" />
+<img v-if="$clicks === 2" src="./public/armadillo-logo-border.png" class="owner-arma-logo" />
+<img v-if="$clicks === 3" src="./public/data-use-agreement.png" class="user-setup-img" />
+<img v-if="$clicks >= 4" src="./public/armadillo-ui-users.png" class="user-setup-img" style="height: auto" />
+
+</template>
+
+<style>
+.user-setup-img { width: 100%; height: 17rem; object-fit: cover; object-position: top; border-radius: 6px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); }
+.owner-arma-logo { height: 12rem; display: block; margin: 0 auto; }
+</style>
+
+---
+src: ../library/infrastructure/what-is-armadillo.md
+section: 'Setup'
+---
+
+---
+layout: content
+heading: Setting up Armadillo
+subheading: Three options
+section: 'Setup'
+clicks: 2
+---
+
+<FocusCards :columns="3" :items="[
+  { title: 'Run it yourself', color: 'var(--c-blue)', body: ['Install Armadillo on your own server or VM', '<strong>Requirements:</strong> Ubuntu LTS, 8–32 GB memory, Java 21, Docker, a domain', '<strong>Configure:</strong> Nginx with SSL, firewall, OIDC login', '<strong>Docs:</strong> <a href=&quot;https://molgenis.github.io/molgenis-service-armadillo/&quot; target=&quot;_blank&quot; style=&quot;color: inherit&quot;>molgenis.github.io/molgenis-service-armadillo</a>'] },
+  { title: 'We run it for you', color: 'var(--c-teal)', body: ['MOLGENIS hosts Armadillo on the UMCG Azure cloud', 'Set up and maintained by the team', 'Only you can see and manage the data', 'support@molgenis.org'] },
+  { title: 'SURF', color: 'var(--c-purple)', body: ['Hosted on Dutch national research infrastructure', 'For Dutch consortia already using SURF'] },
+]" />
+
+<style>
+:deep(.tint-card p) { margin-bottom: 0.7rem; }
+:deep(.fq-grid .tint-card) { justify-content: flex-start; }
+:deep(.tint-card h3) { margin-bottom: 1rem; }
+</style>
 
 ---
 layout: section
 ---
 
-# DataSHIELD
+# Challenges
 
 ---
 layout: content
-heading: What is DataSHIELD?
-section: 'DataSHIELD'
-subheading: Bringing the analysis to the data
----
-
-<div style="font-size: 17px; line-height: 1.5;">
-
-- Open-source, R-based platform for **privacy-preserving analysis** of biomedical, healthcare and social-science data
-- Architecture consists of collection of:
-    - (i) R-packages (user end) & (ii) java application installed alongside data
-
-</div>
-
----
-layout: content
-heading: How DataSHIELD works
-section: 'DataSHIELD'
----
-
-<DatashieldArchitectureFinal />
-
----
-layout: content
-heading: Different frameworks
+heading: "Challenge 1: Harmonisation"
 subheading: 
-section: 'DataSHIELD'
+section: 'Setup'
 clicks: 1
 ---
 
-<style>
-.fa-type-col { padding: 1rem 1.5rem; }
-.fa-type-col h3 { font-size: 1.15rem; text-align: center; }
-.fa-type-col .fa-type-desc { margin: 0 0 1.25rem 0; font-size: 14px; text-align: center; }
-.fa-protocols { display: flex; flex-direction: column; gap: 1rem; align-items: center; }
-.fa-protocol { display: flex; align-items: center; gap: 0.9rem; background: white; border-radius: 10px; padding: 0.6rem 1.2rem; width: 100%; box-sizing: border-box; }
-.fa-protocol img { height: 32px; width: auto; flex: none; }
-.fa-protocol span { font-size: 15px; font-weight: 600; color: #333; }
-</style>
+<ChallengeTrail :current="1" :steps="['Harmonisation', 'Approvals', 'IT departments']" />
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-  <div class="tint-card fa-type-col" style="--c: #0097A7;" :class="$clicks < 1 ? 'active' : 'dimmed'">
-    <h3>Pipeline</h3>
-    <p class="fa-type-desc">Submit a job once, receive results</p>
-    <div class="fa-protocols">
-      <div class="fa-protocol">
-        <img src="./public/logo-flower.png" />
-        <span>Flower</span>
-      </div>
-      <div class="fa-protocol">
-        <img src="./public/logo-vantage6.png" />
-        <span>Vantage6</span>
-      </div>
-    </div>
-  </div>
-  <div class="tint-card fa-type-col" style="--c: #4285F4;" :class="$clicks >= 1 ? 'active' : 'dimmed'">
-    <h3>Work interactively</h3>
-    <p class="fa-type-desc">Researcher runs analyses as if working locally</p>
-    <div class="fa-protocols">
-      <div class="fa-protocol">
-        <img src="./public/icon-datashield.png" style="height: 26px;" />
-      </div>
-    </div>
-  </div>
-</div>
+- Can be a long process
 
----
-src: ../library/datashield/analysis-options.md
-section: 'DataSHIELD'
----
+<v-clicks>
+
+- Complex with mental health data
+
+</v-clicks>
 
 ---
 layout: content
-heading: DataSHIELD
-subheading: No access to individual-level data
-section: 'DataSHIELD'
----
-
-- Researchers <strong v-mark="{ at: 1, color: '#E6B96A', type: 'highlight' }">never see</strong> individual participant records — only aggregate results come back
-- Every server-side function has built-in **disclosure checks**, e.g.:
-  - Minimum cell counts in tables, and minimum subset sizes
-  - Summaries returned instead of raw values (e.g. quantiles, not minima and maxima)
-  - Plots built from smoothed or binned data, not raw points
-- Functions that would return individual values are [**blocked**]{style="color: #D9534F"}
-- Data owners set the disclosure thresholds on their own server
-
----
-layout: content
-heading: Deploying DataSHIELD
-section: 'DataSHIELD'
+heading: "Challenge 2: Approvals"
 subheading: 
+section: 'Setup'
 clicks: 1
 ---
 
-<style>
-.deploy-card { flex: 1; padding: 1.2rem 1.5rem; }
-.deploy-card h3 { font-size: 1.1rem; margin-bottom: 0.6rem; }
-</style>
+<ChallengeTrail :current="2" :steps="['Harmonisation', 'Approvals', 'IT departments']" />
 
-<div style="font-size: 18px; line-height: 1.6; margin-bottom: 1.5rem;">
-To run DataSHIELD, each data owner installs a <strong>java application</strong> on a local server or VM. Two implementations exist:
-</div>
-
-<div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
-  <div class="tint-card deploy-card" style="--c: #4285F4;" :class="$clicks < 1 ? 'active' : 'dimmed'">
-    <h3>Armadillo</h3>
-    <p style="font-size: 16px; line-height: 1.5; margin: 0;">Lightweight server developed and maintained by UMCG as part of the <strong>MOLGENIS</strong> software suite.</p>
+<div style="display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem;">
+  <div class="tint-card" style="--c: #4285F4; flex: 1; align-self: stretch;">
+    <h3>IT approval</h3>
+    <p>Approval from IT is needed, e.g. a data protection impact assessment (DPIA)</p>
   </div>
-  <div class="tint-card deploy-card" style="--c: #D3621F;" :class="$clicks >= 1 ? 'active' : 'dimmed'">
-    <h3>Opal</h3>
-    <p style="font-size: 16px; line-height: 1.5; margin: 0;">Multipurpose database and data harmonisation platform developed and maintained by <strong>OBiBa</strong>.</p>
+  <div v-click style="display: flex; align-items: center; flex: none;">
+    <div style="width: 3rem; height: 2px; background: var(--slidev-theme-primary);"></div>
+    <div style="width: 0; height: 0; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 12px solid var(--slidev-theme-primary);"></div>
+  </div>
+  <div v-click class="tint-card" style="--c: #6A4C93; flex: 1; align-self: stretch;">
+    <h3>Legal agreements</h3>
+    <p>Still needed with users</p>
   </div>
 </div>
-
----
-layout: section
----
-
-# Projects
-
----
-layout: chart-full
-heading: DataSHIELD nodes managed by MOLGENIS
-section: Projects
----
-
-<div style="position: relative; width: 100%; height: 100%;">
-  <img src="./public/map_all_nodes.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: left;" />
-  <div style="position: absolute; left: 48%; right: 2rem; top: 1rem;">
-    <p style="font-size: 18px;">Three examples:</p>
-    <ol style="padding-left: 1.5rem; margin: 0;">
-      <li style="font-size: 18px; margin-bottom: 0.5rem;">ATHLETE</li>
-      <li style="font-size: 18px; margin-bottom: 0.5rem;">NDTD</li>
-      <li style="font-size: 18px; margin-bottom: 0.5rem;">TODO: Africa project</li>
-    </ol>
-  </div>
-</div>
-
----
-layout: chart-full
-heading: "Example 1: ATHLETE"
-section: Projects
----
-
-<div style="position: relative; width: 100%; height: 100%;">
-  <img src="./public/map_athlete.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: left;" />
-  <div style="position: absolute; left: 48%; right: 2rem; top: 1rem;">
-    <ul style="padding-left: 1.5rem; margin: 0;">
-      <li style="font-size: 18px; margin-bottom: 0.5rem;">H2020 project: <em>Advancing tools for exposome research</em></li>
-      <li style="font-size: 18px; margin-bottom: 0.5rem;">TODO: aims, number of nodes, example analyses</li>
-    </ul>
-  </div>
-</div>
-
----
-layout: chart-full
-heading: "Example 2: NDTD"
-section: Projects
----
-
-<div style="position: relative; width: 100%; height: 100%;">
-  <img src="./public/map_ndtd.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: left;" />
-  <div style="position: absolute; left: 48%; right: 2rem; top: 1rem;">
-    <ul style="padding-left: 1.5rem; margin: 0;">
-      <li style="font-size: 18px; margin-bottom: 0.5rem;">Netherlands network for difficult-to-treat depression</li>
-      <li style="font-size: 18px; margin-bottom: 0.5rem;">TODO: aims, number of nodes, example analyses</li>
-    </ul>
-  </div>
-</div>
-
----
-layout: chart-full
-heading: "Example 3: TODO Africa project"
-section: Projects
----
-
-<div style="position: relative; width: 100%; height: 100%;">
-  <div style="position: absolute; left: 0; top: 0; width: 45%; height: 100%; border: 2px dashed #9AA0A6; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #9AA0A6; font-size: 18px;">TODO: map with Africa nodes</div>
-  <div style="position: absolute; left: 48%; right: 2rem; top: 1rem;">
-    <ul style="padding-left: 1.5rem; margin: 0;">
-      <li style="font-size: 18px; margin-bottom: 0.5rem;">TODO: project name, aims, nodes</li>
-    </ul>
-  </div>
-</div>
-
----
-layout: section
----
-
-# Demo
 
 ---
 layout: content
-heading: Demo
-subheading: Analyst perspective
-section: Demo
+heading: "Challenge 3: IT departments"
+subheading: 
+section: 'Setup'
+clicks: 2
 ---
 
----
-layout: content
-heading: Demo
-subheading: Data manager perspective
-section: Demo
----
+<ChallengeTrail :current="3" :steps="['Harmonisation', 'Approvals', 'IT departments']" />
 
----
-layout: section
----
+- In theory, setup should be quick: about 30 minutes in the ideal case
 
-# Infrastructure
+<v-clicks>
 
----
-src: ../library/infrastructure/hosting.md
-section: 'Infrastructure'
----
+- But it relies on a responsive IT department
+- Hosting by us or SURF is logistically easier, but incurs costs
+
+</v-clicks>
 
 ---
 layout: section
 ---
 
-# Legal
+# Summary
 
 ---
 layout: content
-heading: Legal
-subheading: Agreements are still needed
-section: Legal
+heading: Summary
+subheading: 
+section: 'Summary'
 ---
 
-- Data **does not leave** your institution, but you are still <strong v-mark="{ at: 1, color: '#E6B96A', type: 'highlight' }">allowing it to be processed</strong> by external researchers
-- Most institutions therefore require a **legal agreement** before granting access
-- TODO: types of agreement (e.g. data processing / data access agreement) and who signs
+<v-clicks>
 
-<div class="sticky-note" v-click style="right: 4rem; bottom: 5rem;">Who signs these at your institution?</div>
+- Existing data are a valuable resource for new research
+- Catalogues make them findable
+- Federated analysis lets us analyse them without moving them
+- DataSHIELD and Armadillo are ready to use; harmonisation, IT approval and legal agreements take the time
+
+</v-clicks>

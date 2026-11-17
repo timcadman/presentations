@@ -1,0 +1,210 @@
+---
+title: "ds-rct-demo"
+output: html_document
+date: "2026-11-17"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  include = TRUE,
+  echo = TRUE
+)
+```
+
+## Introduction
+This is a brief demonstration of how DataSHIELD can be used to analyse a randomised controlled trial
+across several sites. We use the Beat the Blues trial, which compared computerised cognitive
+behavioural therapy with treatment as usual in people with depression. The outcome is the Beck
+Depression Inventory (BDI), where a lower score means fewer symptoms. The three sites hold simulated
+data generated from the original trial.
+
+## Load packages
+```{r packages}
+library(dsBaseClient)
+library(DSMolgenisArmadillo)
+library(MolgenisArmadillo)
+library(ggplot2)
+```
+
+## Log in to servers using DataSHIELD
+``` {r login}
+url <- "http://localhost:8080"
+credentials <- armadillo.get_credentials(url)
+
+builder <- newDSLoginBuilder()
+for (server in c("groningen", "amsterdam", "barcelona")) {
+  builder$append(
+    server  = server,
+    url     = url,
+    token   = credentials@access_token,
+    driver  = "ArmadilloDriver",
+    profile = "donkey"
+  )
+}
+
+conns <- datashield.login(logins = builder$build())
+```
+
+## Load data
+```{r}
+datashield.assign.table(
+  conns,
+  symbol = "trial",
+  table  = list(
+    groningen = "rct/data/site_1",
+    amsterdam = "rct/data/site_2",
+    barcelona = "rct/data/site_3"
+  )
+)
+
+datashield.assign.table(
+  conns,
+  symbol = "trial_long",
+  table  = list(
+    groningen = "rct/data/site_1_long",
+    amsterdam = "rct/data/site_2_long",
+    barcelona = "rct/data/site_3_long"
+  )
+)
+```
+
+## Check what data is available
+```{r tables}
+ds.ls()
+ds.head("trial")
+ds.View("trial")
+ds.class("trial")
+ds.dim("trial")
+ds.colnames("trial")$groningen
+```
+
+## Check the trial arms
+We can check how participants were allocated to each arm at each site:
+```{r arms}
+knitr::kable(ds.table("trial$treatment")$output.list$TABLE_rvar.by.study_counts)
+```
+
+## Summarise data
+Summaries return the mean and quantiles, never individual values:
+```{r summary}
+ds.summary("trial$bdi.pre")
+```
+
+## Visualise data
+We can look at a histogram of BDI before treatment at each site:
+
+```{r histogram}
+ds.histogram("trial$bdi.pre", datasources = conns["groningen"])
+ds.histogram("trial$bdi.pre", datasources = conns["amsterdam"])
+ds.histogram("trial$bdi.pre", datasources = conns["barcelona"])
+```
+
+## Treatment effect across all sites
+We estimate the effect of the therapy on BDI at 2 months, adjusting for BDI before treatment. We fit one model to the combined data, without moving it:
+```{r pooled}
+pooled <- ds.glm(
+  formula = "bdi.2m ~ treatment + bdi.pre",
+  data    = "trial",
+  family  = "gaussian"
+)
+knitr::kable(pooled$coefficients["treatmentBtheB", , drop = FALSE], digits = 3)
+```
+
+## Treatment effect at each site
+Alternatively, we can fit the model at each site and then combine the estimates, which is a meta-analysis:
+```{r slma}
+slma <- ds.glmSLMA(
+  formula  = "bdi.2m ~ treatment + bdi.pre",
+  family   = "gaussian",
+  dataName = "trial"
+)
+knitr::kable(slma$betamatrix.valid["treatmentBtheB", , drop = FALSE], digits = 3)
+knitr::kable(slma$SLMA.pooled.ests.matrix["treatmentBtheB", c("pooled.REML", "se.REML"), drop = FALSE], digits = 3)
+```
+
+Plot of the effect at each site and combined:
+```{r forest}
+effects <- data.frame(
+  site     = c(names(conns), "Combined"),
+  estimate = c(slma$betamatrix.valid["treatmentBtheB", ], pooled$coefficients["treatmentBtheB", "Estimate"]),
+  se       = c(slma$sematrix.valid["treatmentBtheB", ], pooled$coefficients["treatmentBtheB", "Std. Error"])
+)
+effects$site <- factor(effects$site, levels = rev(effects$site))
+
+ggplot(effects, aes(x = estimate, y = site)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "#9AA0A6") +
+  geom_errorbar(aes(xmin = estimate - 1.96 * se, xmax = estimate + 1.96 * se), orientation = "y", width = 0.2, color = "#4285F4") +
+  geom_point(size = 3, color = "#4285F4") +
+  labs(
+    x = "Difference in BDI at 2 months (therapy minus usual care)",
+    y = NULL
+  ) +
+  theme_bw(base_size = 12)
+```
+
+## Does the effect differ between groups?
+Because the model uses participant-level data, we can test whether the effect differs by antidepressant use:
+```{r interaction}
+interaction <- ds.glm(
+  formula = "bdi.2m ~ treatment * drug + bdi.pre",
+  data    = "trial",
+  family  = "gaussian"
+)
+knitr::kable(interaction$coefficients, digits = 3)
+```
+
+## Change over time
+BDI was measured at 2, 3, 5 and 8 months. A mixed model uses all of these follow-ups, with a random intercept for each participant. For this the data are held in long format, one row per participant and follow-up:
+```{r long}
+ds.dim("trial_long")
+ds.colnames("trial_long")$groningen
+```
+
+The model is fitted at each site and the estimates are combined. The `treatment:month` term shows whether the effect changes over time:
+```{r mixed}
+mixed <- ds.lmerSLMA(
+  formula  = "bdi ~ treatment * month + bdi.pre + (1 | id)",
+  dataName = "trial_long"
+)
+knitr::kable(mixed$SLMA.pooled.ests.matrix[, c("pooled.REML", "se.REML")], digits = 3)
+```
+
+Trajectories need not be straight lines. We add a squared month term, created on the servers, and let it differ by treatment arm:
+```{r nonlinear}
+ds.make("trial_long$month^2", newobj = "month2")
+ds.dataFrame(c("trial_long", "month2"), newobj = "trial_long")
+
+mixed_nl <- ds.lmerSLMA(
+  formula  = "bdi ~ treatment * (month + month2) + bdi.pre + (1 | id)",
+  dataName = "trial_long"
+)
+knitr::kable(mixed_nl$SLMA.pooled.ests.matrix[, c("pooled.REML", "se.REML")], digits = 3)
+```
+
+Plot of the combined trajectory in each arm, for a participant with the average BDI before treatment:
+```{r trajectories}
+est <- mixed_nl$SLMA.pooled.ests.matrix[, "pooled.REML"]
+mean_pre <- ds.mean("trial_long$bdi.pre", type = "combine")$Global.Mean[1, "EstimatedMean"]
+
+curves <- expand.grid(month = seq(2, 8, by = 0.1), treatment = c("TAU", "BtheB"))
+therapy <- curves$treatment == "BtheB"
+curves$bdi <- est["(Intercept)"] + est["month"] * curves$month + est["month2"] * curves$month^2 +
+  est["bdi.pre"] * mean_pre +
+  therapy * (est["treatmentBtheB"] + est["treatmentBtheB:month"] * curves$month +
+               est["treatmentBtheB:month2"] * curves$month^2)
+curves$treatment <- factor(curves$treatment, levels = c("TAU", "BtheB"))
+
+ggplot(curves, aes(x = month, y = bdi, colour = treatment)) +
+  geom_line(linewidth = 1.2) +
+  scale_colour_manual(
+    values = c(TAU = "#9AA0A6", BtheB = "#4285F4"),
+    labels = c(TAU = "Treatment as usual", BtheB = "Beat the Blues")
+  ) +
+  scale_x_continuous(breaks = c(2, 3, 5, 8)) +
+  labs(x = "Months since randomisation", y = "BDI (lower is fewer symptoms)", colour = NULL) +
+  theme_bw(base_size = 12)
+```

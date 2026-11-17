@@ -58,6 +58,26 @@ section: Reusing data
 ---
 
 ---
+src: ../../library/combining-data/option-transfer.md
+section: Reusing data
+---
+
+---
+src: ../../library/combining-data/option-script.md
+section: Reusing data
+---
+
+---
+src: ../../library/combining-data/option-federated.md
+section: Reusing data
+---
+
+---
+src: ../../library/combining-data/options-comparison.md
+section: Reusing data
+---
+
+---
 layout: section
 ---
 

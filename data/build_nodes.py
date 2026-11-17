@@ -132,8 +132,9 @@ named = list(rec.values())
 
 # --- projects whose nodes are not on the datashield.org map yet. Deployed where the
 # grant is running; `planned` is reserved for pre grant-award sites.
-DEPLOYED = {'MDR-RA', 'DSWB'}
-PLANNED = [('VU Amsterdam','Amsterdam','NL',4.9041,52.3676,'JOIN-MIND'),
+DEPLOYED = {'MDR-RA', 'DSWB', 'NDTD'}
+PLANNED = [('UMCG','Groningen','NL',CITY['Groningen'][0],CITY['Groningen'][1],'NDTD'),
+           ('VU Amsterdam','Amsterdam','NL',4.9041,52.3676,'JOIN-MIND'),
            ('Stichting Vluchteling','The Hague','NL',4.3007,52.0705,'JOIN-MIND'),
            ('Save the Children','London','UK',-0.1276,51.5072,'JOIN-MIND'),
            ('Geneva','Geneva','Switzerland',6.1432,46.2044,'JOIN-MIND')]
@@ -178,7 +179,7 @@ for name, city, country, lon, lat, proj in PLANNED:
     r.update({'cohort':name,'city':city,'country':country,'lon':lon,'lat':lat,
               proj:'x','status':'live' if proj in DEPLOYED else 'planned',
               'sources':{{'FEDHAFRICA':'FEDHAFRICA site illustrative',
-                          'MDR-RA':'mdr-ra.eu','DSWB':'Kiragga 2025'}.get(proj, 'JOIN-MIND')}})
+                          'MDR-RA':'mdr-ra.eu','DSWB':'Kiragga 2025','NDTD':'INDEPTH partners'}.get(proj, 'JOIN-MIND')}})
     planned.append(r)
 
 # --- the datashield.org map: projection fitted to the European cohorts we hold
@@ -258,6 +259,14 @@ for i, b in enumerate(boxes):
     r.update({'cohort':'(unnamed node)','country':snap(lo,la),'lon':round(lo,3),'lat':round(la,3),
               'Other':'x','status':'live','sources':{'datashield.org map'}})
     unnamed.append(r)
+
+# NDTD sites: the pins above only show that a server exists near Amsterdam. The sites
+# themselves are UMCG (Groningen), GGZ inGeest (Amsterdam), Pro Persona (Nijmegen) and
+# Parnassia Groep (The Hague); Amsterdam UMC is not one of them. Placed after the pin check.
+for name, city, lon, lat in [('Pro Persona', 'Nijmegen', 5.8372, 51.8126),
+                             ('Parnassia Groep', 'The Hague', 4.3007, 52.0705)]:
+    rec[K(name)].update({'city': city, 'lon': lon, 'lat': lat, 'country': 'Netherlands'})
+rec[K('Amsterdam UMC')]['NDTD'] = ''
 
 rows = named + planned + unnamed
 for r in rows:

@@ -97,6 +97,21 @@ From the live website's own CSS custom properties (`--uncan-*`):
 | Flower yellow | `#FDAE00` | Flower outlines; sampled from Flower's own diagrams. Pair with `#B9852A` for text |
 | Flower yellow tint | `#FFEFCC` | Flower fills; sampled from Flower's own diagrams |
 
+## Bright variants (DataSHIELD node maps)
+
+The project nodes on the node maps need to stand out against the grey "other"
+nodes. Each is a palette colour from the tables above, lightened and made more
+saturated. Not run through the palette validator.
+
+| Project | Palette colour | Bright |
+|---|---|---|
+| LifeCycle | Blue `#4285F4` | `#6AA2FF` |
+| ATHLETE | Teal `#119DA1` | `#03DBE2` |
+| NDTD | Purple `#5D408A` | `#7247B6` |
+| NCC | DataSHIELD orange `#E35000` | `#FF6917` |
+| FEDHAFRICA | Gold `#E2A517` | `#FDBF2F` |
+| JOIN-MIND | Red `#DA594A` | `#EE7769` |
+
 ## Chart series — validated options (not yet applied)
 
 The Extended list above predates any accessibility check and fails four of
