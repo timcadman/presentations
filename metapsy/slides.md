@@ -4,7 +4,7 @@ title: MOLGENIS Armadillo
 info: Draft — why share data, how DataSHIELD works, example projects, demos, infrastructure and legal
 author: Tim Cadman & Mariska Slofstra
 aspectRatio: '16/9'
-publish: false
+publish: true
 themeConfig:
   sections: [Background, Finding data, Reusing data, Federated analysis, Projects, Setup, Summary]
 transition: slide-left
