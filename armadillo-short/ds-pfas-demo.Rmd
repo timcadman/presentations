@@ -1,0 +1,101 @@
+---
+title: "ds-pfas-demo"
+output: html_document
+date: "2026-11-24"
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  include = TRUE,
+  echo = TRUE
+)
+```
+
+## Introduction
+This is a brief demonstration of how DataSHIELD can be used to analyse an observational study
+across several sites. The question is whether exposure to PFAS ('forever chemicals') is associated
+with kidney cancer. Exposure is the serum PFAS concentration, and the outcome is kidney cancer
+status. The three sites hold simulated data.
+
+## Load packages
+```{r packages}
+library(dsBaseClient)
+library(DSMolgenisArmadillo)
+library(MolgenisArmadillo)
+```
+
+## Log in to servers using DataSHIELD
+``` {r login}
+url <- "http://localhost:8080"
+credentials <- armadillo.get_credentials(url)
+
+builder <- newDSLoginBuilder()
+for (server in c("groningen", "amsterdam", "barcelona")) {
+  builder$append(
+    server  = server,
+    url     = url,
+    token   = credentials@access_token,
+    driver  = "ArmadilloDriver",
+    profile = "donkey"
+  )
+}
+
+conns <- datashield.login(logins = builder$build())
+```
+
+## Load data
+```{r assign}
+datashield.assign.table(
+  conns,
+  symbol = "study",
+  table  = list(
+    groningen = "uncan/data/site_1",
+    amsterdam = "uncan/data/site_2",
+    barcelona = "uncan/data/site_3"
+  )
+)
+```
+
+## Check what data is available
+```{r tables}
+ds.dim("study")
+ds.colnames("study")$groningen
+```
+
+## Visualise data
+PFAS concentration on a log2 scale, at each site:
+```{r histogram}
+ds.histogram("study$log2_pfas", type = "split")
+```
+
+## Is PFAS associated with kidney cancer?
+We fit a logistic model at each cohort, adjusted for age, sex, smoking and BMI, and combine the estimates:
+```{r forest}
+slma <- ds.glmSLMA(
+  formula  = "kidney_cancer ~ log2_pfas + age + sex + smoking + bmi",
+  family   = "binomial",
+  dataName = "study"
+)
+two_stage <- metafor::rma(
+  yi     = slma$betamatrix.valid["log2_pfas", ],
+  sei    = slma$sematrix.valid["log2_pfas", ],
+  method = "REML",
+  slab   = names(conns)
+)
+metafor::forest(
+  two_stage,
+  header = c("Cohort", "Log odds of kidney cancer [95% CI]"),
+  xlab   = "Log odds of kidney cancer per doubling of PFAS",
+  mlab   = "Combined",
+  col = "#4285F4", border = "#4285F4", psize = 1.2
+)
+```
+
+## Log out
+```{r logout}
+datashield.logout(conns)
+```
