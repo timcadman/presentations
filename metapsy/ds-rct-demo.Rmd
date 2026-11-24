@@ -89,18 +89,24 @@ knitr::kable(ds.table("trial$treatment")$output.list$TABLE_rvar.by.study_counts)
 ```
 
 ## Summarise data
-Summaries return the mean and quantiles, never individual values:
+View summary statistics for pre-trial depression score:
 ```{r summary}
-ds.summary("trial$bdi.pre")
+by_site  <- ds.quantileMean("trial$bdi.pre", type = "split")
+combined <- ds.quantileMean("trial$bdi.pre", type = "combine")
+knitr::kable(rbind(do.call(rbind, by_site), combined = combined), digits = 1)
 ```
 
 ## Visualise data
-We can look at a histogram of BDI before treatment at each site:
+We can look at a histogram of BDI before treatment, first for all sites combined:
 
-```{r histogram}
-ds.histogram("trial$bdi.pre", datasources = conns["groningen"])
-ds.histogram("trial$bdi.pre", datasources = conns["amsterdam"])
-ds.histogram("trial$bdi.pre", datasources = conns["barcelona"])
+```{r histogram-combined}
+ds.histogram("trial$bdi.pre", type = "combine")
+```
+
+and then at each site:
+
+```{r histogram-split}
+ds.histogram("trial$bdi.pre", type = "split")
 ```
 
 ## Treatment effect across all sites
@@ -122,28 +128,37 @@ slma <- ds.glmSLMA(
   family   = "gaussian",
   dataName = "trial"
 )
-knitr::kable(slma$betamatrix.valid["treatmentBtheB", , drop = FALSE], digits = 3)
-knitr::kable(slma$SLMA.pooled.ests.matrix["treatmentBtheB", c("pooled.REML", "se.REML"), drop = FALSE], digits = 3)
+est <- c(slma$betamatrix.valid["treatmentBtheB", ], slma$SLMA.pooled.ests.matrix["treatmentBtheB", "pooled.REML"])
+se  <- c(slma$sematrix.valid["treatmentBtheB", ], slma$SLMA.pooled.ests.matrix["treatmentBtheB", "se.REML"])
+z   <- est / se
+effects <- data.frame(
+  Estimate = est, `Std. Error` = se, `z-value` = z, `p-value` = 2 * pnorm(-abs(z)),
+  `low0.95CI` = est - qnorm(0.975) * se, `high0.95CI` = est + qnorm(0.975) * se,
+  row.names = c(names(conns), "Combined"), check.names = FALSE
+)
+knitr::kable(effects, digits = 3)
 ```
 
 Plot of the effect at each site and combined:
 ```{r forest}
-effects <- data.frame(
-  site     = c(names(conns), "Combined"),
-  estimate = c(slma$betamatrix.valid["treatmentBtheB", ], pooled$coefficients["treatmentBtheB", "Estimate"]),
-  se       = c(slma$sematrix.valid["treatmentBtheB", ], pooled$coefficients["treatmentBtheB", "Std. Error"])
-)
-effects$site <- factor(effects$site, levels = rev(effects$site))
+sites <- names(conns)
+site_est <- slma$betamatrix.valid["treatmentBtheB", ]
+site_se  <- slma$sematrix.valid["treatmentBtheB", ]
 
-ggplot(effects, aes(x = estimate, y = site)) +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "#9AA0A6") +
-  geom_errorbar(aes(xmin = estimate - 1.96 * se, xmax = estimate + 1.96 * se), orientation = "y", width = 0.2, color = "#4285F4") +
-  geom_point(size = 3, color = "#4285F4") +
-  labs(
-    x = "Difference in BDI at 2 months (therapy minus usual care)",
-    y = NULL
-  ) +
-  theme_bw(base_size = 12)
+two_stage <- metafor::rma(yi = site_est, sei = site_se, method = "REML", slab = sites)
+metafor::forest(
+  two_stage,
+  header = c("Site", "Difference in BDI [95% CI]"),
+  xlab   = "Difference in BDI at 2 months (therapy minus usual care)",
+  mlab   = "Combined (two-stage)",
+  ylim   = c(-3, length(sites) + 3),
+  col = "#4285F4", border = "#4285F4", psize = 1.2
+)
+metafor::addpoly(
+  x = pooled$coefficients["treatmentBtheB", "Estimate"],
+  sei = pooled$coefficients["treatmentBtheB", "Std. Error"],
+  row = -2, mlab = "Combined (one-stage)", col = "#E6B96A", border = "#B9852A"
+)
 ```
 
 ## Does the effect differ between groups?
@@ -158,7 +173,7 @@ knitr::kable(interaction$coefficients, digits = 3)
 ```
 
 ## Change over time
-BDI was measured at 2, 3, 5 and 8 months. A mixed model uses all of these follow-ups, with a random intercept for each participant. For this the data are held in long format, one row per participant and follow-up:
+BDI was measured at 2, 3, 5 and 8 months. A mixed model uses all of these follow-ups, with a random intercept and slope for each participant. For this the data are held in long format, one row per participant and follow-up:
 ```{r long}
 ds.dim("trial_long")
 ds.colnames("trial_long")$groningen
@@ -167,10 +182,16 @@ ds.colnames("trial_long")$groningen
 The model is fitted at each site and the estimates are combined. The `treatment:month` term shows whether the effect changes over time:
 ```{r mixed}
 mixed <- ds.lmerSLMA(
-  formula  = "bdi ~ treatment * month + bdi.pre + (1 | id)",
+  formula  = "bdi ~ treatment * month + bdi.pre + (1 + month | id)",
   dataName = "trial_long"
 )
-knitr::kable(mixed$SLMA.pooled.ests.matrix[, c("pooled.REML", "se.REML")], digits = 3)
+slma_table <- function(fit) {
+  by_site <- sprintf("%.3f (%.3f)", fit$betamatrix.valid, fit$sematrix.valid)
+  by_site <- matrix(by_site, nrow(fit$betamatrix.valid), dimnames = list(rownames(fit$betamatrix.valid), names(conns)))
+  combined <- sprintf("%.3f (%.3f)", fit$SLMA.pooled.ests.matrix[, "pooled.REML"], fit$SLMA.pooled.ests.matrix[, "se.REML"])
+  knitr::kable(cbind(by_site, Combined = combined), align = "r")
+}
+slma_table(mixed)
 ```
 
 Trajectories need not be straight lines. We add a squared month term, created on the servers, and let it differ by treatment arm:
@@ -179,10 +200,10 @@ ds.make("trial_long$month^2", newobj = "month2")
 ds.dataFrame(c("trial_long", "month2"), newobj = "trial_long")
 
 mixed_nl <- ds.lmerSLMA(
-  formula  = "bdi ~ treatment * (month + month2) + bdi.pre + (1 | id)",
+  formula  = "bdi ~ treatment * (month + month2) + bdi.pre + (1 + month | id)",
   dataName = "trial_long"
 )
-knitr::kable(mixed_nl$SLMA.pooled.ests.matrix[, c("pooled.REML", "se.REML")], digits = 3)
+slma_table(mixed_nl)
 ```
 
 Plot of the combined trajectory in each arm, for a participant with the average BDI before treatment:

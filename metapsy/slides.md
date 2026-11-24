@@ -21,7 +21,12 @@ Secure Federated Analysis
 <div class="title-logos">
   <img src="./public/molgenis-logo.png" class="logo-molgenis" />
   <img src="./public/umcg-logo.png" class="logo-umcg" />
+  <img src="./public/isglobal-logo.png" class="logo-isglobal" />
 </div>
+
+<style>
+.slidev-layout.cover .title-logos { right: 5rem; justify-content: space-between; }
+</style>
 
 ---
 layout: contents
@@ -332,15 +337,38 @@ section: 'Reusing data'
 ---
 
 ---
-src: ../library/combining-data/option-federated.md
+layout: content
+heading: Analysing multiple datasets
 subheading: "Option 4: Federated analysis"
+transition: slide-up
 section: 'Reusing data'
 ---
+
+<div style="display: flex; gap: 2rem; align-items: flex-start;">
+  <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+  <ApproachDiagram kind="federated" />
+  </div>
+  <div style="flex: 1;">
+    <ul style="padding-left: 1.5rem; margin: 0;">
+      <li style="font-size: 18px; margin-bottom: 0.5rem; line-height: 1.5;"><strong>Strategy:</strong> Send analysis code to the data; only aggregate results return</li>
+      <li style="font-size: 18px; margin-bottom: 0.5rem; line-height: 1.5;"><strong>Pros:</strong> Data never leaves its location; owners keep control and access rights</li>
+      <li style="font-size: 18px; margin-bottom: 0.5rem; line-height: 1.5;"><strong>Cons:</strong>
+        <ul style="padding-left: 1.5rem; margin: 0.3rem 0 0 0;">
+          <li style="font-size: 18px; margin-bottom: 0.3rem; line-height: 1.5;">Needs common infrastructure</li>
+          <li style="font-size: 18px; margin-bottom: 0.3rem; line-height: 1.5;">Fewer analysis options compared to running locally</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
 
 ---
 src: ../library/combining-data/options-comparison.md
 approaches: [transfer, script, published, federated]
 omit: [methods]
+include: [unlimited]
+labels:
+  pooled: 1-stage IPD
 section: 'Reusing data'
 ---
 
@@ -375,10 +403,20 @@ transition: slide-up
 <Terminal light title="Plots"><ForestPlot style="margin: 0 auto; align-self: flex-start" /></Terminal>
 
 ---
-src: ../library/datashield/what-is-datashield.md
+layout: content
+heading: DataSHIELD
+subheading: Key ideas
+clicks: 3
 section: 'Federated analysis'
 transition: slide-up
 ---
+
+<FocusCards :items="[
+  { title: 'Remote analysis', color: 'var(--c-blue)', body: ['One model across data held at several sites'] },
+  { title: 'Code travels, not data', color: 'var(--c-teal)', body: ['Code is sent to the data; each site computes <strong>locally</strong>'] },
+  { title: 'Aggregate results returned', color: 'var(--c-gold-dark)', body: ['Means, SDs, coefficients'] },
+  { title: 'Disclosure controls', color: 'var(--c-purple)', body: ['Automated guards ensure individual data is never sent'] },
+]" />
 
 ---
 layout: figure-cite
@@ -460,6 +498,7 @@ transition: slide-up
 
 ---
 src: ../library/datashield/analysis-options.md
+subheading: 1- and 2-stage analysis options
 section: 'Federated analysis'
 transition: slide-up
 ---
@@ -813,7 +852,7 @@ clicks: 2
 
 <ChallengeTrail :current="3" :steps="['Harmonisation', 'Armadillo setup', 'Legal']" />
 
-- Federated analysis does not remove the need for Data Access Agreements
+- Federated analysis usually does not remove<br>the need for Data Access Agreements
 
 <v-clicks>
 
@@ -845,6 +884,25 @@ section: 'Summary'
 
 ---
 layout: content
+heading: Next steps
+subheading: 
+section: 'Summary'
+---
+
+<v-clicks>
+
+- LLMs to harmonise data and conduct analyses
+- Access flow from findability to usability
+- SURF and Elixir onboarding
+- Streamline legal processes
+- New analysis methods in DataSHIELD
+- Flower integration for federated machine learning
+- Continued Armadillo development
+
+</v-clicks>
+
+---
+layout: content
 heading: Further Information
 subheading: ""
 section: 'Summary'
@@ -860,14 +918,42 @@ section: 'Summary'
 
 </div>
 
-<div style="margin-top: 1.5rem; font-size: 18px; line-height: 1.8;">
+<p style="margin-top: 2rem; font-size: 15px; line-height: 1.5;"><strong>Funding:</strong> European Union, via the International Human Exposome Network (IHEN) and FLEX4HEALTH (OSCARS)</p>
 
-**Armadillo reference:**
-Cadman T, Slofstra MK, van der Geest MA, et al. MOLGENIS Armadillo: a lightweight server for federated analysis using DataSHIELD. *Bioinformatics* 2025;41(1):btae726. https://doi.org/10.1093/bioinformatics/btae726
-
+<div style="display: flex; justify-content: center; align-items: center; gap: 1.25rem; margin-top: 1rem;">
+  <img src="./public/ihen-logo.svg" style="height: 1.75rem; width: 9.62rem; max-width: none; flex: none;" />
+  <img src="./public/funder-logo.svg" style="height: 1.75rem; width: 5.72rem; max-width: none; flex: none;" />
+  <img src="./public/eu-funded-logo.png" style="height: 1.75rem; width: 7.69rem; max-width: none; flex: none;" />
 </div>
+
 
 <style>
 .support-link { color: inherit; text-decoration: none; padding: 0.1rem 0.35rem; border-radius: 4px; transition: background 0.2s ease; }
 .support-link:hover { background: color-mix(in srgb, var(--c-gold) 45%, white); }
+</style>
+
+---
+layout: content
+heading: References
+subheading: ""
+section: 'Summary'
+---
+
+<div class="refs" style="font-size: 15px; line-height: 1.5;">
+
+**Armadillo**
+Cadman T, Slofstra MK, van der Geest MA, et al. MOLGENIS Armadillo: a lightweight server for federated analysis using DataSHIELD. *Bioinformatics* 2025;41(1):btae726. https://doi.org/10.1093/bioinformatics/btae726
+
+**One- and two-stage analysis**
+Basagaña X, Pedersen M, Barrera-Gómez J, et al. Analysis of multicentre epidemiological studies: contrasting fixed or random effects modelling and meta-analysis. *Int J Epidemiol* 2018;47(4):1343-1354. https://pubmed.ncbi.nlm.nih.gov/29939274/
+
+**EU Child Cohort Network**
+Jaddoe VWV, Felix JF, Andersen AN, et al. The LifeCycle Project-EU Child Cohort Network: a federated analysis infrastructure and harmonized data of more than 250,000 children and parents. *Eur J Epidemiol* 2020;35(7):709-724. https://doi.org/10.1007/s10654-020-00662-z
+
+Pinot de Moira A, Haakma S, Strandberg-Larsen K, et al. The EU Child Cohort Network's core data: establishing a set of findable, accessible, interoperable and re-usable (FAIR) variables. *Eur J Epidemiol* 2021;36(5):565-580. https://doi.org/10.1007/s10654-021-00733-9
+
+</div>
+
+<style>
+.refs p { margin: 0 0 1.1rem 0; }
 </style>
